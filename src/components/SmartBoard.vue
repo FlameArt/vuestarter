@@ -5,7 +5,7 @@ div#SmartBoard
   div.SpaceBoard
     // Это основная доска, которую можно двигать
     div.MainBoard(MainBoard, @mousedown="dragMouseDown($event)", :style="'height:' + board.height + 'px; width: ' + board.width + 'px;'")
-      BaseBlock.BaseBlock(v-for="block in Blocks")
+      BaseBlock.BaseBlock(v-for="block in Blocks", :block="block")
 </template>
 
 <script>

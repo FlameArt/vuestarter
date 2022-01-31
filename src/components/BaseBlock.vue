@@ -3,7 +3,7 @@
 // Это один перемещаемый блок, сделанный нативно
 
 // Тут находится обёртка
-div.block( block, :class="isSelected ? 'SelectedBox' : ''", @mousedown="dragMouseDown($event)", :style="'top:' + Y + 'px; left: ' + X + 'px; width:'+width+'px;height:'+height+'px;'")
+div.block( block, :class="isSelected ? 'SelectedBox' : ''", @mousedown="dragMouseDown($event)", :style="'top:' + block.Y + 'px; left: ' + block.X + 'px; width:'+block.width+'px;height:'+block.height+'px;'")
   slot(name="Content")
     div TestContent
 
@@ -14,22 +14,15 @@ div.block( block, :class="isSelected ? 'SelectedBox' : ''", @mousedown="dragMous
 export default {
   name: "BaseBlock",
   props: {
-    width: {
-      type: Number,
-      default: 300
-    },
-    height: {
-      type: Number,
-      default: 300
-    },
-    X: {
-      type: Number,
-      default: 500
-    },
-    Y: {
-      type: Number,
-      default: 500
-    },
+    block: {
+      type: Object,
+      default: {
+        width: 300,
+        height: 300,
+        X: 300,
+        Y: 300
+      }
+    }
   },
   data: function () {
     return {
@@ -41,14 +34,6 @@ export default {
         movementY: 0,
         test: 0
       },
-
-      block: {
-        width: 300,
-        height: 300,
-        X: 0,
-        Y: 0
-      },
-
       element: null,
       blockElement: null,
 
@@ -89,13 +74,14 @@ export default {
       document.onmouseup = this.closeDragElement
     },
     elementDrag: function (event) {
-      event.preventDefault()
+      event.preventDefault();
+      event.stopPropagation();
       this.positions.movementX = this.positions.clientX - event.clientX
       this.positions.movementY = this.positions.clientY - event.clientY
       this.positions.clientX = event.clientX
       this.positions.clientY = event.clientY
-      this.Y = (this.blockElement.offsetTop - this.positions.movementY);
-      this.X = (this.blockElement.offsetLeft - this.positions.movementX);
+      this.block.Y = (this.blockElement.offsetTop - this.positions.movementY);
+      this.block.X = (this.blockElement.offsetLeft - this.positions.movementX);
     },
     closeDragElement () {
       document.onmouseup = null
