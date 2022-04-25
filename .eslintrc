@@ -1,0 +1,15 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "plugin:vue/recommended"
+    ],
+    "rules": {
+        "no-unused-vars": "off",
+        "vue/multi-word-component-names": "off",
+        "vue/no-duplicate-attributes": ["warn", {
+          "allowCoexistClass": true,
+          "allowCoexistStyle": true
+        }]
+    }
+  }
+  

@@ -4,17 +4,30 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "android": "npm run build && npx cap add android && npx cap sync && npx cap open android"
   },
   "dependencies": {
+    "flamerest": "^1.0.18",
+    "pinia": "^2.0.12",
     "pug": "^3.0.2",
     "sass": "^1.49.0",
     "vue": "^3.2.25",
-    "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
+    "@capacitor/android": "^3.4.3",
+    "@capacitor/cli": "^3.4.3",
+    "@capacitor/core": "^3.4.3",
     "@vitejs/plugin-vue": "^2.0.0",
+    "autoprefixer": "^10.4.4",
+    "eslint": "^8.14.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "postcss": "^8.4.12",
+    "postcss-import": "^14.1.0",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.6.3",
     "vite": "^2.7.2"
-  }
+  },
+  "rules": {}
 }
