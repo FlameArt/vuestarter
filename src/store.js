@@ -9,10 +9,7 @@ export const storeFile = defineStore('store', {
         name: 'name',
         lang: '',
         country: ''
-      },
-
-      Projects: [],
-      
+      },      
     }
   },
   // could also be defined as
