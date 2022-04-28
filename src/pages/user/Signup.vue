@@ -18,20 +18,30 @@
 
     .mt-4
       label.block
-        input.w-full.px-4.py-2.mt-0.border.rounded-md( v-model="state.login", name="email", type="text", placeholder="Почта",
+        input.w-full.px-4.py-2.mt-0.border.rounded-md(
+          v-model="state.login",
+          name="email",
+          type="text",
+          placeholder="Почта",
           class="focus:outline-none focus:ring-1 focus:ring-blue-600 placeholder:text-gray-500"
         )
         span.text-xs.tracking-wide.text-red-600 {{ state.loginErr }}
       .mt-2
       label.block
-        input.w-full.px-4.py-2.mt-0.border.rounded-md(v-model="state.passw",name="password",type="password",placeholder="Пароль",
+        input.w-full.px-4.py-2.mt-0.border.rounded-md(
+          v-model="state.passw",
+          name="password",
+          type="password",
+          placeholder="Пароль",
           class="focus:outline-none focus:ring-1 focus:ring-blue-600 placeholder:text-gray-500"
         )
         span.my-4.text-xs.tracking-wide.text-red-600 {{ state.passwErr }}
 
       .flex.items-center.justify-between.flex-col
-        button.px-6.py-2.mt-4.text-white.bg-blue-600.rounded-lg.w-full(class="hover:bg-blue-900", @click="Signup()") Регистрация
-
+        button.px-6.py-2.mt-4.text-white.bg-blue-600.rounded-lg.w-full(
+          class="hover:bg-blue-900",
+          @click="Signup()"
+        ) Регистрация
 </template>
 
 <script setup>
@@ -54,10 +64,10 @@ onMounted(() => {});
 
 let Signup = () => {
   window.REST.signup(state.login, state.passw).then((res) => {
-    if(res.data.isAuthorized === true) {
-        store.User = res.data.User;
-        router.push("Home");
-        return;
+    if (res.data.isAuthorized === true) {
+      store.User = res.data.User;
+      router.push({ name: "Home" });
+      return;
     }
     if (res.data.errors) {
       state.loginErr = (

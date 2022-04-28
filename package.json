@@ -6,6 +6,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "install/update": "npm update",
+    "push and publish": "git push && npm --no-git-tag-version version patch && npm publish",
     "android": "npm run build && npx cap add android && npx cap sync && npx cap open android"
   },
   "dependencies": {
