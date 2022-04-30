@@ -4,10 +4,10 @@
         {
             "type": "pwa-chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Chrome",
             "url": "http://localhost:3000",
             "webRoot": "${workspaceFolder}/src",
-            //"preLaunchTask": "npm: dev",
+            "preLaunchTask": "start-dev-server",
         }
     ]
 }
