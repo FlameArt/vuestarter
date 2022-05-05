@@ -10,7 +10,7 @@
     "android": "npm run build && npx cap add android && npx cap sync && npx cap open android"
   },
   "dependencies": {
-    "flamerest": "^1.0.18",
+    "flamerest": "^1.0.25",
     "pinia": "^2.0.12",
     "pug": "^3.0.2",
     "sass": "^1.49.0",
@@ -21,6 +21,7 @@
     "@capacitor/android": "^3.4.3",
     "@capacitor/cli": "^3.4.3",
     "@capacitor/core": "^3.4.3",
+    "@heroicons/vue": "^1.0.6",
     "@vitejs/plugin-vue": "^2.0.0",
     "autoprefixer": "^10.4.4",
     "eslint": "^8.14.0",
