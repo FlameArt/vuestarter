@@ -61,6 +61,7 @@ let Signup = () => {
   window.REST.signup(state.login, state.passw).then((res) => {
     if (res.data.isAuthorized === true) {
       store.User = res.data.User;
+      store.User.isLoaded = true;
       router.push({ name: "Home" });
       return;
     }

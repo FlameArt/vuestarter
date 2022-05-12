@@ -68,7 +68,8 @@ onMounted(() => {});
 let Login = () => {
   window.REST.auth(state.login, state.passw).then((res) => {
     if (res.data.isAuthorized) {
-      store.User = res.User;
+      store.User = res.data.User;
+      store.User.isLoaded = true;
       router.push({ name: "Home" });
     } else {
       if (res.data.errors) {
