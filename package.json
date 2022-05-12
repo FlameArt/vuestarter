@@ -12,7 +12,8 @@
   "dependencies": {
     "flamerest": "^1.0.29",
     "pinia": "^2.0.14",
-    "pug": "github:FlameArt/pug-tailwind#tailwind",
+    "pug": "github:FlameArt/pug-tailwind-only",
+    "pug-lexer": "github:FlameArt/pug-lexer-only",
     "sass": "^1.51.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.15"
