@@ -1,6 +1,6 @@
 {
   "name": "appname",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,7 +12,7 @@
   "dependencies": {
     "flamerest": "^1.0.26",
     "pinia": "^2.0.14",
-    "pug": "^3.0.2",
+    "pug": "git+https://github.com/FlameArt/pug-tailwind.git#tailwind",
     "sass": "^1.51.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.15"

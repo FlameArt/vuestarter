@@ -8,7 +8,8 @@ export const storeFile = defineStore('store', {
         role: 'Guest',
         name: 'name',
         lang: '',
-        country: ''
+        country: '',
+        isLoaded: false
       },      
     }
   },

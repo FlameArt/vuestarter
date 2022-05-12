@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, reactive } from "@vue/runtime-core";
-import { storeFile } from "/src/store.js";
+import { storeFile } from "src/store.js";
 import { useRoute, useRouter } from "vue-router";
 import REST from "flamerest";
 
@@ -18,6 +18,7 @@ let notRedirectOnAuthList = [
 onMounted(() => {
   REST.auth().then((res) => {
     store.User = res.data.User;
+    store.User.isLoaded = true;
     if (res.data.isAuthorized === false) {
       if (!notRedirectOnAuthList.includes(route.name)) {
         router.push({ name: "Auth" });
@@ -31,7 +32,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-view />
+  <router-view v-if="store.User.isLoaded" />
 </template>
 
 <style>

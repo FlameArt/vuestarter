@@ -19,3 +19,6 @@ That starter for rapid prototyping a services. Start with
 * VSCode ready
 * [FlameREST](https://github.com/FlameArt/auto-rest-template-yii2) attached
 * Precreated Signup, Auth and Password Reset pages
+
+# Licenses
+MIT
