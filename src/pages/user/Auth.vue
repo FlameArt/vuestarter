@@ -50,9 +50,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "@vue/runtime-core";
-import { storeFile } from "src/store";
-import { useRoute, useRouter } from "vue-router";
+import { onMounted, reactive } from "@vue/runtime-core"; import { storeFile } from "@/store"; import { useRoute, useRouter } from "vue-router"; import REST from "flamerest"
 
 const store = storeFile();
 const router = useRouter(),

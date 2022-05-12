@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, reactive } from "@vue/runtime-core";
-import { storeFile } from "src/store.js";
+import { storeFile } from "@/store.js";
 import { useRoute, useRouter } from "vue-router";
 import REST from "flamerest";
 

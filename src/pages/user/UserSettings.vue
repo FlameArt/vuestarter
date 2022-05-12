@@ -2,7 +2,7 @@
 </template>
 
 <script setup>
-import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "src/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive } from "@vue/runtime-core"; import { storeFile } from "@/store"; import { useRoute, useRouter } from "vue-router"; import REST from "flamerest"
 import { XCircleIcon } from '@heroicons/vue/solid'
 
 const store = storeFile(), router = useRouter(), route = useRoute();
