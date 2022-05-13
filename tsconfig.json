@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@icons/*": ["node_modules/@heroicons/vue/*"]
+    },
+
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom", "ES2016"],
+    "skipLibCheck": true,
+    "allowJs": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

@@ -1,5 +1,8 @@
 {
   "volar.codeLens.pugTools": true,
+  "vetur.validation.script": false,
+  "vetur.validation.template": false,
+  "vetur.validation.style": false,
   "tailwindCSS.includeLanguages": {
     "plaintext": "html"
   },

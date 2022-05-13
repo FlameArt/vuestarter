@@ -41,8 +41,8 @@
         ) Регистрация
 </template>
 
-<script setup>
-import { onMounted, reactive } from "@vue/runtime-core"; import { storeFile } from "@/store"; import { useRoute, useRouter } from "vue-router"; import REST from "flamerest";
+<script setup lang="ts">
+import { onMounted, reactive, defineProps } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 
 const store = storeFile();
 const router = useRouter(),
@@ -58,20 +58,20 @@ const state = reactive({
 onMounted(() => { });
 
 let Signup = () => {
-  window.REST.signup(state.login, state.passw).then((res) => {
-    if (res.data.isAuthorized === true) {
-      store.User = res.data.User;
+  REST.signup(state.login, state.passw).then((res) => {
+    if (res.isAuthorized === true) {
+      store.authUser(res);
       store.User.isLoaded = true;
       router.push({ name: "Home" });
       return;
     }
-    if (res.data.errors) {
+    if (res.errors) {
       state.loginErr = (
-        res.data.errors["email"] ??
-        res.data.errors["login"] ??
+        res.errors["email"] ??
+        res.errors["login"] ??
         []
       ).join(". ");
-      state.passwErr = (res.data.errors["password"] ?? []).join(". ");
+      state.passwErr = (res.errors["password"] ?? []).join(". ");
     }
   });
 };

@@ -49,8 +49,8 @@
         ) Зарегистрироваться
 </template>
 
-<script setup>
-import { onMounted, reactive } from "@vue/runtime-core"; import { storeFile } from "@/store"; import { useRoute, useRouter } from "vue-router"; import REST from "flamerest"
+<script setup lang="ts">
+import { onMounted, reactive, defineProps } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 
 const store = storeFile();
 const router = useRouter(),
@@ -66,19 +66,19 @@ const state = reactive({
 onMounted(() => {});
 
 let Login = () => {
-  window.REST.auth(state.login, state.passw).then((res) => {
-    if (res.data.isAuthorized) {
-      store.User = res.data.User;
+  REST.auth(state.login, state.passw).then((res) => {
+    if (res.isAuthorized) {
+      store.authUser(res);
       store.User.isLoaded = true;
       router.push({ name: "Home" });
     } else {
-      if (res.data.errors) {
+      if (res.errors) {
         state.loginErr = (
-          res.data.errors["email"] ??
-          res.data.errors["login"] ??
+          res.errors["email"] ??
+          res.errors["login"] ??
           []
         ).join(". ");
-        state.passwErr = (res.data.errors["password"] ?? []).join(". ");
+        state.passwErr = (res.errors["password"] ?? []).join(". ");
       }
     }
   });

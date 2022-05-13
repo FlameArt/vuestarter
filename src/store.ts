@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { Authorized } from 'flamerest'
 
 export const storeFile = defineStore('store', {
   state: () => {
@@ -16,8 +17,8 @@ export const storeFile = defineStore('store', {
   // could also be defined as
   // state: () => ({ count: 0 })
   actions: {
-    increment() {
-      this.count++
+    authUser(tUser: Authorized) {
+      this.User = Object.assign(this.User, tUser.User);
     },
   },
 })
