@@ -1,3 +1,3 @@
 {
-  "recommendations": ["octref.vetur", "Wscats.vue", "bradlc.vscode-tailwindcss", "afzalsayed96.heroicons", "ionutvmi.path-autocomplete", "bam.vscode-file-templates"],
+  "recommendations": ["Vue.volar", "Wscats.vue", "bradlc.vscode-tailwindcss", "afzalsayed96.heroicons", "ionutvmi.path-autocomplete", "bam.vscode-file-templates", "pmneo.tsimporter"],
 }

@@ -8,7 +8,8 @@ export default defineConfig({
     resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
-      "@icons": fileURLToPath(new URL("./node_modules/@heroicons/vue/", import.meta.url))
+      "@icons": fileURLToPath(new URL("./node_modules/@heroicons/vue/", import.meta.url)),
+      "@models": fileURLToPath(new URL("./models/", import.meta.url)),
     }
   },
 })

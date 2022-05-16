@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@icons/*": ["node_modules/@heroicons/vue/*"]
+      "@icons/*": ["node_modules/@heroicons/vue/*"],
+      "@models/*": ["./models/*"]
     },
 
     "target": "esnext",
@@ -21,6 +21,12 @@
     "skipLibCheck": true,
     "allowJs": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "./models/*"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

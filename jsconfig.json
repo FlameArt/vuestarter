@@ -3,8 +3,10 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@icons/*": ["node_modules/@heroicons/vue/*"]
+      "@icons/*": ["node_modules/@heroicons/vue/*"],
+      "@models/*": ["./models/*"]
     },
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "include": ["src/**/*.js", "node_modules/@heroicons/vue/*", "./models/*"]
   },
 }
