@@ -15,6 +15,12 @@ import { XCircleIcon } from '@icons/solid'
 
 const store = storeFile(), router = useRouter(), route = useRoute();
 
+// Состояние компонента
+const state = reactive({
+  test: 5
+})
+
+
 onMounted(() => {
 
 });
