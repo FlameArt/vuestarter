@@ -1,24 +1,25 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "pwa-chrome",
-            "request": "launch",
-            "name": "Chrome",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/src",
-            "preLaunchTask": "start-dev-server",
-        },
-        {
-            "type": "pwa-msedge",
-            "request": "launch",
-            "name": "VSCode Edge",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}/src",
-            "preLaunchTask": "start-dev-server",
-            "runtimeExecutable": "stable",
-            "runtimeArgs": ["--headless"],
-            "port": 9229
-        },
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "preLaunchTask": "start-dev-server",
+      "userDataDir": "${execPath}/../chrome-debug-default-profile/"
+    },
+    {
+      "type": "pwa-msedge",
+      "request": "launch",
+      "name": "VSCode Edge",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "preLaunchTask": "start-dev-server",
+      "runtimeExecutable": "stable",
+      "runtimeArgs": ["--headless"],
+      "port": 9229
+    }
+  ]
 }
