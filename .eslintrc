@@ -6,9 +6,10 @@
   ],
   "rules": {
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": ["off"],
+    "@typescript-eslint/no-unused-vars": "off",
     "no-empty-function": "off",
-    "@typescript-eslint/no-empty-function": ["off"],
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-inferrable-types": "off",
     "no-multiple-empty-lines": "off",
     "vue/multi-word-component-names": "off",
     "vue/no-duplicate-attributes": [
