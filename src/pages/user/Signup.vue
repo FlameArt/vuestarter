@@ -22,15 +22,25 @@
     // Регистрация через логин и пароль
     .mt-4
 
-      // Логин
+      // Имя пользователя
       label.block
         input.w-full.px-4.py-2.mt-0.border.rounded-md.focus:outline-none.focus:ring-1.focus:ring-blue-600.placeholder:text-gray-500(
-          v-model="state.login",
+          v-model="state.name",
+          name="name",
+          type="text",
+          placeholder="Ваше имя или никнейм, который увидят другие",
+        )
+        span.text-xs.tracking-wide.text-red-600 {{ state.errors['name'].join(". ") }}
+
+      // Почта
+      label.block
+        input.w-full.px-4.py-2.mt-0.border.rounded-md.focus:outline-none.focus:ring-1.focus:ring-blue-600.placeholder:text-gray-500(
+          v-model="state.email",
           name="email",
           type="text",
           placeholder="Почта",
         )
-        span.text-xs.tracking-wide.text-red-600 {{ state.loginErr }}
+        span.text-xs.tracking-wide.text-red-600 {{ state.errors['email'].join(". ") }}
       
       // Пароль
       label.block.mt-2
@@ -40,8 +50,8 @@
           type="password",
           placeholder="Пароль",
         )
-        span.my-4.text-xs.tracking-wide.text-red-600 {{ state.passwErr }}
-
+        span.my-4.text-xs.tracking-wide.text-red-600 {{ state.errors['password'].join(". ") }}
+      
       // Кнопка реги
       .flex.items-center.justify-between.flex-col
         button.px-6.py-2.mt-4.text-white.bg-blue-600.rounded-lg.w-full.hover:bg-blue-900(
@@ -58,16 +68,16 @@ const router = useRouter(),
   route = useRoute();
 
 const state = reactive({
-  login: "",
+  email: "",
   passw: "",
-  loginErr: "",
-  passwErr: "",
+  name: "",
+  errors: [] as { [key: string]: any }
 });
 
 onMounted(() => { });
 
 let Signup = () => {
-  REST.signup(state.login, state.passw).then((res) => {
+  REST.signup(state.email, state.passw).then((res) => {
     if (res.isAuthorized === true) {
       store.authUser(res);
       store.User.isLoaded = true;
@@ -75,12 +85,7 @@ let Signup = () => {
       return;
     }
     if (res.errors) {
-      state.loginErr = (
-        res.errors["email"] ??
-        res.errors["login"] ??
-        []
-      ).join(". ");
-      state.passwErr = (res.errors["password"] ?? []).join(". ");
+      state.errors = res.errors;
     }
   });
 };
