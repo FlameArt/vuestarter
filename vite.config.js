@@ -12,4 +12,10 @@ export default defineConfig({
       "@models": fileURLToPath(new URL("./models/", import.meta.url)),
     }
   },
+  "server": {
+    "port": 3000
+  },
+  "preview": {
+    "port": 3000
+  }
 })

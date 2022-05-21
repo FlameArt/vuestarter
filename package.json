@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "preview": "npm run build && vite preview",
     "install/update": "npm i && npm update --save",
     "push and publish": "git push && npm --no-git-tag-version version patch && npm publish",
     "android": "npm run build && npx cap add android && npx cap sync && npx cap open android"
