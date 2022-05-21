@@ -1,7 +1,9 @@
 <template lang="pug">
 .flex.justify-center.h-screen.items-center.flex-col
-  //h3.text-xl.font-bold.text-center Вход
+
   .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.lg:w-[725px]
+    
+    // Регистрация через соц-сети
     .mt-0
       .h-4.mb-3.text-gray-400 Быстрая регистрация через
       .flex.text-sm.flex-col.lg:flex-row
@@ -14,9 +16,13 @@
         )
           img.max-h-8(src="/src/assets/icons/facebook.svg")
           span.pl-6 Facebook
+
     .h-4.mb-3.text-gray-400.text-xs.mt-4.lg:mt-6.lg:text-sm Или введите почту и пароль
 
+    // Регистрация через логин и пароль
     .mt-4
+
+      // Логин
       label.block
         input.w-full.px-4.py-2.mt-0.border.rounded-md.focus:outline-none.focus:ring-1.focus:ring-blue-600.placeholder:text-gray-500(
           v-model="state.login",
@@ -25,8 +31,9 @@
           placeholder="Почта",
         )
         span.text-xs.tracking-wide.text-red-600 {{ state.loginErr }}
-      .mt-2
-      label.block
+      
+      // Пароль
+      label.block.mt-2
         input.w-full.px-4.py-2.mt-0.border.rounded-md.focus:outline-none.focus:ring-1.focus:ring-blue-600.placeholder:text-gray-500(
           v-model="state.passw",
           name="password",
@@ -35,10 +42,12 @@
         )
         span.my-4.text-xs.tracking-wide.text-red-600 {{ state.passwErr }}
 
+      // Кнопка реги
       .flex.items-center.justify-between.flex-col
         button.px-6.py-2.mt-4.text-white.bg-blue-600.rounded-lg.w-full.hover:bg-blue-900(
           @click="Signup()"
         ) Регистрация
+
 </template>
 
 <script setup lang="ts">
