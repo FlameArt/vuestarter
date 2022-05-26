@@ -13,16 +13,13 @@
     "no-multiple-empty-lines": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "vue/multi-word-component-names": "off",
-    "vue/no-duplicate-attributes": [
-      "off",
-      {
-        "allowCoexistClass": true,
-        "allowCoexistStyle": true
-      }
-    ],
+    "vue/no-multiple-template-root": "off",
+    "vue/no-duplicate-attributes": "off",
     "linebreak-style": "off"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser"
