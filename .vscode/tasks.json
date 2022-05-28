@@ -10,13 +10,26 @@
                 "owner": "npm",
                 "background": {
                     "activeOnStart": true,
-                     "beginsPattern": ".*",
-                     "endsPattern": "ready in"
+                    "beginsPattern": ".*",
+                    "endsPattern": "ready in"
                 },
                 "pattern": {
                     "regexp": "",
                 }
             }
         },
+        {
+            "label": "stop-dev-server",
+            "command": "echo ${input:terminate}",
+            "type": "shell"
+        },
+    ],
+    "inputs": [
+        {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
     ]
 }

@@ -7,7 +7,7 @@ CustomModal(v-model="isShow" :close="close")
   .bg-white.rounded-xl
     // Этот слот позволяет заменить всё сразу
     slot
-    
+
       // Заголовок
       .flex.items-center.px-5.border-b.border-b-gray-300(v-if="title!==''")
         h1.text-3xl.py-5 {{title}}
@@ -15,11 +15,11 @@ CustomModal(v-model="isShow" :close="close")
 
       // Тело
       .my-3.px-5
-        slot(name="desc")
-          .text-left {{desc === '' ? 'Укажите сообщение или используйте слот' : ''}}
+        slot(name="body")
+          .text-left {{body === '' ? 'Укажите сообщение или используйте слот body' : ''}}
       
       // Кнопки
-      slor(name="buttons")
+      slot(name="buttons")
         .border-t.border-t-gray-300.mb-4.pt-3.pr-5.flex.items-end.flex-col
           button.cursor-pointer.ml-5.rounded-full.bg-blue-700.px-4.py-1.text-white(@click="close") {{closeButton === '' ? 'Закрыть' : closeButton}}
       
@@ -41,7 +41,7 @@ export default defineComponent({
       default: "",
       required: false
     },
-    desc: {
+    body: {
       type: String,
       default: "",
       required: false

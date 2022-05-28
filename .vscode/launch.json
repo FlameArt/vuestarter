@@ -8,6 +8,7 @@
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/src",
       "preLaunchTask": "start-dev-server",
+      "postDebugTask": "stop-dev-server",
       "userDataDir": "${execPath}/../chrome-debug-default-profile/"
     },
     {
@@ -18,7 +19,9 @@
       "webRoot": "${workspaceFolder}/src",
       "preLaunchTask": "start-dev-server",
       "runtimeExecutable": "stable",
-      "runtimeArgs": ["--headless"],
+      "runtimeArgs": [
+        "--headless"
+      ],
       "port": 9229
     }
   ]
