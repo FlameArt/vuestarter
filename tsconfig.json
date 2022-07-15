@@ -9,7 +9,7 @@
         "node_modules/@heroicons/vue/*"
       ],
       "@models/*": [
-        "./models/*"
+        "models/*"
       ]
     },
     "target": "esnext",
@@ -36,7 +36,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "./models/*"
+    "models/**/*.ts"
   ],
   "references": [
     {
