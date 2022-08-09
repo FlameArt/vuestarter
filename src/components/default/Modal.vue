@@ -1,27 +1,32 @@
 <template lang="pug">
 
 // УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО
-   Позволяет вызывать себя через show() и close()
+  Позволяет вызывать себя через show() и close()
 
 CustomModal(v-model="isShow" :close="close")
-  .bg-white.rounded-xl
-    // Этот слот позволяет заменить всё сразу
-    slot
 
-      // Заголовок
-      .flex.items-center.px-5.border-b.border-b-gray-300(v-if="title!==''")
-        h1.text-3xl.py-5 {{title}}
-        XCircleIcon.ml-24.w-6.opacity-25.cursor-pointer(@click="close")
+  // Этот слот для замены самого окна
+  slot
 
-      // Тело
-      .my-3.px-5
-        slot(name="body")
-          .text-left {{body === '' ? 'Укажите сообщение или используйте слот body' : ''}}
-      
-      // Кнопки
-      slot(name="buttons")
-        .border-t.border-t-gray-300.mb-4.pt-3.pr-5.flex.items-end.flex-col
-          button.cursor-pointer.ml-5.rounded-full.bg-blue-700.px-4.py-1.text-white(@click="close") {{closeButton === '' ? 'Закрыть' : closeButton}}
+    .bg-white.rounded-xl
+
+      // Этот слот позволяет заменить всё сразу внутри окна
+      slot(name="inner")
+
+        // Заголовок
+        .flex.items-center.px-5.border-b.border-b-gray-300(v-if="title !== ''")
+          h1.text-3xl.py-5 {{ title }}
+          XCircleIcon.ml-24.w-6.opacity-25.cursor-pointer(@click="close")
+
+        // Тело
+        .my-3.px-5
+          slot(name="body")
+            .text-left {{ body === '' ? 'Укажите сообщение или используйте слот body' : '' }}
+
+        // Кнопки
+        slot(name="buttons")
+          .border-t.border-t-gray-300.mb-4.pt-3.pr-5.flex.items-end.flex-col
+            button.cursor-pointer.ml-5.rounded-full.bg-blue-700.px-4.py-1.text-white(@click="close") {{ closeButton === '' ? 'Закрыть' : closeButton }}
       
 </template>
 
@@ -33,7 +38,7 @@ import { XCircleIcon } from '@icons/solid'
 
 export default defineComponent({
 
-  components: {XCircleIcon},
+  components: { XCircleIcon },
 
   props: {
     title: {
