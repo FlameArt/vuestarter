@@ -10,6 +10,15 @@ module.exports = {
         'feed-lg': '777px',
       }
     },
+    screens: {
+
+      'mobile': '320px',
+
+      'tablet': '640px',
+
+      'desktop': '1280px',
+
+    },
   },
   plugins: [],
 }
