@@ -50,6 +50,22 @@ module.exports = {
             justifyContent: 'space-between',
             alignItems: 'center',
           },
+          '.button': {
+            display: 'inline-flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            cursor: 'pointer',
+            backgroundColor: 'white',
+            padding: '2px 8px',
+            '& svg,img': {
+              width: '16px',
+              marginRight: '4px'
+            },
+            '&:hover': {
+              opacity: 0.8
+            }
+          },
+
         }
       )
     }),
