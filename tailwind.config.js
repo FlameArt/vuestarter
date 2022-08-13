@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
+
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   mode: 'jit',
   content: [
@@ -8,17 +13,45 @@ module.exports = {
     extend: {
       spacing: {
         'feed-lg': '777px',
+        'desktop': '1110px'
+      },
+      fontSize: {
+        '7': '.438rem',
+        '8': '.5rem',
+        '9': '.563rem',
+        '10': '.625rem',
+        '11': '.688rem',
       }
     },
     screens: {
 
-      'mobile': '320px',
+      'mobile': { min: '320px', max: '1080px' },
+      // => @media (min-width: 640px) { ... }
 
-      'tablet': '640px',
+      'tablet': { min: '640px', max: '1080px' },
+      // => @media (min-width: 640px) { ... }
 
-      'desktop': '1280px',
+      'desktop': '1080px',
+      // => @media (min-width: 1280px) { ... }
 
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addComponents, theme }) {
+      addComponents(
+        {
+          '.fc': {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          '.fb': {
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          },
+        }
+      )
+    }),
+  ],
 }
