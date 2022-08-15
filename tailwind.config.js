@@ -56,7 +56,7 @@ module.exports = {
             alignItems: 'center',
             cursor: 'pointer',
             backgroundColor: 'white',
-            padding: '2px 8px',
+            padding: '2px 14px',
             '& svg,img': {
               width: '16px',
               marginRight: '4px'
