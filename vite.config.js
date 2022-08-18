@@ -4,8 +4,9 @@ import { fileURLToPath, URL } from "url";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   plugins: [vue()],
-    resolve: {
+  resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
       "@icons": fileURLToPath(new URL("./node_modules/@heroicons/vue/", import.meta.url)),
