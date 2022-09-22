@@ -14,7 +14,7 @@ const state = reactive({
   test: 5
 })
 
-onMounted(()=>{
+onMounted(() => {
 
 })
 

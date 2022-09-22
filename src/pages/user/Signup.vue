@@ -1,12 +1,12 @@
 <template lang="pug">
 .flex.justify-center.h-screen.items-center.flex-col
 
-  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.lg:w-feed
-    
+  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.desktop:w-feed
+
     // Регистрация через соц-сети
     .mt-0
       .h-4.mb-3.text-gray-400 Быстрая регистрация через
-      .flex.text-sm.flex-col.lg:flex-row
+      .flex.text-sm.flex-col.desktop:flex-row
         a.flex.flex-1.items-center(href="/auth/social?authclient=google")
           img.max-h-8(src="/src/assets/icons/google.svg")
           span.pl-6 Google
@@ -17,7 +17,7 @@
           img.max-h-8(src="/src/assets/icons/facebook.svg")
           span.pl-6 Facebook
 
-    .h-4.mb-3.text-gray-400.text-xs.mt-4.lg:mt-6.lg:text-sm Или введите почту и пароль
+    .h-4.mb-3.text-gray-400.text-xs.mt-4.desktop:mt-6.desktop:text-sm Или введите почту и пароль
 
     // Регистрация через логин и пароль
     .mt-4
@@ -41,7 +41,7 @@
           placeholder="Почта",
         )
         span.text-xs.tracking-wide.text-red-600 {{ state.errors['email']?.join(". ") }}
-      
+
       // Пароль
       label.block.mt-2
         input.w-full.px-4.py-2.mt-0.border.rounded-md.focus:outline-none.focus:ring-1.focus:ring-blue-600.placeholder:text-gray-500(
@@ -51,7 +51,7 @@
           placeholder="Пароль",
         )
         span.my-4.text-xs.tracking-wide.text-red-600 {{ state.errors['password']?.join(". ") }}
-      
+
       // Кнопка реги
       .flex.items-center.justify-between.flex-col
         button.px-6.py-2.mt-4.text-white.bg-blue-600.rounded-lg.w-full.hover:bg-blue-900(
@@ -92,4 +92,5 @@ let Signup = () => {
 </script>
 
 <style scoped lang="scss">
+
 </style>

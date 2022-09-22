@@ -1,6 +1,6 @@
 <template lang="pug">
 .flex.justify-center.h-screen.items-center.flex-col
-  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.lg:w-feed-lg
+  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.desktop:w-feed-lg
     | Welcome!
 
 </template>
@@ -22,11 +22,12 @@ const state = reactive({
 
 
 onMounted(() => {
-  
+
 });
 
 
 </script>
 
 <style scoped lang="scss">
+
 </style>

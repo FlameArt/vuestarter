@@ -1,6 +1,6 @@
 <template lang="pug">
 .flex.justify-center.h-screen.items-center.flex-col
-  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.lg:w-[725px]
+  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.desktop:w-[725px]
     | Not implemented
 </template>
 
@@ -14,8 +14,8 @@ const state = reactive({
   test: 5
 })
 
-onMounted(()=>{
-  
+onMounted(() => {
+
 })
 
 </script>
