@@ -23,6 +23,7 @@
             "command": "echo ${input:terminate}",
             "type": "shell"
         },
+        // OTHER
     ],
     "inputs": [
         {
