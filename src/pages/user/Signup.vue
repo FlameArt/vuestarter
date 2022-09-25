@@ -77,7 +77,7 @@ const state = reactive({
 onMounted(() => { });
 
 let Signup = () => {
-  REST.signup(state.email, state.passw).then((res) => {
+  REST.signup(state.email, null, state.passw, state.name).then((res) => {
     if (res.isAuthorized === true) {
       store.authUser(res);
       store.User.isLoaded = true;
