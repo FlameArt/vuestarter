@@ -34,7 +34,7 @@ CustomModal(v-model="isShow" :close="close")
 import { ref, defineComponent } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest";
 
 // Иконки
-import { XCircleIcon } from '@icons/solid'
+import { XCircleIcon } from '@icons/24/solid'
 
 export default defineComponent({
 
@@ -83,4 +83,5 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+
 </style>

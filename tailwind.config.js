@@ -40,14 +40,22 @@ module.exports = {
     plugin(function ({ addComponents, theme }) {
       addComponents(
         {
+          // Flex center
           '.fc': {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
           },
+          // Flex between
           '.fb': {
             display: 'flex',
             justifyContent: 'space-between',
+            alignItems: 'center',
+          },
+          // Flex start
+          '.fs': {
+            display: 'flex',
+            justifyContent: 'flex-start',
             alignItems: 'center',
           },
           '.button': {
