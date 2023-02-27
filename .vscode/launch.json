@@ -9,7 +9,7 @@
       "webRoot": "${workspaceFolder}/src",
       "preLaunchTask": "start-dev-server",
       "postDebugTask": "stop-dev-server",
-      "userDataDir": "${execPath}/../chrome-debug-default-profile/"
+      "userDataDir": "/node_modules/chromeDebugCache/"
     },
     {
       "type": "pwa-msedge",
