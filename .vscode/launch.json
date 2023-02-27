@@ -2,17 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "pwa-chrome",
+      "type": "chrome",
       "request": "launch",
       "name": "Chrome",
       "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/src",
       "preLaunchTask": "start-dev-server",
       "postDebugTask": "stop-dev-server",
-      "userDataDir": "/node_modules/chromeDebugCache/"
+      "userDataDir": "${userHome}/ChromeDebugTemp/"
     },
     {
-      "type": "pwa-msedge",
+      "type": "msedge",
       "request": "launch",
       "name": "VSCode Edge",
       "url": "http://localhost:3000",
