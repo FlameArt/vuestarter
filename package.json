@@ -7,7 +7,7 @@
     "preview": "npm run build && vite preview",
     "install/update": "npm i && npm update --save",
     "push and publish": "git push && npm --no-git-tag-version version patch && npm publish",
-    "android": "npm run build && npx cap add android && npx cap sync && npx cap open android"
+    "android": "npm run build && npx cap add android && npx cap sync && npx capacitor-assets generate --android && npx cap open android"
   },
   "dependencies": {
     "flamerest": "^1.0.63",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@capacitor/android": "^3.9.0",
+    "@capacitor/assets": "*",
     "@capacitor/cli": "^3.9.0",
     "@capacitor/core": "^3.9.0",
     "@heroicons/vue": "^2.0.15",
