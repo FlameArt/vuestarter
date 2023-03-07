@@ -3,7 +3,7 @@ import { Authorized } from 'flamerest'
 
 export const storeFile = defineStore('store', {
   state: () => {
-    return { 
+    return {
       User: {
         id: 0,
         role: 'Guest',
@@ -20,6 +20,8 @@ export const storeFile = defineStore('store', {
   actions: {
     authUser(tUser: Authorized) {
       this.User = Object.assign(this.User, tUser.User);
+      localStorage.setItem("jwttoken", tUser.token);
+      (window as any).REST.token = tUser.token;
     },
   },
 })

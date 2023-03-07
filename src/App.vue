@@ -10,6 +10,11 @@ let notRedirectOnAuthList = [
 ];
 
 onMounted(() => {
+
+  const token = localStorage.getItem("jwttoken");
+  if (token !== null && token !== undefined)
+    (REST as any).token = token;
+
   REST.auth().then((res) => {
     store.authUser(res);
     store.User.isLoaded = true;
@@ -35,8 +40,9 @@ onMounted(() => {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 /* Цвет стандартного фона модального окна */
 .vue-universal-modal {
-   background-color: rgba(0, 0, 0, 0.15) !important;
+  background-color: rgba(0, 0, 0, 0.15) !important;
 }
 </style>
