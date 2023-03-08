@@ -21,6 +21,25 @@ That starter for rapid prototyping a services. Start with
 * [FlameREST](https://github.com/FlameArt/auto-rest-template-yii2) attached
 * Precreated Signup, Auth and Password Reset pages
 
+# iOS build setup
+
+1. Install XCode: https://apps.apple.com/us/app/xcode/id497799835
+2. Cocopoads
+
+        sudo gem install cocoapods
+3. Homebrew
+   
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+4. Node
+
+        brew install node
+
+# Android build setup
+
+1. Install Android Studio
+2. Install node
+
+
 # VSCode improvements
 
 Pug-lexer in Volar doesn`t support all tailwind functions currently. So you need to apply fix https://github.com/pugjs/pug/pull/3373
