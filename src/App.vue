@@ -13,7 +13,7 @@ onMounted(() => {
 
   const token = localStorage.getItem("jwttoken");
   if (token !== null && token !== undefined)
-    (REST as any).token = token;
+    REST.token = token;
 
   REST.auth().then((res) => {
     store.authUser(res);

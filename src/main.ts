@@ -7,11 +7,11 @@ import router from "./router";
 import 'vue-universal-modal/dist/index.css'
 import VueUniversalModal from 'vue-universal-modal'
 
-import FLAMEREST from 'flamerest';
+import REST from 'flamerest';
 
 if (location.hostname === 'localhost') {
   // ТУТ МОЖН УКАЗАТЬ ВНЕШНИЙ REST СЕРВ для мобильных аппов или др разрабов
-  (FLAMEREST as any).SERVER = 'http://localhost';
+  REST.SERVER = 'http://localhost';
 }
 
 
