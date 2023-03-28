@@ -62,6 +62,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, defineProps } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import Auth from '@/models/Auth';
 
 const store = storeFile();
 const router = useRouter(),
@@ -81,6 +82,7 @@ let Signup = () => {
     if (res.isAuthorized === true) {
       store.authUser(res);
       store.User.isLoaded = true;
+      Auth.SaveToken(res.token);
       router.push({ name: "Home" });
       return;
     }
@@ -91,6 +93,4 @@ let Signup = () => {
 };
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
