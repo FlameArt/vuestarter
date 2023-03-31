@@ -1,6 +1,7 @@
 import REST, { Rows } from "flamerest";
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from "vue-router";
 import { storeFile } from "@/store";
+import Auth from "./Auth";
 
 export default class Core {
 
@@ -14,46 +15,22 @@ export default class Core {
 
   public static async load(router: Router) {
 
-    // Прогружаем токен
-    const token = localStorage.getItem("jwttoken");
-    if (token !== null && token !== undefined)
-      REST.token = token;
-
-    // Перенаправляем в зависимости от роута
     const store = storeFile();
-    let route: RouteLocationNormalizedLoaded;
+    const route: RouteLocationNormalizedLoaded = router.currentRoute.value;
 
-    REST.auth().then(async (res) => {
-      store.authUser(res);
-      store.User.isLoaded = true;
-      route = router.currentRoute.value;
+    // Авторизуемся
+    const AuthRes = await Auth.Auth()
 
-      if (res.isAuthorized === false) {
+    if (store.User.id === 0) {
 
-        // Если юзер неавторизован, 
-        // мы уже создали пустой проект
-        // TODO: теперь можем разве что прогрузить последний из браузера
+      // Юзер неавторизован
 
+    } else {
 
-      } else {
+      // Юзер авторизован
+      // Load state
 
-        // Load state
-
-
-      }
-    });
-
-  }
-
-  public static loadProjectFromLocalstorage() {
-
-    /*
-    const lastProject = localStorage.getItem("project");
-    if (lastProject !== null) {
-      store.site.load(JSON.parse(lastProject));
-      store.screens = store.site.data;
     }
-*/
 
   }
 

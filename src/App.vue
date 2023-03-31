@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, defineProps } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import Auth from './models/Auth';
 const store = storeFile(), router = useRouter(), route = useRoute();
 
 let notRedirectOnAuthList = [
@@ -11,21 +12,17 @@ let notRedirectOnAuthList = [
 
 onMounted(() => {
 
-  const token = localStorage.getItem("jwttoken");
-  if (token !== null && token !== undefined)
-    REST.token = token;
+  Auth.WaitAuth().then((res) => {
 
-  REST.auth().then((res) => {
-    store.authUser(res);
-    store.User.isLoaded = true;
-    if (res.isAuthorized === false) {
+    // Юзер неавторизован
+    if (store.User.id === 0) {
       if (!notRedirectOnAuthList.includes(route.name?.toString() ?? "")) {
         router.push({ name: "Auth" });
       }
     } else {
-      // Load state
-      // store.projects = REST.get("projects");
+      // Юзер авторизован
     }
+
   });
 });
 </script>

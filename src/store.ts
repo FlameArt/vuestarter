@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { Authorized } from 'flamerest'
+import Auth from './models/Auth'
 
 export const storeFile = defineStore('store', {
   state: () => {
@@ -15,13 +16,9 @@ export const storeFile = defineStore('store', {
       },
     }
   },
-  // could also be defined as
-  // state: () => ({ count: 0 })
+
+  // Общие экшены
   actions: {
-    authUser(tUser: Authorized) {
-      this.User = Object.assign(this.User, tUser.User);
-      localStorage.setItem("jwttoken", tUser.token);
-      (window as any).REST.token = tUser.token;
-    },
+
   },
 })

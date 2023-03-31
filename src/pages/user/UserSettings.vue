@@ -1,4 +1,5 @@
 <template lang="pug">
+
 </template>
 
 <script setup lang="ts">
@@ -20,6 +21,4 @@ onMounted(() => {
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
