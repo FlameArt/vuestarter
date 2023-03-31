@@ -28,8 +28,7 @@ export default class Auth {
     // Проверка успешности и возврат данных
     if (tUser.isAuthorized) {
 
-
-
+      Auth.AuthUser(tUser);
 
       router.push({ name: "Home" });
 
