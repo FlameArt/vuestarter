@@ -10,6 +10,18 @@ import VueUniversalModal from 'vue-universal-modal'
 import REST from 'flamerest';
 import Core from './models/Core';
 
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import { md3 } from 'vuetify/blueprints'
+
+const vuetify = createVuetify({
+  components,
+  directives,
+  blueprint: md3,
+})
+
 if (location.hostname === 'localhost') {
   // ТУТ МОЖН УКАЗАТЬ ВНЕШНИЙ REST СЕРВ для мобильных аппов или др разрабов
   REST.SERVER = 'http://localhost';
@@ -20,6 +32,7 @@ if (location.hostname === 'localhost') {
 createApp(App)
   .use(createPinia())
   .use(router)
+  .use(vuetify)
   .use(VueUniversalModal, { teleportTarget: '#my-modals', modalComponent: 'CustomModal' })
   .mount('#app')
 
