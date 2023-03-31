@@ -1,6 +1,6 @@
 <template lang="pug">
 .flex.justify-center.h-screen.items-center.flex-col
-  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg.desktop:w-feed-lg
+  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg(class="desktop:w-feed-lg")
     | Welcome!
 
 </template>
@@ -28,6 +28,4 @@ onMounted(() => {
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

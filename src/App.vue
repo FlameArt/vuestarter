@@ -28,7 +28,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <router-view v-if="store.User.isLoaded" />
+  <v-app>
+    <router-view v-if="store.User.isLoaded" />
+  </v-app>
 </template>
 
 <style>
