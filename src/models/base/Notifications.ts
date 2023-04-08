@@ -3,17 +3,18 @@ import { Capacitor } from '@capacitor/core';
 
 export default class Notifications {
 
-  public static async register() {
+  public static async register(): Promise<string | null> {
 
     // Чек доступности нотификаций
     const isPushNotificationsAvailable = Capacitor.isPluginAvailable('PushNotifications');
-    if (!isPushNotificationsAvailable) return;
+    if (!isPushNotificationsAvailable) return null;
 
-
+    let notifyToken = null;
 
     const addListeners = async () => {
       await PushNotifications.addListener('registration', token => {
         //console.info('Registration token: ', token.value);
+        notifyToken = token.value;
       });
 
       await PushNotifications.addListener('registrationError', err => {
@@ -51,6 +52,8 @@ export default class Notifications {
     await addListeners();
     await registerNotifications();
     await getDeliveredNotifications();
+
+    return notifyToken;
 
   }
 

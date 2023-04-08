@@ -2,6 +2,7 @@ import REST, { Rows } from "flamerest";
 import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from "vue-router";
 import { storeFile } from "@/store";
 import Auth from "./Auth";
+import Notifications from "./base/Notifications";
 
 export default class Core {
 

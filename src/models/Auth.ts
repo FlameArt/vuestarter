@@ -2,6 +2,7 @@ import router from "@/router";
 import { storeFile } from "@/store";
 import REST, { Authorized } from "flamerest";
 import { useRouter } from "vue-router";
+import Notifications from "./base/Notifications";
 
 export default class Auth {
 
@@ -92,7 +93,10 @@ export default class Auth {
 
     const store = storeFile();
 
-    return REST.signup(email, null, passw, name).then((res) => {
+    // Установка токена нотификаций для мобильных аппов
+    REST.pushNotificationToken = await Notifications.register();
+
+    return REST.signup(email, null, passw, name, REST.pushNotificationToken).then((res) => {
       if (res.isAuthorized === true) {
         Auth.AuthUser(res);
         router.push({ name: "Home" });
