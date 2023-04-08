@@ -27,6 +27,7 @@
     "@capacitor/core": "^4.7.0",
     "@capacitor/device": "^4.1.0",
     "@capacitor/ios": "^4.7.0",
+    "@capacitor/push-notifications": "^4.1.2",
     "@heroicons/vue": "^2.0.16",
     "@types/lodash.merge": "^4.6.7",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
