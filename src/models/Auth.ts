@@ -88,6 +88,11 @@ export default class Auth {
 
   }
 
+  public static isAuthorized(): boolean {
+    const store = storeFile();
+    return store.User.id !== 0;
+  }
+
 
   public static async Signup(email = "", passw = "", name = ""): Promise<SignupResult> {
 
