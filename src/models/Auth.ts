@@ -38,6 +38,7 @@ export default class Auth {
       };
 
     } else {
+      // ошибки авторизации
       if (tUser.errors) {
 
         store.User.isLoaded = false;
@@ -51,6 +52,17 @@ export default class Auth {
           ).join(". "),
           passwErr: (tUser.errors["password"] ?? []).join(". ")
         };
+      }
+
+      else {
+
+        // Ошибок нет, просто гость
+        Auth.AuthUser(tUser);
+
+        return {
+          success: true
+        };
+
       }
     }
 
