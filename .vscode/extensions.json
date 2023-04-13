@@ -1,3 +1,13 @@
 {
-  "recommendations": ["Vue.volar", "Wscats.vue", "bradlc.vscode-tailwindcss", "afzalsayed96.heroicons", "ionutvmi.path-autocomplete", "bam.vscode-file-templates", "pmneo.tsimporter", "dbaeumer.vscode-eslint"],
+  "recommendations": [
+    "Vue.volar",
+    "Wscats.vue",
+    "bradlc.vscode-tailwindcss",
+    "afzalsayed96.heroicons",
+    "ionutvmi.path-autocomplete",
+    "bam.vscode-file-templates",
+    "pmneo.tsimporter",
+    "dbaeumer.vscode-eslint",
+    "yoavbls.pretty-ts-errors"
+  ],
 }
