@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "flamerest": "^1.0.80",
+    "flameresttable": "^1.0.5",
     "pinia": "^2.0.34",
     "pug": "github:FlameArt/pug-tailwind-only",
     "pug-lexer": "github:FlameArt/pug-lexer-only",
