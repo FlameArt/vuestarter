@@ -3,6 +3,7 @@ import { RouteLocationNormalizedLoaded, Router, useRoute, useRouter } from "vue-
 import { storeFile } from "@/store";
 import Auth from "./Auth";
 import Notifications from "./base/Notifications";
+import { Capacitor } from "@capacitor/core";
 
 export default class Core {
 
@@ -18,6 +19,8 @@ export default class Core {
 
     const store = storeFile();
     const route: RouteLocationNormalizedLoaded = router.currentRoute.value;
+
+    store.isMobile = Capacitor.isNativePlatform();
 
     // Авторизуемся
     const AuthRes = await Auth.Auth()

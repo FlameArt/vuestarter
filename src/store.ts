@@ -14,6 +14,10 @@ export const storeFile = defineStore('store', {
         avatar: '',
         isLoaded: false
       },
+      /**
+       * Нативное приложение или web
+       */
+      isMobile: true
     }
   },
 
