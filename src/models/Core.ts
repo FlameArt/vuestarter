@@ -22,9 +22,6 @@ export default class Core {
 
     store.isMobile = Capacitor.isNativePlatform();
 
-    // Получаем токен
-    const notifytoken = await Notifications.register();
-
     // Авторизуемся
     const AuthRes = await Auth.Auth()
 
