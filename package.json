@@ -7,8 +7,8 @@
     "preview": "npm run build && vite preview",
     "install/update": "npm i && npm update --save",
     "push and publish": "git push && npm --no-git-tag-version version patch && npm publish",
-    "android install": "rmdir android /s /q & npm run build && npx cap add android && npx cap sync && npx capacitor-assets generate --android && npx cap open android",
-    "android update": "npm run build && npx cap sync && npx capacitor-assets generate --android && npx cap open android",
+    "android install": "rmdir android /s /q & npm run build && npx cap add android && npx cap sync && npx capacitor-assets generate --android && copy \"google-services.json\" \"android/app/google-services.json\" && npx cap open android",
+    "android update": "npm run build && npx cap sync && npx capacitor-assets generate --android && copy \"google-services.json\" \"android/app/google-services.json\" && npx cap open android",
     "ios": "rmdir ios /s /q & npm run build && npx cap add ios && npx cap sync && npx capacitor-assets generate --ios && npx cap copy ios && cd ios/App/ && pod reintegrate && pod install && cd ./../../ && npx cap open ios"
   },
   "dependencies": {
