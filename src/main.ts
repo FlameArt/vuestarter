@@ -26,6 +26,15 @@ if (location.hostname === 'localhost') {
   // ТУТ МОЖН УКАЗАТЬ ВНЕШНИЙ REST СЕРВ для мобильных аппов или др разрабов
   REST.SERVER = 'http://localhost';
 }
+else {
+  REST.SERVER = 'https://YOURDOMAIN.com/'
+}
+
+// Любой неавторизованный запрос перенаправляет на логин
+REST.unauthorized_callback = () => {
+  router.push({ name: 'Auth' })
+  return true;
+}
 
 
 
