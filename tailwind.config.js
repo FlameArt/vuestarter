@@ -75,6 +75,16 @@ module.exports = {
             }
           },
 
+          '.desktopmobwidth': {
+            width: 'calc(100vh * 0.5625)',
+            marginLeft: 'calc(50% - (100vh * 0.5625)/2)'
+            //padding: '100px'
+          },
+          '.mobilemobwidth': {
+            width: '100%'
+            //padding: '100px'
+          }
+
         }
       )
     }),
