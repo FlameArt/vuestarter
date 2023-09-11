@@ -23,5 +23,8 @@
   "parser": "vue-eslint-parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser"
+  },
+  "env": {
+    "vue/setup-compiler-macros": true
   }
 }

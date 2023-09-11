@@ -8,7 +8,7 @@
 <script setup lang="ts">
 
 // Основные импорты
-import { onMounted, reactive, defineProps } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 
 // Иконки
 import { XCircleIcon } from '@icons/24/solid'
