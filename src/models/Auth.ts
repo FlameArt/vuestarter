@@ -161,6 +161,25 @@ export default class Auth {
 
   }
 
+  /**
+   * Идти на автологин
+   */
+  public static GOAutoLoginOnSite() {
+    const link = REST.SERVER + '/al?a=' + REST.token;
+    window.location.href = link;
+  }
+
+  /**
+   * Проверить автологин и установить токен
+   */
+  public static CheckAutologin() {
+    const urlParams = new URLSearchParams(location.search);
+    if (window.location.pathname === '/al' && urlParams.has("a")) {
+      this.SaveToken(urlParams.get('a'));
+      window.location.href = REST.SERVER;
+    }
+  }
+
 }
 
 export interface AuthResult {

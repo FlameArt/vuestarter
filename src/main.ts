@@ -15,6 +15,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { md3 } from 'vuetify/blueprints'
+import Auth from './models/Auth';
 
 const vuetify = createVuetify({
   components,
@@ -36,6 +37,8 @@ REST.unauthorized_callback = () => {
   return true;
 }
 
+// АВТОЛОГИН
+Auth.CheckAutologin();
 
 
 createApp(App)
