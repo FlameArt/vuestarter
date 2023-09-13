@@ -15,13 +15,17 @@ export default class Auth {
     if (token !== null && token !== undefined)
       REST.token = token;
 
+    // пуш-токен при каждом входе добавляем новый
+    const pushInfo = await Notifications.getPushInfo();
+
+
     // Автоматическая и ручная авторизация
     let RESTResult: Promise<Authorized>;
     if (login === undefined || password === undefined || login === null) {
       RESTResult = REST.auth();
     }
     else
-      RESTResult = REST.auth(login, password)
+      RESTResult = REST.auth(login, password, pushInfo);
 
     // Шлём авторизацию на ендпоин
     const tUser = await RESTResult;
@@ -111,9 +115,9 @@ export default class Auth {
     const store = storeFile();
 
     // Установка токена нотификаций для мобильных аппов
-    REST.pushNotificationToken = await Notifications.register();
+    const pushInfo = await Notifications.getPushInfo();
 
-    return REST.signup(email, null, passw, name, REST.pushNotificationToken).then((res) => {
+    return REST.signup(email, null, passw, name, pushInfo).then((res) => {
       if (res.isAuthorized === true) {
         Auth.AuthUser(res);
         router.push({ name: "Home" });

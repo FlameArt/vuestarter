@@ -1,5 +1,8 @@
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Capacitor } from '@capacitor/core';
+import { Device } from '@capacitor/device';
+
+import REST from 'flamerest';
 
 export default class Notifications {
 
@@ -55,6 +58,42 @@ export default class Notifications {
 
     return notifyToken;
 
+  }
+
+
+  public static async getPushInfo() {
+
+    REST.pushNotificationToken = await Notifications.register();
+
+    const pushTokenInfo = {
+      uuid: (await Device.getId()).uuid,
+      platform: Capacitor.getPlatform(),
+      browser: this.getBrowserName(),
+      token: REST.pushNotificationToken,
+    }
+
+    return pushTokenInfo;
+
+  }
+
+  public static getBrowserName() {
+    const userAgent = navigator.userAgent;
+
+    if (userAgent.indexOf("Firefox") > -1) {
+      return "Firefox";
+    } else if (userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) {
+      return "Opera";
+    } else if (userAgent.indexOf("Trident") > -1) {
+      return "Internet Explorer";
+    } else if (userAgent.indexOf("Edge") > -1) {
+      return "Edge";
+    } else if (userAgent.indexOf("Chrome") > -1) {
+      return "Chrome";
+    } else if (userAgent.indexOf("Safari") > -1) {
+      return "Safari";
+    } else {
+      return "Unknown";
+    }
   }
 
 }
