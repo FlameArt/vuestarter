@@ -69,7 +69,7 @@ export default class Notifications {
       uuid: (await Device.getId()).uuid,
       platform: Capacitor.getPlatform(),
       browser: this.getBrowserName(),
-      token: REST.pushNotificationToken,
+      token: REST.pushNotificationToken
     }
 
     return pushTokenInfo;

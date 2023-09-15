@@ -17,7 +17,17 @@ export const storeFile = defineStore('store', {
       /**
        * Нативное приложение или web
        */
-      isMobile: true
+      isMobile: true,
+
+      /**
+       * Настройки сайта
+       */
+      settings: {
+        /**
+         * Нужны ли пуш нотификации
+         */
+        isRegisterPushNotifications: false,
+      }
     }
   },
 

@@ -16,7 +16,7 @@ export default class Auth {
       REST.token = token;
 
     // пуш-токен при каждом входе добавляем новый
-    const pushInfo = await Notifications.getPushInfo();
+    const pushInfo = store.settings.isRegisterPushNotifications ? await Notifications.getPushInfo() : null;
 
 
     // Автоматическая и ручная авторизация
@@ -115,7 +115,7 @@ export default class Auth {
     const store = storeFile();
 
     // Установка токена нотификаций для мобильных аппов
-    const pushInfo = await Notifications.getPushInfo();
+    const pushInfo = store.settings.isRegisterPushNotifications ? await Notifications.getPushInfo() : null;
 
     return REST.signup(email, null, passw, name, pushInfo).then((res) => {
       if (res.isAuthorized === true) {
