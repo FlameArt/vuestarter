@@ -148,13 +148,11 @@ export default class Auth {
 
 
   public static async Logout() {
-    const store = storeFile();
     const token = localStorage.getItem("jwttoken");
-    const router = useRouter();
     if (token !== null)
       localStorage.removeItem("jwttoken");
     await REST.logout();
-    router.push({ name: 'Home' })
+    document.location = REST.SERVER;
   }
 
 
@@ -183,6 +181,8 @@ export default class Auth {
       window.location.href = REST.SERVER;
     }
   }
+
+
 
 }
 

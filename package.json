@@ -12,12 +12,12 @@
     "ios": "rmdir ios /s /q & npm run build && npx cap add ios && npx cap sync && npx capacitor-assets generate --ios && npx cap copy ios && cd ios/App/ && pod reintegrate && pod install && cd ./../../ && npx cap open ios"
   },
   "dependencies": {
-    "flamerest": "^1.0.83",
+    "flamerest": "^1.0.86",
     "flameresttable": "^1.0.12",
     "pinia": "^2.1.6",
     "pug": "github:FlameArt/pug-tailwind-only",
     "pug-lexer": "github:FlameArt/pug-lexer-only",
-    "sass": "^1.66.1",
+    "sass": "^1.67.0",
     "vue": "^3.2.25",
     "vue-router": "^4.2.4",
     "vuetify": "^3.3.16"
