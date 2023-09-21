@@ -163,17 +163,11 @@ export default class Auth {
 
   }
 
-  /**
-   * Идти на автологин
-   */
   public static GOAutoLoginOnSite() {
     const link = REST.SERVER + '/al?a=' + REST.token;
     window.location.href = link;
   }
 
-  /**
-   * Проверить автологин и установить токен
-   */
   public static CheckAutologin() {
     const urlParams = new URLSearchParams(location.search);
     if (window.location.pathname === '/al' && urlParams.has("a")) {
@@ -182,6 +176,17 @@ export default class Auth {
     }
   }
 
+  public static ResetPasswordRequest(email: string) {
+    return REST.ResetPasswordRequest(email);
+  }
+
+  public static ResetPasswordTokenCheck(token: string) {
+    return REST.ResetPasswordTokenCheck(token);
+  }
+
+  public static ResetPasswordSaveNewPassword(token: string, newPassw: string) {
+    return REST.ResetPasswordSaveNewPassword(token, newPassw);
+  }
 
 
 }
