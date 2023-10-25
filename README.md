@@ -34,6 +34,15 @@ That starter for rapid prototyping a services. Start with
 
         brew install node
 
+### Push notifications
+Enable capabilities in Apple Connect for app and in XCode:
+1. Click on your workspace name
+2. Select your project in the target list
+3. Select Signing & Capabilities
+4. Click the +Capability button
+5. Add *Push Notifications* and *Background Modes -> (Remote notifications)* from the list.
+
+
 # Android build setup
 
 1. Install Android Studio

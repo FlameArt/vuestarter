@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
-import { Authorized } from 'flamerest'
+import REST, { Authorized } from 'flamerest'
 import Auth from './models/Auth'
+import { Capacitor } from '@capacitor/core'
+import Analytics from './models/base/Analytics'
 
 export const storeFile = defineStore('store', {
   state: () => {
@@ -14,25 +16,27 @@ export const storeFile = defineStore('store', {
         avatar: '',
         isLoaded: false
       },
+
       /**
        * Нативное приложение или web
        */
-      isMobile: true,
+      isMobile: Capacitor.isNativePlatform(),
+      platform: Capacitor.getPlatform(),
+      IsNewDevice: false,
 
       /**
-       * Настройки сайта
+       * Модуль аналитики
        */
-      settings: {
-        /**
-         * Нужны ли пуш нотификации
-         */
-        isRegisterPushNotifications: false,
-      }
+      analytics: new Analytics,
+
     }
+
   },
 
   // Общие экшены
   actions: {
-
+    async update() {
+      // Обновление состояния
+    }
   },
 })

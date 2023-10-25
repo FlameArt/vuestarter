@@ -3,12 +3,14 @@
   .px-8.py-6.mt-4.text-left.bg-white.shadow-lg(class="desktop:w-feed-lg")
     | Welcome!
 
+  router-view
+
 </template>
 
 <script setup lang="ts">
 
 // Основные импорты
-import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { settingsFile } from '@/settings'; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 
 // Иконки
 import { XCircleIcon } from '@icons/24/solid'
@@ -22,8 +24,9 @@ const state = reactive({
 
 
 onMounted(() => {
-
 });
+
+
 
 
 </script>

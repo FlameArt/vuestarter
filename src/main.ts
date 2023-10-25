@@ -38,7 +38,7 @@ REST.unauthorized_callback = () => {
 }
 
 // АВТОЛОГИН
-Auth.CheckAutologin();
+if (Auth.CheckAutologin()) throw "autologin";
 
 
 createApp(App)

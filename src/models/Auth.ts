@@ -2,7 +2,9 @@ import router from "@/router";
 import { storeFile } from "@/store";
 import REST, { Authorized } from "flamerest";
 import { useRouter } from "vue-router";
-import Notifications from "./base/Notifications";
+import Notifications from './base/Notifications';
+import Core from "./Core";
+
 
 export default class Auth {
 
@@ -16,8 +18,11 @@ export default class Auth {
       REST.token = token;
 
     // пуш-токен при каждом входе добавляем новый
-    const pushInfo = store.settings.isRegisterPushNotifications ? await Notifications.getPushInfo() : null;
 
+    //const pushInfo = store.isRegisterPushNotifications ? await Notifications.getPushInfo() : { 'n': true };
+    const pushInfo = null;
+
+    console.log('pushinfo:' + pushInfo);
 
     // Автоматическая и ручная авторизация
     let RESTResult: Promise<Authorized>;
@@ -28,20 +33,34 @@ export default class Auth {
       RESTResult = REST.auth(login, password, pushInfo);
 
     // Шлём авторизацию на ендпоин
-    const tUser = await RESTResult;
+    let tUser: Authorized | null = null;
+
+    try {
+      tUser = await RESTResult;
+    }
+    catch (ex) {
+      /* empty */
+    }
+
+    if (tUser === null) {
+      const thisLocation = location.protocol + "//" + location.host + "/signup";
+      if (location.pathname !== "/signup" && location.pathname !== "/in" && location.pathname !== "/welcome" && location.pathname !== "/privacy" && location.pathname !== "/privacy-web" && location.pathname !== "/terms" && location.pathname !== "/removeaccount" && location.pathname !== "/contacts")
+        document.location = thisLocation;
+      // @ts-expect-error oks
+      return;
+    }
 
     // Проверка успешности и возврат данных
     if (tUser.isAuthorized) {
 
       Auth.AuthUser(tUser);
 
-      router.push({ name: "Home" });
-
       return {
         success: true
       };
 
     } else {
+
       // ошибки авторизации
       if (tUser.errors) {
 
@@ -70,7 +89,6 @@ export default class Auth {
       }
     }
 
-    throw "Unknown auth error"
 
   }
   public static AuthUser(tUser: Authorized) {
@@ -115,12 +133,14 @@ export default class Auth {
     const store = storeFile();
 
     // Установка токена нотификаций для мобильных аппов
-    const pushInfo = store.settings.isRegisterPushNotifications ? await Notifications.getPushInfo() : null;
+    //const pushInfo = store.isRegisterPushNotifications ? await Notifications.getPushInfo() : null;
+    const pushInfo = null;
+
 
     return REST.signup(email, null, passw, name, pushInfo).then((res) => {
       if (res.isAuthorized === true) {
         Auth.AuthUser(res);
-        router.push({ name: "Home" });
+        //router.push({ name: "Home" });
         return {
           success: true
         };
@@ -147,12 +167,15 @@ export default class Auth {
   }
 
 
-  public static async Logout() {
+  public static async Logout(router: any) {
     const token = localStorage.getItem("jwttoken");
     if (token !== null)
       localStorage.removeItem("jwttoken");
     await REST.logout();
-    document.location = REST.SERVER;
+    const store = storeFile();
+    store.User.id = 0;
+    router.push('/');
+    //document.location = REST.SERVER;
   }
 
 
@@ -172,8 +195,10 @@ export default class Auth {
     const urlParams = new URLSearchParams(location.search);
     if (window.location.pathname === '/al' && urlParams.has("a")) {
       this.SaveToken(urlParams.get('a'));
-      window.location.href = REST.SERVER;
+      window.location.replace(REST.SERVER);
+      return true;
     }
+    return false;
   }
 
   public static ResetPasswordRequest(email: string) {
@@ -188,6 +213,76 @@ export default class Auth {
     return REST.ResetPasswordSaveNewPassword(token, newPassw);
   }
 
+  /**
+   * Удалить аккаунт
+   * @param router 
+   */
+  public static async RemoveAccount(router: any) {
+
+    if (prompt("Для удаления аккаунта напишите слово УДАЛИТЬ")?.trim() !== 'УДАЛИТЬ') {
+      alert("Не написано \"удалить\", отмена")
+      return;
+    }
+
+    const result: any = await REST.request(REST.SERVER + "/auth/removeaccount", {}, 'POST', 'json', true, { verifyRemove: storeFile().User.id })
+
+    if (result.data.result !== "success") {
+      alert('Не удалось удалить аккаунт: ' + result?.data.errors?.join(". "))
+    }
+
+    // Удаление успешно
+    alert("Ваш аккаунт успешно удалён! Сейчас вы будете перенаправлены на главную страницу")
+
+    // очищаем сессию и выходим
+    this.Logout(router);
+
+  }
+
+  public static async IsNewDevice() {
+    const result: any = await REST.request(REST.SERVER + "/auth/isnewdevice", { uuid: await Notifications.getDeviceUUID() }, 'POST', 'json', true)
+    if (result.data.result === 'success') return result.newDevice as boolean;
+    return false;
+  }
+
+  /**
+   * Обновить старый токен только если разрешение было дано
+   */
+  public static async updatePushToken() {
+    if (storeFile().platform === 'web') return;
+    const perm = await Notifications.checkPermissions();
+    if (perm.receive === 'granted') {
+      this.RequestAndSavePushToken();
+    }
+  }
+
+  /**
+   * Запрос на создание ключа
+   * @param router 
+   */
+  public static async RequestAndSavePushToken() {
+
+    const isNewDevice = await this.IsNewDevice();
+    //const perm = await Notifications.checkPermissions();
+
+    if (isNewDevice === false) return;
+
+    // Запрашиваем токен
+    const pushInfo = await Notifications.getPushInfo();
+
+    // токен не удалось получить
+    if (pushInfo === null) {
+      console.log("pushinfo not found: " + pushInfo)
+      return;
+    }
+
+
+    const result: any = await REST.request(REST.SERVER + "/auth/savepushtoken", pushInfo, 'POST', 'json', true, {})
+
+    if (result.data.result !== "success") {
+      alert('Не удалось обновить настройки: ' + result?.data?.errors?.join(". "))
+    }
+
+  }
 
 }
 

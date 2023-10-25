@@ -8,68 +8,123 @@ export default class Notifications {
 
   public static async register(): Promise<string | null> {
 
+    console.log("push reg started");
+
+
+
     // Чек доступности нотификаций
     const isPushNotificationsAvailable = Capacitor.isPluginAvailable('PushNotifications');
-    if (!isPushNotificationsAvailable) return null;
-
-    let notifyToken = null;
-
-    const addListeners = async () => {
-      await PushNotifications.addListener('registration', token => {
-        //console.info('Registration token: ', token.value);
-        notifyToken = token.value;
-      });
-
-      await PushNotifications.addListener('registrationError', err => {
-        console.error('Registration error: ', err.error);
-      });
-
-      await PushNotifications.addListener('pushNotificationReceived', notification => {
-        console.log('Push notification received: ', notification);
-      });
-
-      await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
-        console.log('Push notification action performed', notification.actionId, notification.inputValue);
-      });
+    if (!isPushNotificationsAvailable) {
+      console.log("PUSH PLUGIN IS NOT AVAILABLE")
+      return null;
     }
 
-    const registerNotifications = async () => {
-      let permStatus = await PushNotifications.checkPermissions();
+    const getToken = new Promise<string>((resolve, reject) => {
+      try {
+        let notifyToken = null;
 
-      if (permStatus.receive === 'prompt') {
-        permStatus = await PushNotifications.requestPermissions();
+        const addListeners = () => {
+
+
+          PushNotifications.addListener('registration', token => {
+            //console.info('Registration token: ', token.value);
+            notifyToken = token.value;
+            console.log("TOKEN " + notifyToken)
+            resolve(notifyToken);
+          });
+
+
+          PushNotifications.addListener('registrationError', err => {
+            console.error('Registration error: ', err.error);
+            reject(err.error);
+          });
+
+          PushNotifications.addListener('pushNotificationReceived', notification => {
+            console.log('Push notification received: ', notification);
+          });
+
+          PushNotifications.addListener('pushNotificationActionPerformed', notification => {
+            console.log('Push notification action performed', notification.actionId, notification.inputValue);
+          });
+
+
+
+        }
+
+        const registerNotifications = async () => {
+          let permStatus = await PushNotifications.checkPermissions();
+
+          if (permStatus.receive === 'prompt') {
+            permStatus = await PushNotifications.requestPermissions();
+          }
+
+          if (permStatus.receive !== 'granted') {
+            console.log('User denied permissions!');
+            throw new Error('User denied permissions!');
+          }
+
+          await PushNotifications.register();
+        }
+
+        const getDeliveredNotifications = async () => {
+          const notificationList = await PushNotifications.getDeliveredNotifications();
+          console.log('delivered notifications', notificationList);
+        }
+
+        addListeners();
+        registerNotifications();
+        //await getDeliveredNotifications();
+
+      }
+      catch (ex: any) {
+        console.log('token get error 2: ' + ex);
       }
 
-      if (permStatus.receive !== 'granted') {
-        throw new Error('User denied permissions!');
-      }
+    });
 
-      await PushNotifications.register();
+    try {
+      return await getToken;
     }
-
-    const getDeliveredNotifications = async () => {
-      const notificationList = await PushNotifications.getDeliveredNotifications();
-      console.log('delivered notifications', notificationList);
+    catch (ex: any) {
+      console.log('token get error: ' + ex);
+      return null;
     }
-
-    await addListeners();
-    await registerNotifications();
-    await getDeliveredNotifications();
-
-    return notifyToken;
 
   }
 
+  public static async getToken() {
+    try {
+      REST.pushNotificationToken = await Notifications.register();
+    }
+    catch (ex) {
+      console.log(ex);
+      return null;
+    }
+    console.log('REST.pushNotificationToken:' + REST.pushNotificationToken);
+
+    if (REST.pushNotificationToken === null) return null;
+
+    return REST.pushNotificationToken;
+  }
 
   public static async getPushInfo() {
 
-    REST.pushNotificationToken = await Notifications.register();
+    try {
+      REST.pushNotificationToken = await Notifications.register();
+    }
+    catch (ex) {
+      console.log(ex);
+      return null;
+    }
+    console.log('REST.pushNotificationToken:' + REST.pushNotificationToken);
+
+    if (REST.pushNotificationToken === null) return null;
 
     const pushTokenInfo = {
-      uuid: (await Device.getId()).uuid,
+      uuid: (await Device.getId()).identifier,
       platform: Capacitor.getPlatform(),
       browser: this.getBrowserName(),
-      token: REST.pushNotificationToken
+      token: REST.pushNotificationToken,
     }
 
     return pushTokenInfo;
@@ -94,6 +149,14 @@ export default class Notifications {
     } else {
       return "Unknown";
     }
+  }
+
+  public static async checkPermissions() {
+    return await PushNotifications.checkPermissions();
+  }
+
+  public static async getDeviceUUID() {
+    return (await Device.getId()).identifier;
   }
 
 }

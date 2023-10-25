@@ -1,35 +1,17 @@
 <script setup lang="ts">
 import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import Auth from './models/Auth';
+import { settingsFile } from './settings';
 const store = storeFile(), router = useRouter(), route = useRoute();
 
-let notRedirectOnAuthList = [
-  "Auth",
-  "Signup",
-  "ResetPasswordRequest",
-  "ResetPassword",
-];
-
 onMounted(() => {
-
-  Auth.WaitAuth().then((res) => {
-
-    // Юзер неавторизован
-    if (store.User.id === 0) {
-      if (!notRedirectOnAuthList.includes(route.name?.toString() ?? "")) {
-        router.push({ name: "Auth" });
-      }
-    } else {
-      // Юзер авторизован
-    }
-
-  });
 });
+
 </script>
 
 <template>
   <v-app>
-    <router-view v-if="store.User.isLoaded" />
+    <router-view v-if="!settingsFile().authRequired || store.User.isLoaded" />
   </v-app>
 </template>
 
