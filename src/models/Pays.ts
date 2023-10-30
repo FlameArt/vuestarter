@@ -5,14 +5,16 @@ import { useRoute, useRouter } from 'vue-router';
 
 export default class Pays {
 
-   public static async GoToPay(subscriptionID: any, subscriptionItemID: any, isTrial: boolean = false) {
+   public static async GoToPay(subscriptionID: any, subscriptionItemID: any, isTrial: boolean = false, email: string = '', phone: string = '') {
 
       const link: PayLinkResult = await REST.request(REST.SERVER + '/' + 'pay/getlink', {
          subscription: subscriptionID,
          paymethod: null,
          paysystem: null,
          trialrequest: isTrial,
-         data: {}
+         data: {},
+         email: email,
+         phone: phone
       }, 'POST', 'json') as any;
 
 
