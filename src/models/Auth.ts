@@ -4,6 +4,7 @@ import REST, { Authorized } from "flamerest";
 import { useRouter } from "vue-router";
 import Notifications from './base/Notifications';
 import Core from "./Core";
+import { settingsFile } from "@/settings";
 
 
 export default class Auth {
@@ -44,8 +45,9 @@ export default class Auth {
 
     if (tUser === null) {
       const thisLocation = location.protocol + "//" + location.host + "/signup";
-      if (location.pathname !== "/signup" && location.pathname !== "/in" && location.pathname !== "/welcome" && location.pathname !== "/privacy" && location.pathname !== "/privacy-web" && location.pathname !== "/terms" && location.pathname !== "/removeaccount" && location.pathname !== "/contacts")
-        document.location = thisLocation;
+      if (settingsFile().authRequired)
+        if (location.pathname !== "/signup" && location.pathname !== "/in" && location.pathname !== "/welcome" && location.pathname !== "/privacy" && location.pathname !== "/privacy-web" && location.pathname !== "/terms" && location.pathname !== "/removeaccount" && location.pathname !== "/contacts")
+          document.location = thisLocation;
       // @ts-expect-error oks
       return;
     }

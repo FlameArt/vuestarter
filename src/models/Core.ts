@@ -39,7 +39,7 @@ export default class Core {
     if (!Auth.isAuthorized()) {
 
       // Юзер неавторизован
-      if (!this.notRedirectOnAuthList.includes(router?.currentRoute?.value?.name?.toString() ?? ''))
+      if (settingsFile().authRequired && !this.notRedirectOnAuthList.includes(router?.currentRoute?.value?.name?.toString() ?? ''))
         router.push({ name: 'Home' })
 
     } else {
