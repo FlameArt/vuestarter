@@ -8,7 +8,7 @@
 
 
     .mt-3
-      img(src="/public/img/logo.svg")
+      img.w-12.h-12(src="/public/img/logo.svg")
 
     // Регистрация через логин и пароль
     .mt-4
