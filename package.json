@@ -2,10 +2,10 @@
   "name": "appname",
   "version": "1.0.9",
   "scripts": {
+    "install/update": "npm i && npm update --save",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "npm run build && vite preview",
-    "install/update": "npm i && npm update --save",
     "push and publish": "git push && npm --no-git-tag-version version patch && npm publish",
     "android install": "rmdir android /s /q & npm run build && npx cap add android && npx cap sync && npx capacitor-assets generate --android && copy \"google-services.json\" \"android/app/google-services.json\" && npx cap open android",
     "android update": "npm run build && npx cap sync && npx capacitor-assets generate --android && copy \"google-services.json\" \"android/app/google-services.json\" && npx cap open android",
