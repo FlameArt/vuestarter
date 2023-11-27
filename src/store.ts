@@ -21,7 +21,7 @@ export const storeFile = defineStore('store', {
        * Нативное приложение или web
        */
       isMobile: Capacitor.isNativePlatform(),
-      platform: Capacitor.getPlatform(),
+      platform: Capacitor.getPlatform() as 'android' | 'ios' | 'web',
       IsNewDevice: false,
 
       /**
