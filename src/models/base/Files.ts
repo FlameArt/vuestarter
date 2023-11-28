@@ -73,7 +73,7 @@ export default class Files {
    public static async openFileWithType(filePath: string, fileType: string) {
       const fileOpenerOptions: FileOpenerOptions = {
          filePath: filePath,
-         //contentType: fileType,
+         contentType: fileType,
       }
 
       console.log("start open the file");
