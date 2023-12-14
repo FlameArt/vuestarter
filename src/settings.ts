@@ -9,6 +9,7 @@ export const settingsFile = defineStore('settings', {
       return {
 
          appName: 'My App',
+         appID: 'com.app.id',
          appURL: () => REST.SERVER,
 
          /**

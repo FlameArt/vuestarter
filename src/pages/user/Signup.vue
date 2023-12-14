@@ -104,7 +104,7 @@ let Signup = () => {
       // Успешная регистрация
       // router.push({ name: 'Home' })
 
-      router.push('/welcome/profile')
+      router.push({ name: 'Home' })
 
     }
     else {
