@@ -82,7 +82,8 @@ let Login = async () => {
   }
   else {
 
-    router.push({ name: 'HomeCatalog' })
+    router.push({ name: 'Home' })
+
   }
 
 };
