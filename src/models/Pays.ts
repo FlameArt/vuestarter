@@ -25,7 +25,12 @@ export default class Pays {
          return;
       }
 
-      window.open(link.data.link);
+      // открываем окно (подходит под policies разные)
+      const windowReference = window.open("about:blank", "_blank")
+      setTimeout(() => {
+         if (windowReference)
+            windowReference.location = link.data.link
+      })
 
       // Ожидаем результата оплаты по ссылке
       const sRedirect = location.protocol + "//" + location.host + "/meditation/" + subscriptionItemID;
