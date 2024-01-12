@@ -87,4 +87,18 @@ export default class Core {
 
   }
 
+  public static getPlatformType() {
+    const userAgent = navigator.userAgent;
+
+    if (/iPhone/i.test(userAgent)) {
+      return "iPhone";
+    } else if (/iPad/i.test(userAgent)) {
+      return "iPad";
+    } else if (/Android/i.test(userAgent)) {
+      return "Android";
+    } else {
+      return "Desktop";
+    }
+  }
+
 }

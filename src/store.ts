@@ -3,6 +3,7 @@ import REST, { Authorized } from 'flamerest'
 import Auth from './models/Auth'
 import { Capacitor } from '@capacitor/core'
 import Analytics from './models/base/Analytics'
+import Core from './models/Core';
 
 export const storeFile = defineStore('store', {
   state: () => {
@@ -22,6 +23,7 @@ export const storeFile = defineStore('store', {
        */
       isMobile: Capacitor.isNativePlatform(),
       platform: Capacitor.getPlatform() as 'android' | 'ios' | 'web',
+      platformType: Core.getPlatformType(),
       IsNewDevice: false,
 
       /**
