@@ -25,12 +25,13 @@ export default class Pays {
          return;
       }
 
-      // открываем окно (подходит под policies разные)
-      const windowReference = window.open("about:blank", "_blank")
+      // открываем окно оплаты (метод подходит под все браузеры)
       setTimeout(() => {
+         const windowReference = window.open("about:blank", "_blank")
          if (windowReference)
             windowReference.location = link.data.link
       })
+
 
       // Ожидаем результата оплаты по ссылке
       const sRedirect = location.protocol + "//" + location.host + "/meditation/" + subscriptionItemID;
