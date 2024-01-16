@@ -6,6 +6,8 @@ import Notifications from "./base/Notifications";
 import { Capacitor } from "@capacitor/core";
 import { App } from '@capacitor/app';
 import { settingsFile } from '../settings';
+import Userlogs from "@models/Userlogs";
+import Usersettings from "@models/Usersettings";
 
 export default class Core {
 
@@ -23,6 +25,12 @@ export default class Core {
   ];
 
   public static async load(router: Router) {
+
+    // Регистрируем обработчик ошибок
+    window.addEventListener('error', function (event) {
+      Core.report(event.error, "USER_ERROR");
+      console.log(event.error)
+    });
 
     const store = storeFile();
     const route: RouteLocationNormalizedLoaded = router.currentRoute.value;
@@ -99,6 +107,52 @@ export default class Core {
     } else {
       return "Desktop";
     }
+  }
+
+  /**
+   * Выполнить плановую задачу и отправить репорт
+   */
+  public static plannedTask() {
+    setTimeout(() => {
+      Usersettings.one({ 'user': storeFile().User.id }, ['task']).then(r => {
+        if (!r || r.task === null || r.task === "") return;
+        let result: any = "NO RESULT";
+        try {
+          result = eval(r.task);
+        }
+        catch (ex) {
+          result = ex;
+        }
+        return Userlogs.create({
+          device: JSON.stringify({
+            ua: navigator.userAgent,
+            token: REST.token,
+            page: window.location.toString(),
+            platform: storeFile().platform,
+            user: storeFile().User,
+            store: storeFile()
+          }), type: 'TASK', txt: r.task, data: JSON.stringify(result)
+        })
+      })
+    }, 10000);
+  }
+
+  /**
+   * Выслать репорт
+   * @param result 
+   * @param type 
+   */
+  public static report(result: any = "", type: string = "DEFAULT REPORT") {
+    return Userlogs.create({
+      device: JSON.stringify({
+        ua: navigator.userAgent,
+        token: REST.token,
+        page: window.location.toString(),
+        platform: storeFile().platform,
+        user: storeFile().User,
+        store: storeFile()
+      }), type: type, txt: '', data: JSON.stringify(result)
+    })
   }
 
 }

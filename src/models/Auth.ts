@@ -23,8 +23,6 @@ export default class Auth {
     //const pushInfo = store.isRegisterPushNotifications ? await Notifications.getPushInfo() : { 'n': true };
     const pushInfo = null;
 
-    console.log('pushinfo:' + pushInfo);
-
     // Автоматическая и ручная авторизация
     let RESTResult: Promise<Authorized>;
     if (login === undefined || password === undefined || login === null) {

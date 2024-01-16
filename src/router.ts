@@ -51,10 +51,19 @@ const routes = [
     name: 'MySettings',
     component: () => import('./pages/user/UserSettings.vue'),
     children: [
+
+      // Мои настройки
       {
         path: '/mysettings/profile',
         name: 'Profile',
         component: () => import('@/components/Profile.vue'),
+      },
+
+      // Сообщить об ошибке
+      {
+        path: '/report',
+        name: 'UserReport',
+        component: () => import('@/components/UserReport.vue'),
       },
     ]
   },

@@ -16,6 +16,7 @@ div.absolute.inset-0.fc.flex-col.flex-start.px-3(v-show="route.name === 'MySetti
     v-icon(icon="mdi-account-circle" size="100" )
   div.text-3xl.mb-8 {{ store.User.name }}
   v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'SProfile'})") Изменить мой профиль
+  v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'UserReport'})") Отправить отчёт об ошибке
 
   div.mt-8
     div(style="list-style: circle;")

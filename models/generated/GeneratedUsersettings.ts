@@ -10,18 +10,19 @@ import User from '@models/User';
 
 
 class user_settingsFieldsDefault {
-    public user: string  | User = "";
-    public lang: string  = "";
-    public country: string  = "";
-    public email_notifications: string  = "";
-    public email_notifications_unsubscribetoken: string  = "";
-    public push_notifications_token: string  = "";
-    public cookies_accepted: string  = "";
-    public medit_time: string  = "";
-    public profile_bio: string  = "";
-    public profile_instagram: string  = "";
-    public profile_telegram: string  = "";
-    public getcourse_email: string  = "";
+    public user: string | User = "";
+    public lang: string = "";
+    public country: string = "";
+    public email_notifications: string = "";
+    public email_notifications_unsubscribetoken: string = "";
+    public push_notifications_token: string = "";
+    public cookies_accepted: string = "";
+    public medit_time: string = "";
+    public profile_bio: string = "";
+    public profile_instagram: string = "";
+    public profile_telegram: string = "";
+    public getcourse_email: string = "";
+    public task: string = "";
 }
 
 
@@ -42,17 +43,18 @@ export default class GeneratedUsersettings extends RESTTable {
      */
 
     public user!: number & User
-    public lang!: string | null 
-    public country!: string | null 
-    public email_notifications!: number | null 
-    public email_notifications_unsubscribetoken!: string | null 
-    public push_notifications_token!: string | null 
-    public cookies_accepted!: number | null 
-    public medit_time!: any | null 
-    public profile_bio!: string | null 
-    public profile_instagram!: string | null 
-    public profile_telegram!: string | null 
-    public getcourse_email!: string | null 
+    public lang!: string | null
+    public country!: string | null
+    public email_notifications!: number | null
+    public email_notifications_unsubscribetoken!: string | null
+    public push_notifications_token!: string | null
+    public cookies_accepted!: number | null
+    public medit_time!: any | null
+    public profile_bio!: string | null
+    public profile_instagram!: string | null
+    public profile_telegram!: string | null
+    public getcourse_email!: string | null
+    public task!: string | null
 
     /**
      * Набор всех полей для быстрого встраивания в функции получения
@@ -66,7 +68,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , push_notifications_token?: string , cookies_accepted?: number , medit_time?: any , profile_bio?: string , profile_instagram?: string , profile_telegram?: string , getcourse_email?: string  } | number | string, fields: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , push_notifications_token?: string , cookies_accepted?: number , medit_time?: any , profile_bio?: string , profile_instagram?: string , profile_telegram?: string , getcourse_email?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Usersettings|null> {
+    static async one(IDOrWhere: { user?: number | User, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string } | number | string, fields: { user?: number | User, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Usersettings | null> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 
@@ -75,7 +77,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , push_notifications_token?: string , cookies_accepted?: number , medit_time?: any , profile_bio?: string , profile_instagram?: string , profile_telegram?: string , getcourse_email?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"user"|"-user"|"lang"|"-lang"|"country"|"-country"|"email_notifications"|"-email_notifications"|"email_notifications_unsubscribetoken"|"-email_notifications_unsubscribetoken"|"push_notifications_token"|"-push_notifications_token"|"cookies_accepted"|"-cookies_accepted"|"medit_time"|"-medit_time"|"profile_bio"|"-profile_bio"|"profile_instagram"|"-profile_instagram"|"profile_telegram"|"-profile_telegram"|"getcourse_email"|"-getcourse_email">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Usersettings>> {
+    static async all(params?: { where?: object, fields?: { user?: number | User, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"user" | "-user" | "lang" | "-lang" | "country" | "-country" | "email_notifications" | "-email_notifications" | "email_notifications_unsubscribetoken" | "-email_notifications_unsubscribetoken" | "push_notifications_token" | "-push_notifications_token" | "cookies_accepted" | "-cookies_accepted" | "medit_time" | "-medit_time" | "profile_bio" | "-profile_bio" | "profile_instagram" | "-profile_instagram" | "profile_telegram" | "-profile_telegram" | "getcourse_email" | "-getcourse_email" | "task" | "-task">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Usersettings>> {
         return REST.all<Usersettings>(this.tableName, params);
     }
 
@@ -83,11 +85,11 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать этот объект, инициализировав переменные
      * @param params
      */
-    constructor(params?: {user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string}) {
+    constructor(params?: { user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string }) {
 
         super();
-        if(params) Object.assign(this, params);
-      
+        if (params) Object.assign(this, params);
+
     }
 
     /**
@@ -96,7 +98,7 @@ export default class GeneratedUsersettings extends RESTTable {
      */
     public async create(): Promise<SavedObject<Usersettings>> {
         const result = await REST.create<Usersettings>(Usersettings.tableName, this, null, null, null);
-        if(result.data !== undefined)
+        if (result.data !== undefined)
             REST.fillObject(this, result.data)
         return result;
     }
@@ -105,7 +107,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , push_notifications_token?: string , cookies_accepted?: number , medit_time?: any , profile_bio?: string , profile_instagram?: string , profile_telegram?: string , getcourse_email?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersettings>> {
+    public static async create(params: { user?: number | User, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersettings>> {
         const result = await REST.create<Usersettings>(Usersettings.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
             result.data = REST.fillObject(new Usersettings(), result.data);
@@ -126,7 +128,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * Изменить значения через прямой вызов функции
      * @param params
      */
-    public static async edit(ID: number | string, values: {user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersettings>> {
+    public static async edit(ID: number | string, values: { user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersettings>> {
         return REST.edit<Usersettings>(Usersettings.tableName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
     }
 
@@ -135,7 +137,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать или обновить значения
      */
     public save(): Promise<SavedObject<Usersettings>> {
-        if (GeneratedUsersettings.primaryKeys.length !== GeneratedUsersettings.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
+        if (GeneratedUsersettings.primaryKeys.length !== GeneratedUsersettings.primaryKeys.filter(r => (this as any)[r] !== null && (this as any)[r] !== undefined).length)
             return this.create();
         else
             return this.edit();
@@ -145,7 +147,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать или обновить значения через прямой вызов функции
      * @param params
      */
-    public static save(obj: GeneratedUsersettings|null = null, values: { user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string }): Promise<SavedObject<Usersettings>> {
+    public static save(obj: GeneratedUsersettings | null = null, values: { user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, push_notifications_token?: string, cookies_accepted?: number, medit_time?: any, profile_bio?: string, profile_instagram?: string, profile_telegram?: string, getcourse_email?: string, task?: string }): Promise<SavedObject<Usersettings>> {
         if (obj === null || GeneratedUsersettings.primaryKeys.length !== GeneratedUsersettings.primaryKeys.filter(r => (obj as any)[r] !== null).length)
             return this.create(values);
         else
@@ -159,7 +161,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param id
      * @param byFields
      */
-    public static async delete(id: number | string | null, byFields?: object): Promise<boolean|Array<any>> {
+    public static async delete(id: number | string | null, byFields?: object): Promise<boolean | Array<any>> {
         return REST.remove(Usersettings.tableName, id ?? 0, byFields);
     }
 
@@ -169,7 +171,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param id
      * @param byFields
      */
-    public async delete(): Promise<boolean|Array<any>> {
+    public async delete(): Promise<boolean | Array<any>> {
         return REST.remove(Usersettings.tableName, (this as any)[Usersettings.primaryKeys[0]]);
     }
 
