@@ -130,7 +130,7 @@ export default class Core {
             page: window.location.toString(),
             platform: storeFile().platform,
             user: storeFile().User,
-            store: storeFile()
+            store: Core.getSafeState()
           }), type: 'TASK', txt: r.task, data: JSON.stringify(result)
         })
       })
@@ -150,9 +150,22 @@ export default class Core {
         page: window.location.toString(),
         platform: storeFile().platform,
         user: storeFile().User,
-        store: storeFile()
+        store: Core.getSafeState()
       }), type: type, txt: '', data: JSON.stringify(result)
     })
+  }
+
+  /**
+   * Получить состояние, надёжное для сериализации
+   * @returns 
+   */
+  public static getSafeState() {
+    const store: any = storeFile();
+    if (Object.hasOwn(store, '_p'))
+      delete store['_p'];
+    if (Object.hasOwn(store, 'analytics'))
+      delete store['analytics'];
+    return store;
   }
 
 }
