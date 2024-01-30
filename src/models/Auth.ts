@@ -50,6 +50,14 @@ export default class Auth {
       return;
     }
 
+    // Недействительный токен
+    if ((tUser as any).status === 401) {
+      localStorage.removeItem("jwttoken");
+      return {
+        success: false
+      };
+    }
+
     // Проверка успешности и возврат данных
     if (tUser.isAuthorized) {
 
