@@ -49,13 +49,10 @@ Auth.WaitAuth().then(() =>
 
 const save = async () => {
   User.edit(store.User.id, { name: state.name, });
-  state.Settings.save();
-  if (route.name === 'WelcomeProfile') {
-    router.push({ name: 'TimeSelector' })
-  }
-  else {
-    router.push({ name: 'MySettings' })
-  }
+  state.Settings.save().then(r => {
+    store.User.name = state.name
+  });
+  router.push({ name: 'MySettings' })
 }
 
 </script>

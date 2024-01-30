@@ -15,7 +15,7 @@ div.absolute.inset-0.fc.flex-col.flex-start.px-3(v-show="route.name === 'MySetti
   v-avatar.mb-2.mt-12(color="gray"  size="100")
     v-icon(icon="mdi-account-circle" size="100" )
   div.text-3xl.mb-8 {{ store.User.name }}
-  v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'SProfile'})") Изменить мой профиль
+  v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'Profile'})") Изменить мой профиль
   v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'UserReport'})") Отправить отчёт об ошибке
 
   div.mt-8
