@@ -21,7 +21,7 @@ const routes = [
       {
         path: '/my',
         name: 'MySettings',
-        component: () => import('./pages/user/UserSettings.vue'),
+        component: () => import('@/components/UserSettings.vue'),
         children: [
 
           // Мои настройки

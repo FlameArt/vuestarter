@@ -5,7 +5,7 @@ v-main.anims(class="desktop:desktopwidth mobile:mobilewidth" :class="store.platf
   router-view
 
   // Кнопки снизу
-  v-bottom-navigation.adaptive-navigation.testnav(grow style='opacity: 0.9; padding-bottom: env(safe-area-inset-bottom)')
+  v-bottom-navigation.adaptive-navigation.testnav(v-if="store.User.id !== 0"  grow style='opacity: 0.9; padding-bottom: env(safe-area-inset-bottom)')
     v-btn(value='home' @click="router.push({name: 'HomePage'})")
       img.w-8.h-8(src="/img/menu-home.svg")
     v-btn(value='settings' @click="router.push({name: 'MySettings'})")

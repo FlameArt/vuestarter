@@ -40,7 +40,7 @@ import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } fr
 import { ArrowLeftCircleIcon, XCircleIcon } from '@icons/24/solid'
 import Profile from '@/components/Profile.vue';
 import Header from '@/components/Header.vue';
-import Auth from '../../models/Auth';
+import Auth from '@/models/Auth';
 
 const store = storeFile(), router = useRouter(), route = useRoute();
 
