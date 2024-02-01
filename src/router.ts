@@ -8,6 +8,31 @@ const routes = [
 
     children: [
 
+      /**
+       * Настройки пользователя
+       */
+      {
+        path: '/my',
+        name: 'MySettings',
+        component: () => import('./pages/user/UserSettings.vue'),
+        children: [
+
+          // Мои настройки
+          {
+            path: '/mysettings/profile',
+            name: 'Profile',
+            component: () => import('@/components/Profile.vue'),
+          },
+
+          // Сообщить об ошибке
+          {
+            path: '/report',
+            name: 'UserReport',
+            component: () => import('@/components/UserReport.vue'),
+          },
+        ]
+      },
+
       // админка
       {
         path: '/admin/',
@@ -43,30 +68,7 @@ const routes = [
 
   },
 
-  /**
-   * Настройки пользователя
-   */
-  {
-    path: '/my',
-    name: 'MySettings',
-    component: () => import('./pages/user/UserSettings.vue'),
-    children: [
 
-      // Мои настройки
-      {
-        path: '/mysettings/profile',
-        name: 'Profile',
-        component: () => import('@/components/Profile.vue'),
-      },
-
-      // Сообщить об ошибке
-      {
-        path: '/report',
-        name: 'UserReport',
-        component: () => import('@/components/UserReport.vue'),
-      },
-    ]
-  },
 
 
   // Логин

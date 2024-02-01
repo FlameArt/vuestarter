@@ -11,6 +11,7 @@ onMounted(() => {
 
 <template>
   <v-app>
+    <!-- TODO: тут добавить не сброс состояния на странице авторизаций итд-->
     <router-view v-if="!settingsFile().authRequired || store.User.isLoaded" />
   </v-app>
 </template>

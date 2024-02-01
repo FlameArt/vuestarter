@@ -1,9 +1,20 @@
 <template lang="pug">
-.flex.justify-center.h-screen.items-center.flex-col
-  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg(class="desktop:w-feed-lg")
-    | Welcome!
+
+v-main.anims(class="desktop:desktopwidth mobile:mobilewidth" :class="store.platform === 'ios' ? ' mt-[20px] ' : ''")
+
+  .flex.justify-center.h-screen.items-center.flex-col
+    .px-8.py-6.mt-4.text-left.bg-white.shadow-lg(class="desktop:w-feed-lg")
+      | Welcome!
 
   router-view
+
+  // Кнопки снизу
+  v-bottom-navigation.adaptive-navigation.testnav(grow style='opacity: 0.9; padding-bottom: env(safe-area-inset-bottom)')
+    v-btn(value='home' @click="router.push({name: 'HomeCatalog'})")
+      img.w-8.h-8(src="/img/menu-home.svg")
+    v-btn(value='settings' @click="router.push({name: 'MySettings'})")
+      img.w-8.h-8(src="/img/menu-settings.svg")
+
 
 </template>
 
