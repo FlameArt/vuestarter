@@ -8,6 +8,13 @@ const routes = [
 
     children: [
 
+      {
+        path: '',
+        alias: ['/catalog', '/home', '/home/catalog/buy'],
+        name: 'HomePage',
+        component: () => import('@/app/HomePage.vue'),
+      },
+
       /**
        * Настройки пользователя
        */
