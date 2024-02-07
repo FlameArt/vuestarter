@@ -23,12 +23,12 @@
     "vuetify": "^3.4.3"
   },
   "devDependencies": {
+    "@capacitor-community/file-opener": "^1.0.5",
     "@capacitor/android": "^5.5.0",
     "@capacitor/app": "^5.0.6",
     "@capacitor/assets": "^3.0.1",
     "@capacitor/cli": "^5.5.0",
     "@capacitor/core": "^5.5.0",
-    "@capacitor-community/file-opener": "^1.0.5",
     "@capacitor/device": "^5.0.6",
     "@capacitor/filesystem": "^5.1.4",
     "@capacitor/ios": "^5.5.0",
@@ -36,6 +36,7 @@
     "@heroicons/vue": "^2.0.18",
     "@types/lodash-es": "^4.17.10",
     "@types/lodash.merge": "^4.6.8",
+    "@types/vue-select": "^3.16.8",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
     "@vitejs/plugin-vue": "^4.4.0",
