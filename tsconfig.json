@@ -30,6 +30,9 @@
     "skipLibCheck": true,
     "allowJs": true,
     "experimentalDecorators": true,
+    "types": [
+      "@intlify/unplugin-vue-i18n/messages"
+    ]
   },
   "include": [
     "src/**/*.ts",

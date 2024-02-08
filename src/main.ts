@@ -3,6 +3,7 @@ import App from './App.vue'
 import './index.css'
 import { createPinia } from 'pinia'
 import router from "./router";
+import { createI18n } from 'vue-i18n'
 
 import 'vue-universal-modal/dist/index.css'
 import VueUniversalModal from 'vue-universal-modal'
@@ -42,11 +43,20 @@ REST.unauthorized_callback = () => {
 // АВТОЛОГИН
 if (Auth.CheckAutologin()) throw "autologin";
 
+// Выбор языка, с загрузкой сохранённого
+let userLang = navigator.language.split('-')[0];
+if (localStorage.getItem('selectedLanguage')) {
+  userLang = localStorage.getItem('selectedLanguage') ?? 'en';
+}
 
 createApp(App)
   .use(createPinia())
   .use(router)
   .use(vuetify)
+  .use(createI18n({
+    locale: userLang,
+    fallbackLocale: 'en',
+  }))
   .use(VueUniversalModal, { teleportTarget: '#my-modals', modalComponent: 'CustomModal' })
   .mount('#app')
 

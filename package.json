@@ -34,6 +34,7 @@
     "@capacitor/ios": "^5.5.0",
     "@capacitor/push-notifications": "^5.1.0",
     "@heroicons/vue": "^2.0.18",
+    "@intlify/unplugin-vue-i18n": "^2.0.0",
     "@types/lodash-es": "^4.17.10",
     "@types/lodash.merge": "^4.6.8",
     "@types/vue-select": "^3.16.8",
@@ -51,6 +52,7 @@
     "tailwindcss": "^3.3.4",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",
+    "vue-i18n": "^9.9.1",
     "vue-tsc": "^1.8.21",
     "vue-universal-modal": "^1.1.4"
   },
