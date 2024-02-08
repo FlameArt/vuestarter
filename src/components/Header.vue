@@ -2,7 +2,10 @@
 
 .fb.w-full.relative.mt-2(style="z-index: 99999;")
   img.cursor-pointer.fill-black(src="/src/assets/logo.png" class="h-[25px] hover:opacity-50"  @click="router.push({name: 'Home'})")
-  UserCircleIcon.w-4.h-4.fill-slate-400(class="hover:opacity-60")
+  .fc
+    UserCircleIcon.mr-2.w-4.h-4.fill-slate-400(class="hover:opacity-60")
+    .text-slate-600(v-if="Auth.isAuthorized()") {{ store.User.name }}
+    .text-slate-600.cursor-pointer.underline(v-else="Auth.isAuthorized()" @click="router.push({name: 'Auth'})") {{ t("Войти") }}
   //img.cursor-pointer(@click="router.push({name:'MyMessages'})" :src="'/img/notification_'+props.file+'.svg'" class="hover:opacity-70").fill-slate-400.w-8.h-8
   .fc
     .text-slate-500 {{ t('language') }}
@@ -22,6 +25,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref, nextTick, watch } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import Auth from '@/models/Auth';
 
 
 // Иконки
@@ -53,13 +57,16 @@ watch(locale, (newVal) => {
 <i18n>
 {
   "en": {
-    "language": "Language",
+    "Язык": "Language",
+    "Войти": "Login",
   },  
   "ru": {
-    "language": "Язык",
+    "Язык": "Язык",
+    "Войти": "Войти",
   },
   "ja": {
-    "language": "言語",
+    "Язык": "言語",
+    "Войти": "ログイン",
   }
 }
 </i18n>
