@@ -39,6 +39,7 @@ opts.Remove.can = false;
 
 opts.set("id", { title: 'ID', Popup: { isEnabled: false } });
 opts.set("name", { title: 'Выводимое имя', Popup: {} });
+opts.set("desc", { title: 'Описание', Popup: {} });
 opts.set("username", { title: 'Никнейм', Table: { isShow: false }, Popup: { isShow: true, isEnabled: false } });
 opts.set("email", { title: 'Емеил', Table: { isShow: true }, Popup: { isShow: true } });
 opts.set("phone", { title: 'Телефон', Table: { isShow: true }, Popup: { isShow: true } });
@@ -46,6 +47,8 @@ opts.delete(["auth_key", "password_hash", "password_reset_token", "avatar", "sta
 opts.delete("user_hash");
 opts.delete("id");
 opts.delete("phone");
+opts.delete("install_uuid");
+opts.delete("license_key");
 
 // Загружаем первичные данные
 Model.all({ sort: ['id'] }).then(r =>

@@ -8,7 +8,7 @@
     .text-slate-600.cursor-pointer.underline(v-else="Auth.isAuthorized()" @click="router.push({name: 'Auth'})") {{ t("Войти") }}
   //img.cursor-pointer(@click="router.push({name:'MyMessages'})" :src="'/img/notification_'+props.file+'.svg'" class="hover:opacity-70").fill-slate-400.w-8.h-8
   .fc
-    .text-slate-500 {{ t('language') }}
+    .text-slate-500 {{ t('Язык') }}
     select.ml-3(v-model='locale')
       option(value='en') English
       option(value='ru') Русский
@@ -58,7 +58,7 @@ watch(locale, (newVal) => {
 {
   "en": {
     "Язык": "Language",
-    "Войти": "Login",
+    "Войти": "Sign in",
   },  
   "ru": {
     "Язык": "Язык",
