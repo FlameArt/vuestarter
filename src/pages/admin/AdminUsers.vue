@@ -43,7 +43,14 @@ opts.set("desc", { title: 'Описание', Popup: {} });
 opts.set("username", { title: 'Никнейм', Table: { isShow: false }, Popup: { isShow: true, isEnabled: false } });
 opts.set("email", { title: 'Емеил', Table: { isShow: true }, Popup: { isShow: true } });
 opts.set("phone", { title: 'Телефон', Table: { isShow: true }, Popup: { isShow: true } });
-opts.delete(["auth_key", "password_hash", "password_reset_token", "avatar", "status", "created_at", "updated_at", "verification_token"]);
+opts.set("created_at", {
+  title: 'Регистрация', Table: {
+    isShow: true, value: (row, column) => {
+      return new Date(parseInt(row[column.name]) * 1000).toISOString().replaceAll("T", " ")
+    },
+  }, Popup: { isShow: true }
+});
+opts.delete(["auth_key", "password_hash", "password_reset_token", "avatar", "status", "updated_at", "verification_token"]);
 opts.delete("user_hash");
 opts.delete("id");
 opts.delete("phone");
