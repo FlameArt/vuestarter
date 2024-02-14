@@ -37,7 +37,7 @@ const opts = new TableOpts;
 opts.Add.can = false;
 opts.Remove.can = false;
 
-opts.set("id", { title: 'ID', Popup: { isEnabled: false } });
+opts.set("id", { title: 'ID', Popup: { isEnabled: false }, Table: { width: 50 } });
 opts.set("name", { title: 'Выводимое имя', Popup: {} });
 opts.set("desc", { title: 'Описание', Popup: {} });
 opts.set("username", { title: 'Никнейм', Table: { isShow: false }, Popup: { isShow: true, isEnabled: false } });
@@ -46,13 +46,12 @@ opts.set("phone", { title: 'Телефон', Table: { isShow: true }, Popup: { i
 opts.set("created_at", {
   title: 'Регистрация', Table: {
     isShow: true, value: (row, column) => {
-      return new Date(parseInt(row[column.name]) * 1000).toISOString().replaceAll("T", " ")
+      return new Date(parseInt(row[column.name]) * 1000).toISOString().replaceAll("T", " ").split(".")[0]
     },
   }, Popup: { isShow: true }
 });
 opts.delete(["auth_key", "password_hash", "password_reset_token", "avatar", "status", "updated_at", "verification_token"]);
 opts.delete("user_hash");
-opts.delete("id");
 opts.delete("phone");
 opts.delete("install_uuid");
 opts.delete("license_key");

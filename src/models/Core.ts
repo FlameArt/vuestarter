@@ -37,6 +37,7 @@ export default class Core {
 
     store.isMobile = Capacitor.isNativePlatform();
     store.analytics.router = router;
+    store.analytics.init();
 
     // Подгружаем механики мобильных приложений
     if (store.isMobile) this.RegisterMobileEvents(router);
