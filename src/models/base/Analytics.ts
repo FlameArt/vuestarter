@@ -63,7 +63,7 @@ export default class Analytics {
       document.head.appendChild(el);
    }
 
-   public static track(options: { category?: string, label?: string, value?: string } = {}) {
+   public static track(options: { action?: string, category?: string, label?: string, value?: string } = {}) {
       const store = storeFile();
       // @ts-expect-error oks
       if (store.analytics.yandexID !== null && typeof ym !== 'undefined') {
@@ -73,7 +73,7 @@ export default class Analytics {
       // @ts-expect-error oks
       if (store.analytics.googleID !== null && typeof gtag === 'function') {
          // @ts-expect-error oks
-         gtag('event', action, {
+         gtag('event', options.action ?? 'default', {
             'event_category': options.category ?? 'all',
             'event_label': options.label ?? 'default',
             'value': options.value
