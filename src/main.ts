@@ -49,7 +49,7 @@ if (localStorage.getItem('selectedLanguage')) {
   userLang = localStorage.getItem('selectedLanguage') ?? 'en';
 }
 
-createApp(App)
+const app = createApp(App)
   .use(createPinia())
   .use(router)
   .use(vuetify)
@@ -58,7 +58,26 @@ createApp(App)
     fallbackLocale: 'en',
   }))
   .use(VueUniversalModal, { teleportTarget: '#my-modals', modalComponent: 'CustomModal' })
-  .mount('#app')
+
+// отлавливаем все ошибки внутри компонентов
+app.config.errorHandler = function (err: any, vm: any, info: string) {
+
+  // err: сама ошибка, которая была брошена
+  // vm: экземпляр Vue компонента, в котором произошла ошибка
+  // info: дополнительная информация об ошибке
+  if (import.meta.env.MODE === 'production') {
+    console.error('Произошла ошибка:', err, info);
+    Core.report({ message: err.message, stack: err.stack, info: info }, "COMPONENT_ERROR")
+  } else {
+    console.error('Произошла ошибка:', err, info);
+    Core.report({ message: err.message, stack: err.stack, info: info }, "COMPONENT_ERROR")
+  }
+
+};
+
+// После всех настроек монтируем
+app.mount('#app')
+
 
 // самая быстрая загрузка до всех инициализаций (кроме стора)
 Core.load(router);

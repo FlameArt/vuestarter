@@ -39,6 +39,7 @@ div
 
 import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import Auth from '@/models/Auth';
+import Analytics from '@/models/base/Analytics';
 const store = storeFile(); const router = useRouter(), route = useRoute();
 
 // Состояние компонента
@@ -59,6 +60,7 @@ const ResetPasswordRequest = async () => {
     return;
   }
   else {
+    Analytics.track('resetpasswordrequest_' + (store.platform), { category: 'users' });
     state.isGoodResult = true;
   }
 }

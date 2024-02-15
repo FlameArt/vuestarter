@@ -63,21 +63,31 @@ export default class Analytics {
       document.head.appendChild(el);
    }
 
-   public static track(options: { action?: string, category?: string, label?: string, value?: string } = {}) {
-      const store = storeFile();
-      // @ts-expect-error oks
-      if (store.analytics.yandexID !== null && typeof ym !== 'undefined') {
+   /**
+    * Отправить данные в аналитику по идентификатору события
+    * @param action Идентификатор события
+    * @param options Доп параметры [необязательно]
+    */
+   public static track(action: string, options: { category?: string, label?: string, value?: string } = {}) {
+      try {
+         const store = storeFile();
          // @ts-expect-error oks
-         ym(store.analytics.yandexID, 'hit', router.currentRoute.value, options);
+         if (store.analytics.yandexID !== null && typeof ym !== 'undefined') {
+            // @ts-expect-error oks
+            ym(store.analytics.yandexID, 'reachGoal', action);
+         }
+         // @ts-expect-error oks
+         if (store.analytics.googleID !== null && typeof gtag === 'function') {
+            // @ts-expect-error oks
+            gtag('event', action ?? 'default', {
+               'event_category': options.category ?? 'all',
+               'event_label': options.label ?? 'default',
+               'value': options.value
+            });
+         }
       }
-      // @ts-expect-error oks
-      if (store.analytics.googleID !== null && typeof gtag === 'function') {
-         // @ts-expect-error oks
-         gtag('event', options.action ?? 'default', {
-            'event_category': options.category ?? 'all',
-            'event_label': options.label ?? 'default',
-            'value': options.value
-         });
+      catch (ex) {
+         // no actions
       }
    }
 

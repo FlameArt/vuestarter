@@ -83,6 +83,7 @@ div
 <script setup lang="ts">
 import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import Auth from '@/models/Auth';
+import Analytics from '@/models/base/Analytics';
 
 const store = storeFile();
 const router = useRouter(),
@@ -101,9 +102,10 @@ let Signup = () => {
   Auth.Signup(state.email, state.passw, state.name).then(res => {
 
     if (res.success === true) {
-      // Успешная регистрация
-      // router.push({ name: 'Home' })
 
+      // Успешная регистрация
+
+      Analytics.track('register_' + (store.platform), { category: 'users' });
       router.push({ name: 'Home' })
 
     }
