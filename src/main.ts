@@ -69,8 +69,7 @@ app.config.errorHandler = function (err: any, vm: any, info: string) {
     console.error('Произошла ошибка:', err, info);
     Core.report({ message: err.message, stack: err.stack, info: info }, "COMPONENT_ERROR")
   } else {
-    console.error('Произошла ошибка:', err, info);
-    Core.report({ message: err.message, stack: err.stack, info: info }, "COMPONENT_ERROR")
+    // empty
   }
 
 };
