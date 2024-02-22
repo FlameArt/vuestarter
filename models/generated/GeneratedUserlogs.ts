@@ -56,7 +56,7 @@ export default class GeneratedUserlogs extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string  } | number | string, fields: {id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Row<Userlogs>> {
+    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string  } | number | string, fields: {id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Userlogs | null> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 

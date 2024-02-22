@@ -50,7 +50,7 @@ export default class GeneratedUserbalances extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , balance?: number  } | number | string, fields: {id?: number , user?: number  | User, type?: string , balance?: number } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Row<Userbalances>> {
+    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , balance?: number  } | number | string, fields: {id?: number , user?: number  | User, type?: string , balance?: number } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Userbalances | null> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 

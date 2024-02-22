@@ -49,7 +49,7 @@ export default class Pays {
             alert('Ошибка платежа');
             return false;
          }
-         if (res.status === 'NEW') continue;
+         if (res.data?.status === 'NEW') continue;
          if (res.status === 'PAYED' || res.status === 'COMPLETED') {
             // тут можно вставить красивую СПАСИБО ЗА ПОКУПКУ ЧЕРЕЗ 3 СЕК БУДЕТЕ ПЕРЕНАПРАВЛЕНЫ
             await storeFile().update();

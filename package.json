@@ -12,7 +12,7 @@
     "ios": "rmdir ios /s /q & npm run build && npx cap add ios && npx cap sync && npx capacitor-assets generate --ios && npx cap copy ios && cd ios/App/ && pod reintegrate && pod install && cd ./../../ && npx cap open ios"
   },
   "dependencies": {
-    "flamerest": "^1.0.97",
+    "flamerest": "^1.0.98",
     "flameresttable": "^1.0.95",
     "pinia": "^2.1.7",
     "pug": "github:FlameArt/pug-tailwind-only",

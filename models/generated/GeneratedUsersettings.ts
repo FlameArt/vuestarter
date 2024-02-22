@@ -56,7 +56,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string  } | number | string, fields: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Row<Usersettings>> {
+    static async one(IDOrWhere: { user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string  } | number | string, fields: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Usersettings | null> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 

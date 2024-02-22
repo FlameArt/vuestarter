@@ -55,7 +55,7 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string  } | number | string, fields: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Row<Usersubscriptions>> {
+    static async one(IDOrWhere: { id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string  } | number | string, fields: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Usersubscriptions | null> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 

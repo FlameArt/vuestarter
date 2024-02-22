@@ -67,7 +67,7 @@ export default class GeneratedSubscriptions extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , itemTable?: string , item?: number , name?: string , desc?: string , price?: number , currency?: string , countItems?: number , periodDays?: number , periodMonths?: number , trialDays?: number , orderType?: string , balanceType?: string  } | number | string, fields: {id?: number , itemTable?: string , item?: number , name?: string , desc?: string , price?: number , currency?: string , countItems?: number , periodDays?: number , periodMonths?: number , trialDays?: number , orderType?: string , balanceType?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Row<Subscriptions>> {
+    static async one(IDOrWhere: { id?: number , itemTable?: string , item?: number , name?: string , desc?: string , price?: number , currency?: string , countItems?: number , periodDays?: number , periodMonths?: number , trialDays?: number , orderType?: string , balanceType?: string  } | number | string, fields: {id?: number , itemTable?: string , item?: number , name?: string , desc?: string , price?: number , currency?: string , countItems?: number , periodDays?: number , periodMonths?: number , trialDays?: number , orderType?: string , balanceType?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Subscriptions | null> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 
