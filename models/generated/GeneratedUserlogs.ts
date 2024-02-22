@@ -1,4 +1,4 @@
-import REST, { Rows, SavedObject } from 'flamerest';
+import REST, { Rows, Row, SavedObject } from 'flamerest';
 import RESTTable from './RESTTable';
 import { ref, watch } from 'vue';
 
@@ -6,11 +6,12 @@ import { ref, watch } from 'vue';
 import Userlogs from '@models/Userlogs';
 
 
+import User from '@models/User';
 
 
 class user_logsFieldsDefault {
     public id: string  = "";
-    public user: string  = "";
+    public user: string  | User = "";
     public type: string  = "";
     public txt: string  = "";
     public data: string  = "";
@@ -36,7 +37,7 @@ export default class GeneratedUserlogs extends RESTTable {
      */
 
     public id!: number
-    public user!: number | null 
+    public user!: number & User | null 
     public type!: string | null 
     public txt!: string | null 
     public data!: any | null 
@@ -55,7 +56,7 @@ export default class GeneratedUserlogs extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number , type?: string , txt?: string , data?: any , device?: any , dt?: string  } | number | string, fields: {id?: number , user?: number , type?: string , txt?: string , data?: any , device?: any , dt?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Userlogs|null> {
+    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string  } | number | string, fields: {id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Row<Userlogs>> {
         return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
     }
 
@@ -64,7 +65,7 @@ export default class GeneratedUserlogs extends RESTTable {
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {id?: number , user?: number , type?: string , txt?: string , data?: any , device?: any , dt?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"type"|"-type"|"txt"|"-txt"|"data"|"-data"|"device"|"-device"|"dt"|"-dt">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Userlogs>> {
+    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"type"|"-type"|"txt"|"-txt"|"data"|"-data"|"device"|"-device"|"dt"|"-dt">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Userlogs>> {
         return REST.all<Userlogs>(this.tableName, params);
     }
 
@@ -94,7 +95,7 @@ export default class GeneratedUserlogs extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {id?: number , user?: number , type?: string , txt?: string , data?: any , device?: any , dt?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Userlogs>> {
+    public static async create(params: {id?: number , user?: number  | User, type?: string , txt?: string , data?: any , device?: any , dt?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Userlogs>> {
         const result = await REST.create<Userlogs>(Userlogs.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
             result.data = REST.fillObject(new Userlogs(), result.data);
