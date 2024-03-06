@@ -12,6 +12,7 @@ export const storeFile = defineStore('store', {
         id: 0,
         role: 'Guest',
         name: 'name',
+        user_hash: '',
         lang: '',
         country: '',
         avatar: '',
