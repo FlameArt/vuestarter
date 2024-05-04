@@ -4,7 +4,7 @@ import { Directory, Filesystem } from '@capacitor/filesystem';
 
 export default class Files {
 
-   public static async SaveAndOpenFile(data: Blob, filename: string, mime: string) {
+   public static async SaveAndOpenFile(data: Blob, filename: string, mime: string, folder = Directory.Documents) {
       switch (storeFile().platform) {
 
          case 'web': {
@@ -23,7 +23,7 @@ export default class Files {
          case 'ios':
          case 'android': {
 
-            const filepath = await this.SaveFileAndGetPath(filename, data, Directory.Documents);
+            const filepath = await this.SaveFileAndGetPath(filename, data, folder);
             this.openFileWithType(filepath, mime);
 
             break;

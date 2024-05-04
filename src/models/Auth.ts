@@ -33,6 +33,17 @@ export default class Auth {
 
     // Шлём авторизацию на ендпоин
     let tUser: Authorized | null = null;
+    let tgUser: any | null = null;
+
+    // Сперва авторизуем тг 
+    // если его нет, мгновенно возвращается ответ
+    // Если авторизация успешно, он сохранил токен, который будет запрошен далее
+    try {
+      tgUser = await this.Auth_TelegramWebApp();
+    }
+    catch (ex) {
+      /* empty */
+    }
 
     try {
       tUser = await RESTResult;
@@ -289,6 +300,77 @@ export default class Auth {
     if (result.data.result !== "success") {
       alert('Не удалось обновить настройки: ' + result?.data?.errors?.join(". "))
     }
+
+  }
+
+  public static Auth_TelegramWebApp() {
+
+    const store = storeFile();
+
+    // Тестим на телеграм, чтобы не загружать большую библиотеку всем
+    if (store.platform !== 'web') return null;
+    if (!this.isWebView()) return null;
+
+    // 
+    return new Promise((res, err) => {
+
+      // грузим скрипт и проверяем
+      const script: any = document.createElement("script")
+      script.type = "text/javascript";
+
+      script.onload = async () => {
+
+        const tgUser = (window as any).Telegram?.WebApp?.initDataUnsafe?.user
+
+        // не удалось подгрузить данные юзера или это не телеграм
+        if (typeof tgUser !== 'object') res(null);
+
+        // Проводим авторегистрацию
+
+        // К существующему юзеру просто привязка акка
+        if (store.User.id !== 0) {
+          res(this.Auth_telegram());
+        }
+
+      };
+
+      // Прогружаем
+      script.src = "https://telegram.org/js/telegram-web-app.js";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })
+  }
+
+  static isWebView() {
+    const ua = navigator.userAgent;
+    // Веб тестируем на WebView, чтобы не грузить всем библиотеку
+    const webviewRegExp = new RegExp('(' + [
+      // if it says it's a webview, let's go with that
+      'WebView',
+      // iOS webview will be the same as safari but missing "Safari"
+      '(iPhone|iPod|iPad)(?!.*Safari)',
+      // Android Lollipop and Above: webview will be the same as native but it will contain "wv"
+      // Android KitKat to Lollipop webview will put Version/X.X Chrome/{version}.0.0.0
+      'Android.*(;\\s+wv|Version/\\d.\\d\\s+Chrome/\\d+(\\.0){3})',
+      // old chrome android webview agent
+      'Linux; U; Android'
+    ].join('|') + ')', 'ig');
+
+    return !!ua.match(webviewRegExp);
+  }
+
+  static async Auth_telegram() {
+
+    const tg = (window as any).Telegram?.WebApp?.initDataUnsafe
+    const tgUser = tg?.user
+
+    const res: any = await REST.request(REST.SERVER + "/auth/tgauth", Object.assign({}, tgUser, {
+      start_param: tg.start_param,
+      hash: tg.hash,
+      initData: (window as any).Telegram?.WebApp?.initData
+    }))
+
+    if (typeof res?.data?.token === 'string')
+      Auth.SaveToken(res.data.token);
 
   }
 
