@@ -267,7 +267,6 @@ export default class Auth {
    * Обновить старый токен только если разрешение было дано
    */
   public static async updatePushToken() {
-    if (storeFile().platform === 'web') return;
     const perm = await Notifications.checkPermissions();
     if (perm.receive === 'granted') {
       this.RequestAndSavePushToken();

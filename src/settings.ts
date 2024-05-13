@@ -30,6 +30,13 @@ export const settingsFile = defineStore('settings', {
           * Нужны ли пуш нотификации
           */
          isRegisterPushNotifications: false,
+
+
+         /**
+          * Ключ для пушей на веб-устройства 
+          */
+         webNotificationsServerVAPIDKey: '',
+
       }
    }
 });

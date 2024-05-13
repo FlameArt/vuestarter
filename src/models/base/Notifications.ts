@@ -3,6 +3,9 @@ import { Capacitor } from '@capacitor/core';
 import { Device } from '@capacitor/device';
 
 import REST from 'flamerest';
+import { storeFile } from '@/store';
+import Webpush from 'webpush-client'
+import { settingsFile } from '@/settings';
 
 export default class Notifications {
 
@@ -92,6 +95,28 @@ export default class Notifications {
 
   }
 
+  public static async registerWeb() {
+    const wp = Webpush;
+
+    return wp.create({
+      serviceWorkerPath: '/webpush-sw.js',
+      serverKey: settingsFile().webNotificationsServerVAPIDKey,
+    })
+      .then((WebPushClient: any) => {
+        // do stuff with WebPushClient
+        console.log(WebPushClient);
+        return WebPushClient.subscribe()
+      })
+      .then((r: any) => {
+        const res = r.toJSON();
+        return {
+          token: res.endpoint,
+          token_p256dh: res.keys.p256dh,
+          token_auth: res.keys.auth,
+        }
+      })
+  }
+
   public static async getToken() {
     try {
       REST.pushNotificationToken = await Notifications.register();
@@ -109,8 +134,17 @@ export default class Notifications {
 
   public static async getPushInfo() {
 
+    let webTokens: any = null;
+
     try {
-      REST.pushNotificationToken = await Notifications.register();
+      if (storeFile().isMobile)
+        // mobile
+        REST.pushNotificationToken = await Notifications.register();
+      else {
+        // web
+        REST.pushNotificationToken = await Notifications.registerWeb();
+        webTokens = REST.pushNotificationToken;
+      }
     }
     catch (ex) {
       console.log(ex);
@@ -124,7 +158,9 @@ export default class Notifications {
       uuid: (await Device.getId()).identifier,
       platform: Capacitor.getPlatform(),
       browser: this.getBrowserName(),
-      token: REST.pushNotificationToken,
+      token: webTokens?.token ?? REST.pushNotificationToken,
+      token_p256dh: webTokens?.token_p256dh ?? null,
+      token_auth: webTokens?.token_p256dh ?? null,
     }
 
     return pushTokenInfo;

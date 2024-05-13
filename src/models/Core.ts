@@ -60,6 +60,7 @@ export default class Core {
       if (settingsFile().isRegisterPushNotifications) {
 
         // На новом девайсе чекаем сразу пермишены, но не запрашиваем автоматом
+        // TODO: для веба так же проверить
         if (store.platform !== 'web') {
           const perm = await Notifications.checkPermissions();
           store.IsNewDevice = perm.receive === 'prompt';
