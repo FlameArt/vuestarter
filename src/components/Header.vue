@@ -50,13 +50,13 @@ const state = reactive({
 // Меняем локаль по селектору
 const globalLocale = computed({
   get() {
-    return store.locale.i18n.global.locale.value;
+    return store.locale.i18n.global.locale;
   },
   set(value: any) {
     store.locale.locale = value;
     localStorage.setItem('selectedLanguage', value)
     //locale.value = value; // Обновляем локаль i18n
-    store.locale.i18n.global.locale.value = value;
+    store.locale.i18n.global.locale = value;
   }
 });
 
