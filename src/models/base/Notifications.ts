@@ -4,6 +4,7 @@ import { Device } from '@capacitor/device';
 
 import REST from 'flamerest';
 import { storeFile } from '@/store';
+// @ts-expect-error types
 import Webpush from 'webpush-client'
 import { settingsFile } from '@/settings';
 

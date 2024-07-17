@@ -18,6 +18,7 @@ import * as directives from 'vuetify/directives'
 import { md3 } from 'vuetify/blueprints'
 import Auth from './models/Auth';
 import { settingsFile } from './settings';
+import { storeFile } from './store';
 
 const vuetify = createVuetify({
   components,
@@ -43,20 +44,40 @@ REST.unauthorized_callback = () => {
 // АВТОЛОГИН
 if (Auth.CheckAutologin()) throw "autologin";
 
+// Создаём приложение и активируем стор
+const app = createApp(App)
+  .use(createPinia());
+
+// Кастомная логика подключения плагинов
+const store = storeFile();
+
 // Выбор языка, с загрузкой сохранённого
 let userLang = navigator.language.split('-')[0];
 if (localStorage.getItem('selectedLanguage')) {
   userLang = localStorage.getItem('selectedLanguage') ?? 'en';
 }
 
-const app = createApp(App)
-  .use(createPinia())
+// Локаль
+store.locale.locale = userLang;
+
+const i18nPlugin = createI18n({
+  locale: store.locale.locale,
+  fallbackLocale: 'en',
+  globalInjection: true,
+  legacy: false,
+});
+store.locale.i18n = i18nPlugin;
+
+// Глобально меняем локаль в плагине при изменении значения
+store.$subscribe((mutation, state) => {
+  i18nPlugin.global.locale.value = state.locale.locale as any;
+});
+
+// загружаем плагины
+app
   .use(router)
   .use(vuetify)
-  .use(createI18n({
-    locale: userLang,
-    fallbackLocale: 'en',
-  }))
+  .use(i18nPlugin)
   .use(VueUniversalModal, { teleportTarget: '#my-modals', modalComponent: 'CustomModal' })
 
 // отлавливаем все ошибки внутри компонентов

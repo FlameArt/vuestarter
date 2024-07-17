@@ -24,13 +24,27 @@ export const storeFile = defineStore('store', {
        */
       isMobile: Capacitor.isNativePlatform(),
       platform: Capacitor.getPlatform() as 'android' | 'ios' | 'web',
-      platformType: Core.getPlatformType(),
+      platformType: Core.getPlatformType() as "iPhone" | "iPad" | "Android" | "Desktop" | "TelegramWebApp",
       IsNewDevice: false,
 
       /**
        * Модуль аналитики
        */
       analytics: new Analytics,
+
+      notifications: {
+        download: {
+          status: 'no' as 'no' | 'downloaded' | 'process'
+        }
+      },
+
+      /**
+       * Настройки локали
+       */
+      locale: {
+        i18n: null as any,
+        locale: 'en'
+      },
 
     }
 
