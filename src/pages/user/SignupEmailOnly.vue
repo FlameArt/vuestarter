@@ -89,6 +89,7 @@ let Signup = () => {
     "ВОЙТИ": "SIGN IN",
     "УЖЕ ЕСТЬ АККАУНТ?": "ALREADY HAVE AN ACCOUNT?",
     "Вы должны указать email": "You must provide an email address",
+    "Этот e-mail уже зарегистрирован": "This email is already registered. Please use the Sign In button.",
   },  
   "ru": {
     "E-mail": "E-mail",
@@ -99,7 +100,7 @@ let Signup = () => {
     "ВОЙТИ": "ВОЙТИ",
     "УЖЕ ЕСТЬ АККАУНТ?": "УЖЕ ЕСТЬ АККАУНТ?",
     "Вы должны указать email": "Вы должны указать email",
-
+    "Этот e-mail уже зарегистрирован": "Этот e-mail уже зарегистрирован. Используйте кнопку Войти.",
   },
   "ja": {
     "language": "言語",
