@@ -170,4 +170,17 @@ export default class Core {
     return store;
   }
 
+  public static TranslateErrors(res: any, t: any) {
+    const errors: any = res?.errors ?? [];
+    for (const key in errors) {
+      if (Object.prototype.hasOwnProperty.call(errors, key)) {
+        const element = errors[key];
+        for (const i in element) {
+          errors[key][i] = t(errors[key][i]);
+        }
+      }
+    }
+    return errors;
+  }
+
 }
