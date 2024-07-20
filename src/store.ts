@@ -18,6 +18,8 @@ export const storeFile = defineStore('store', {
         lang: '',
         country: '',
         avatar: '',
+        balance: 0,
+        balance_all: {} as { [key: string]: string },
         isLoaded: false
       },
 
