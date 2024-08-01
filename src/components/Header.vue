@@ -10,12 +10,12 @@
     select.ml-3(v-model='globalLocale')
       option(value='en') English
       option(value='ru') Русский
-      option(value='fr') Français
-      option(value='pt') Português
-      option(value='it') Italiano
-      option(value='cn') 简体中文
-      option(value='ko') 한국어
-      option(value='ja') 日本語
+      //option(value='fr') Français
+      //option(value='pt') Português
+      //option(value='it') Italiano
+      //option(value='cn') 简体中文
+      //option(value='ko') 한국어
+      //option(value='ja') 日本語
   .fc.ml-5
     UserCircleIcon.mr-2.w-6.h-6.fill-slate-400(class="hover:opacity-60")
     .text-slate-600(v-if="Auth.isAuthorized()") {{ store.User.name }}

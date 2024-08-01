@@ -117,7 +117,7 @@ const routes = [
       {
         path: '/terms',
         name: 'TermsOfUse',
-        component: () => import('./pages/static/legal/TermsMobileApp.vue'),
+        component: () => import('./pages/static/legal/Terms.vue'),
       },
       {
         path: '/removeaccount',
