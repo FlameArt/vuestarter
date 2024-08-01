@@ -26,13 +26,16 @@ export const settingsFile = defineStore('settings', {
                base: 'https://myapp.com',
 
                // Оферта
-               offer: 'https://myapp.com/public_offer', //REST.SERVER,
+               offer: 'https://myapp.com/terms', //REST.SERVER,
 
                // Условия предоставления услуг
                terms: 'https://myapp.com/terms', //REST.SERVER,
 
                // страница с Политикой конфидециальности
                privacy: 'https://myapp.com/privacy', //REST.SERVER,
+
+               // Политика обработки кукисов
+               cookiesPolicy: 'https://myapp.com/cookies-policy',
 
                // Публичная страница с ценами
                // Не является гарантированной и юридической ценой
