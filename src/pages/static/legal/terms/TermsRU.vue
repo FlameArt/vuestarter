@@ -773,6 +773,13 @@
         }}</a>, чтобы сообщить о любых нарушениях
       настоящих Условий предоставления услуг или задать любые вопросы, касающиеся настоящих Условий предоставления услуг
       или Сервиса.</p>
+
+    <h2 id="-info-appname-">Реквизиты {{ info.appName }}</h2>
+    <p>{{ info.OrganizationName.ru }}</p>
+    <p>Юридический адрес: {{ info.OrganizationMailAdress }}</p>
+    <p>Почтовый адрес (для документов и корреспонденции): {{ info.OrganizationMailAdress }}</p>
+    <p>Лицензия (ИНН) {{ info.OrganizationRegistrationID }}</p>
+
   </div>
 </template>
 

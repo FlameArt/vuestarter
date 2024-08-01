@@ -63,6 +63,9 @@ export const settingsFile = defineStore('settings', {
                'en': '',
                'ru': '',
             },
+
+            // счета
+
          },
 
 
