@@ -40,6 +40,44 @@ const routes = [
         ]
       },
 
+      // Платежи
+      {
+        path: '/billing',
+        name: 'BillingCore',
+        component: () => import('@/pages/pays/BillingCore.vue'),
+        children: [
+
+          // Dashboard + место для покупки
+          {
+            path: '',
+            name: 'Billing',
+            component: () => import('@/pages/pays/Dashboard.vue'),
+          },
+
+          // История платежей
+          {
+            path: '/billing/history',
+            name: 'BillingHistory',
+            component: () => import('@/pages/pays/History.vue'),
+          },
+
+          // Инвойсы
+          // Успешная оплата, ошибка оплаты
+          {
+            path: '/billing/invoice',
+            alias: ['/billing/invoice/', '/payment/success', '/payment/fail',],
+            name: 'BillingPaymentInvoiceNoID',
+            component: () => import('@/pages/pays/Invoice.vue'),
+          },
+          {
+            path: '/billing/invoice/:invoiceid',
+            name: 'BillingPaymentInvoice',
+            component: () => import('@/pages/pays/Invoice.vue'),
+          },
+
+        ]
+      },
+
       // админка
       {
         path: '/admin/',
@@ -107,7 +145,12 @@ const routes = [
       {
         path: '/privacy',
         name: 'Privacy',
-        component: () => import('./pages/static/legal/PrivacyMobileApp.vue'),
+        component: () => import('./pages/static/legal/Privacy.vue'),
+      },
+      {
+        path: '/cookies-policy',
+        name: 'CookiesPrivacy',
+        component: () => import('./pages/static/legal/Cookies.vue'),
       },
       {
         path: '/privacy-web',

@@ -50,6 +50,17 @@ export const storeFile = defineStore('store', {
         locale: 'en'
       },
 
+      /**
+       * Оплаты
+       */
+      pays: {
+        /**
+         * Ожидание создания ссылки
+         * Значение: ID платёжной системы
+         */
+        WaitLink: -1,
+      }
+
     }
 
   },

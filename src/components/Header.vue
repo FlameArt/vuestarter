@@ -2,7 +2,7 @@
 
 .fb.w-full.relative.mt-2(style="z-index: 99999;")
   //img.cursor-pointer.fill-black(src="/src/assets/logo.png" class="h-[25px] hover:opacity-50"  @click="router.push({name: 'Home'})")
-  .text-3xl.flex-grow SkyPoster
+  .text-3xl.flex-grow {{settingsFile().appName}}
   //img.cursor-pointer(@click="router.push({name:'MyMessages'})" :src="'/img/notification_'+props.file+'.svg'" class="hover:opacity-70").fill-slate-400.w-8.h-8
   | {{ t("Войти") }} 
   .fc
@@ -29,9 +29,10 @@
 import { onMounted, reactive, ref, nextTick, watch } from '@vue/runtime-core'; import { computed, type Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 import Auth from '@/models/Auth';
 
-
 // Иконки
 import { BellIcon, UserCircleIcon } from '@icons/24/solid'
+import { settingsFile } from '@/settings';
+
 
 // Глобальное хранилище, роуты, локали
 const store = storeFile(), router = useRouter(), route = useRoute(), { t, locale } = useI18n({ inheritLocale: true, useScope: 'local' });
