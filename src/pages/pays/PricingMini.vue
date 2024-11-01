@@ -14,7 +14,7 @@ div(class="mobile:px-5")
   .mt-5
   .font-light.my-6 {{ t('Способ оплаты') }}
   div.cursor-pointer.py-5.border-b-2.border-b-slate-200(class="desktop:px-5 mobile:px-2" :class="(indx === 0 ? ' border-t-2 border-t-slate-200 ' : '') + (state.selectedPayMethod === indx ? ' bg-slate-200 ' : '') + ' hover:bg-slate-100 '" v-for="(method, indx) in state.payMethods" @click="state.selectedPayMethod = indx; gopay()" )
-    span.mr-6 {{ t(method.name) }}
+    span.mr-6(:class="store.pays.WaitLink !== -1 ? 'text-slate-300' : ''") {{ t(method.name) }}
     span.mr-8(v-if="store.pays.WaitLink === indx")
       .lds-ring
         div
@@ -76,7 +76,12 @@ Subscriptions.all().then(r => {
 })
 
 const gopay = () => {
+  
+  // не выбрана платёжка
   if (state.selectedPayMethod === -1) return;
+  // Ссылки не кликабельны должны быть повторно пока ссылка не сформируется
+  if (store.pays.WaitLink !== -1) return;
+
   const pay = state.payMethods[state.selectedPayMethod];
   Pays.GoToPay({
     subscription: state.selectedSubcription,
