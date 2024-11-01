@@ -1,8 +1,15 @@
 <template lang="pug">
 
-v-main.anims(class="desktop:desktopwidth mobile:mobilewidth" :class="store.platform === 'ios' ? ' mt-[20px] ' : ''")
+v-main(class="desktop:desktopwidth mobile:mobilewidth desktop:mx-auto" :class="store.platform === 'ios' ? ' mt-[20px] ' : ''")
 
-  router-view
+  Header
+
+  div(v-if="store.User.isLoaded || !settingsFile().authRequired")
+    div(v-if="settingsFile().authRequired && Auth.isAuthorized() || !settingsFile().authRequired")
+      router-view
+    div(v-else)
+      Signup
+
 
   // Кнопки снизу
   v-bottom-navigation.adaptive-navigation.testnav(v-if="store.User.id !== 0"  grow style='opacity: 0.9; padding-bottom: env(safe-area-inset-bottom)')
@@ -18,6 +25,7 @@ v-main.anims(class="desktop:desktopwidth mobile:mobilewidth" :class="store.platf
 
 // Основные импорты
 import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { settingsFile } from '@/settings'; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import Signup from './user/Signup.vue';
 
 // Иконки
 import { XCircleIcon } from '@icons/24/solid'
