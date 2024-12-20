@@ -145,22 +145,22 @@ const routes = [
       {
         path: '/privacy',
         name: 'Privacy',
-        component: () => import('./pages/static/legal/Privacy.vue'),
+        component: () => import('./pages/static/legal/privacy/Privacy.vue'),
       },
       {
         path: '/cookies-policy',
         name: 'CookiesPrivacy',
-        component: () => import('./pages/static/legal/Cookies.vue'),
+        component: () => import('./pages/static/legal/cookies/Cookies.vue'),
       },
       {
         path: '/privacy-web',
         name: 'PrivacyWeb',
-        component: () => import('./pages/static/legal/PrivacyWebsite.vue'),
+        component: () => import('./pages/static/legal/privacy/PrivacyWebsite.vue'),
       },
       {
         path: '/terms',
         name: 'TermsOfUse',
-        component: () => import('./pages/static/legal/Terms.vue'),
+        component: () => import('./pages/static/legal/terms/Terms.vue'),
       },
       {
         path: '/removeaccount',

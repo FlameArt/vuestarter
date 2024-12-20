@@ -12,8 +12,8 @@ import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@v
 // Иконки
 import { } from '@icons/24/solid'
 
-import TermsEN from './terms/TermsEN.vue';
-import TermsRU from './terms/TermsRU.vue';
+import TermsEN from './TermsEN.vue';
+import TermsRU from './TermsRU.vue';
 
 // Глобальное хранилище, роуты, локали
 const store = storeFile(), router = useRouter(), route = useRoute(), { t, locale } = useI18n({ inheritLocale: true, useScope: 'local' });
