@@ -26,6 +26,8 @@ v-main(class="desktop:desktopwidth mobile:mobilewidth desktop:mx-auto" :class="s
 // Основные импорты
 import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { settingsFile } from '@/settings'; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import Signup from './user/Signup.vue';
+import Header from '@/components/Header.vue';
+import Auth from '@/models/Auth';
 
 // Иконки
 import { XCircleIcon } from '@icons/24/solid'

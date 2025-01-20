@@ -4,7 +4,7 @@
   //img.cursor-pointer.fill-black(src="/src/assets/logo.png" class="h-[25px] hover:opacity-50"  @click="router.push({name: 'Home'})")
   .text-3xl.flex-grow {{settingsFile().appName}}
   //img.cursor-pointer(@click="router.push({name:'MyMessages'})" :src="'/img/notification_'+props.file+'.svg'" class="hover:opacity-70").fill-slate-400.w-8.h-8
-  | {{ t("Войти") }} 
+
   .fc
     //.text-slate-500 {{ t('Язык') }}
     select.ml-3(v-model='globalLocale')

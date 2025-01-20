@@ -367,11 +367,45 @@ export default class Auth {
       start_param: tg.start_param,
       hash: tg.hash,
       initData: (window as any).Telegram?.WebApp?.initData
-    }))
+    }), 'POST')
 
-    if (typeof res?.data?.token === 'string')
+
+    // Если токена нет, значит чел не вошёл и происходит процесс регистрации
+    if (res.data.status === 'no user') {
+      this.Signup(tgUser.id + "@telegram.mail", this.generateRandomHash(15), tgUser.first_name + " " + tgUser.last_name).then(r => {
+        if (res.data.success === false) {
+          alert("Ошибка при регистрации через ТГ. Сообщите администраторам");
+          return;
+        }
+        // Успех регистрации: делаем редирект
+        // После этого вызовется стандартный механизм привязки по авторизованному аккаунту
+        window.location.assign(window.location.protocol + "//" + window.location.host + ":" + window.location.port);
+      })
+      return null;
+    }
+
+
+    if (typeof res?.data?.token === 'string') {
       Auth.SaveToken(res.data.token);
+    }
 
+    storeFile().platformType = 'TelegramWebApp';
+
+    return res;
+
+
+  }
+
+
+  public static generateRandomHash(length: number): string {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+
+    return result;
   }
 
 }

@@ -8,6 +8,8 @@ import { App } from '@capacitor/app';
 import { settingsFile } from '../settings';
 import Userlogs from "@models/Userlogs";
 import Usersettings from "@models/Usersettings";
+import Userevents from "@models/Userevents";
+import { UserEvents } from "./enums/UserEvents";
 
 export default class Core {
 
@@ -55,6 +57,9 @@ export default class Core {
 
       // Юзер авторизован
       // Load state
+
+      // Стартед
+      this.event(UserEvents.STARTED);
 
       // Пуш нотификации, если включены
       if (settingsFile().isRegisterPushNotifications) {
@@ -181,6 +186,40 @@ export default class Core {
       }
     }
     return errors;
+  }
+
+
+  /**
+   * Сохранить событие
+   * @param type 
+   * @param type_string 
+   * @param data 
+   * @returns 
+   */
+  public static event(type: UserEvents, type_string: string | null = null, data: any = null) {
+
+    let pl = "SITE";
+    switch (storeFile().platform.toLowerCase()) {
+      case 'ios':
+        pl = "IOS";
+        break;
+      case 'android':
+        pl = "ANDROID";
+        break;
+      case 'web':
+      default:
+        pl = "SITE"
+        if (storeFile().platformType === 'TelegramWebApp') pl = 'WEBAPP';
+        break;
+    }
+
+    return Userevents.create({
+      type: type,
+      name: type_string ?? '',
+      data: data,
+      platform: pl,
+    })
+
   }
 
 }
