@@ -19,6 +19,7 @@ import { md3 } from 'vuetify/blueprints'
 import Auth from './models/Auth';
 import { settingsFile } from './settings';
 import { storeFile } from './store';
+import { vuetifyProTipTap } from 'flameresttable/src/components/editor/TextEditor'
 
 const vuetify = createVuetify({
   components,
@@ -78,6 +79,7 @@ app
   .use(router)
   .use(vuetify)
   .use(i18nPlugin)
+  .use(vuetifyProTipTap)
   .use(VueUniversalModal, { teleportTarget: '#my-modals', modalComponent: 'CustomModal' })
 
 // отлавливаем все ошибки внутри компонентов
