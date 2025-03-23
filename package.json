@@ -1,6 +1,6 @@
 {
   "name": "appname",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "update": "npm update --save",
     "updateFull": "npx npm-check-updates -u && npm update --save",
