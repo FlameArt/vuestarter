@@ -1,10 +1,10 @@
 <template lang="pug">
 .p-10(class='sm:flex sm:flex-col sm:align-center')
   .relative.self-center.bg-slate-200.rounded-lg.flex(class='p-0.5')
-    button.relative.rounded-md.py-2.text-sm.font-medium.whitespace-nowrap.bg-slate-50.border-slate-50.text-slate-900.shadow-sm(type='button' class='w-1/2 focus:outline-none sm:w-auto sm:px-8')
+    button.relative.rounded-md.py-2.text-sm.font-medium.whitespace-nowrap.bg-slate-50.border-slate-50.text-slate-900.shadow-sm(type='button' class='w-1/2 focus:outline-hidden sm:w-auto sm:px-8')
       | Monthly
       | billing
-    button.relative.border.rounded-md.py-2.text-sm.font-medium.whitespace-nowrap.border-transparent.text-slate-900(type='button' class='ml-0.5 w-1/2 focus:outline-none sm:w-auto sm:px-8')
+    button.relative.border.rounded-md.py-2.text-sm.font-medium.whitespace-nowrap.border-transparent.text-slate-900(type='button' class='ml-0.5 w-1/2 focus:outline-hidden sm:w-auto sm:px-8')
       | Yearly
       | billing
   .mt-12.space-y-3(class='sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-3 sm:gap-6 md:max-w-5xl md:mx-auto xl:grid-cols-3')

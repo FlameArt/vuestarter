@@ -24,7 +24,7 @@ div
       name="email",
       type="email",
       placeholder="Почта",
-      class=" focus:outline-none focus:ring-1 focus:ring-blue-600 placeholder:text-gray-500"
+      class=" focus:outline-hidden focus:ring-1 focus:ring-blue-600 placeholder:text-gray-500"
     )
     span.text-xs.tracking-wide.text-red-600 {{ state.loginErr }}
   .mt-2
@@ -34,7 +34,7 @@ div
       name="password",
       type="password",
       placeholder="Пароль",
-      class="focus:outline-none focus:ring-1 focus:ring-blue-600 placeholder:text-gray-500"
+      class="focus:outline-hidden focus:ring-1 focus:ring-blue-600 placeholder:text-gray-500"
     )
     .my-2.text-xs.tracking-wide.text-red-600 {{ state.passwErr }}
     a.my-4.text-xs.text-gray-500.cursor-pointer(
