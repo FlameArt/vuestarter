@@ -408,6 +408,29 @@ export default class Auth {
     return result;
   }
 
+
+  /**
+   * Кнопка для прикрепления тг акка к сайту через бот (запускает бота с хешем, хеш надо обработать на беке)
+   * @param chat_bot_name 
+   */
+  public static LinkTelegramAccountWithSite(chat_bot_name: string) {
+    // Создаем ссылку
+    const link = document.createElement('a');
+    link.href = `https://t.me/${chat_bot_name}?start=` + storeFile().User.user_hash;
+    link.target = '_blank'; // Открыть в новой вкладке
+    link.rel = 'noopener noreferrer'; // Рекомендуется для безопасности
+    link.textContent = `Telegram: @${chat_bot_name}`;
+
+    // Добавляем ссылку на страницу
+    document.body.appendChild(link);
+
+    // Программно кликаем по ссылке
+    link.click();
+
+    // Удаляем ссылку из DOM (если нужно)
+    setTimeout(() => document.body.removeChild(link), 100);
+  }
+
 }
 
 export interface AuthResult {
