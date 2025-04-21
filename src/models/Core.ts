@@ -10,6 +10,7 @@ import Userlogs from "@models/Userlogs";
 import Usersettings from "@models/Usersettings";
 import Userevents from "@models/Userevents";
 import { UserEvents } from "./enums/UserEvents";
+import Affiliates from "./base/Affiliates";
 
 export default class Core {
 
@@ -36,6 +37,9 @@ export default class Core {
 
     const store = storeFile();
     const route: RouteLocationNormalizedLoaded = router.currentRoute.value;
+
+    // Сохраняем данные по аффилейтке до любых изменений
+    Affiliates.SaveAffiliateData();
 
     store.isMobile = Capacitor.isNativePlatform();
     store.analytics.router = router;

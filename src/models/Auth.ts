@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 import Notifications from './base/Notifications';
 import Core from "./Core";
 import { settingsFile } from "@/settings";
+import Affiliates from "./base/Affiliates";
 
 
 export default class Auth {
@@ -155,8 +156,9 @@ export default class Auth {
     //const pushInfo = store.isRegisterPushNotifications ? await Notifications.getPushInfo() : null;
     const pushInfo = null;
 
+    const regdata = Affiliates.GetAffiliateData();
 
-    return REST.signup(email, null, passw, name, pushInfo).then((res) => {
+    return REST.signup(email, null, passw, name, pushInfo, regdata).then((res) => {
       if (res.isAuthorized === true) {
         Auth.AuthUser(res);
         //router.push({ name: "Home" });

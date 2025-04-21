@@ -27,9 +27,9 @@ const vuetify = createVuetify({
   blueprint: md3,
 })
 
-if (location.hostname === 'localhost') {
+if (location.hostname === 'testrest') {
   // ТУТ МОЖН УКАЗАТЬ ВНЕШНИЙ REST СЕРВ для мобильных аппов или др разрабов
-  REST.SERVER = 'http://localhost';
+  REST.SERVER = 'http://testrest';
 }
 else {
   REST.SERVER = 'https://YOURDOMAIN.com/'
