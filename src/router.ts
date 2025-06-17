@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
+import affiliates from './router/affiliates';
 const routes = [
 
   {
@@ -77,6 +78,8 @@ const routes = [
 
         ]
       },
+
+      affiliates,
 
       // админка
       {

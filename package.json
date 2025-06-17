@@ -45,6 +45,8 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "@volar/vue-language-plugin-pug": "^1.6.5",
     "@vue/language-plugin-pug": "^2.2.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "eslint": "^9.20.0",
     "eslint-plugin-vue": "^9.32.0",
     "lodash.merge": "^4.6.2",
