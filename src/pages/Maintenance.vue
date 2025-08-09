@@ -95,14 +95,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { navigate } from 'vike/client/router'
+import { onMounted, onUnmounted, reactive, ref } from 'vue'; import { storeFile } from "@/store"; import { settingsFile } from '@/settings'; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import Signup from './user/Signup.vue';
+import Header from '@/components/Header.vue';
+import Auth from '@/models/Auth';
+
+// Иконки
+import { XCircleIcon } from '@icons/24/solid'
+
+const store = storeFile(), router = useRouter(), route = useRoute();
+
 
 // Состояние компонента
 const maintenanceMessage = ref<string>('')
 const progressWidth = ref(0)
-let progressInterval: number | null = null
-let checkInterval: number | null = null
+let progressInterval: any = null
+let checkInterval: any = null
 
 // Получаем сообщение об ошибке из localStorage
 onMounted(() => {
@@ -148,7 +156,7 @@ const startServerCheck = () => {
       
       if (response.ok) {
         // Сервер снова доступен - перенаправляем на главную
-        navigate('/')
+        router.push('/')
       }
     } catch (error) {
       // Сервер всё ещё недоступен - продолжаем ждать
@@ -164,7 +172,7 @@ const refreshPage = () => {
 
 // Перейти на главную
 const goHome = () => {
-  navigate('/')
+  router.push('/')
 }
 </script>
 
