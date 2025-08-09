@@ -49,7 +49,7 @@ REST.unauthorized_callback = () => {
         localStorage.setItem('maintenance_message', errorMessage);
       }
       // Перенаправляем на страницу обслуживания
-      navigate('/maintenance');
+      router.push('/maintenance');
     }
 
 // АВТОЛОГИН

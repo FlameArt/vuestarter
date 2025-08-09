@@ -57,6 +57,23 @@ const state = reactive({
   data: {}
 })
 
+const balancesString = computed(() => {
+  if (store.User && Array.isArray(store.User.balance_all)) {
+    if (store.User.balance_all.length === 0) {
+      return '';
+    }
+    return store.User.balance_all
+      .filter(item => (item.value || 0) > 0)
+      .map(item => `${item.name}: ${Math.round(item.value || 0)}`)
+      .join(', ');
+  }
+  return '';
+});
+
+const goHome = () => {
+  router.push({ name: 'Projects', query: { redirect: 'no' } });
+}
+
 // Меняем локаль по селектору
 const globalLocale = computed({
   get() {
