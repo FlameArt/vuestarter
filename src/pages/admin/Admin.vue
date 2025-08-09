@@ -1,11 +1,10 @@
 <template lang="pug">
-.w-full.bg-container
-  .px-3.pt-3.w-full.z-50
-
-    Header
-
-    .fb.text-11.flex-wrap
+.admin-panel.flex-col.p-4.w-full
+  .buttons.flex.space-x-4
       .button.mb-3(@click="router.push({name: 'AdminUsers'})") Пользователи
+    .button.mb-3(@click="router.push({name: 'AdminSubscriptions'})") Подписки
+    .button.mb-3(@click="router.push({name: 'AdminUsersOrders'})") Заказы
+    .button.mb-3(@click="router.push({name: 'AdminUserSubscriptions'})") Подписки пользователей
     .mt-3
     router-view
     

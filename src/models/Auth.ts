@@ -6,6 +6,7 @@ import Notifications from './base/Notifications';
 import Core from "./Core";
 import { settingsFile } from "@/settings";
 import Affiliates from "./base/Affiliates";
+import { BalanceItem } from "./Pays";
 
 
 export default class Auth {
@@ -114,6 +115,36 @@ export default class Auth {
   public static AuthUser(tUser: Authorized) {
 
     const store = storeFile();
+
+    // Преобразуем балансы перед сохранением в store
+    if (tUser.User && tUser.User.balance_all && Array.isArray(tUser.User.balance_all)) {
+      const newBalancesFromAPI = tUser.User.balance_all;
+      const existingBalances = store.User.balance_all || {};
+      const newKeys = new Set(newBalancesFromAPI.map((b: any) => b.name));
+
+      // Обновляем существующие или добавляем новые
+      for (const item of newBalancesFromAPI) {
+         if (existingBalances[item.name]) {
+            // Обновляем существующий BalanceItem для сохранения реактивности
+            existingBalances[item.name].balance_decimal = item.balance_decimal;
+            existingBalances[item.name].value = item.value;
+         } else {
+            // Добавляем новый BalanceItem
+            if (item.name && typeof item.balance_decimal !== 'undefined') {
+               existingBalances[item.name] = new BalanceItem(item.name, item.balance_decimal, item.value);
+            }
+         }
+      }
+
+      // Удаляем старые, которых больше нет
+      for (const key in existingBalances) {
+         if (!newKeys.has(key)) {
+            delete existingBalances[key];
+         }
+      }
+
+      tUser.User.balance_all = existingBalances;
+    }
 
     store.User = Object.assign(store.User, tUser.User);
     localStorage.setItem("jwttoken", tUser.token);

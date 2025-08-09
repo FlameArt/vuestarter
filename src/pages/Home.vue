@@ -12,11 +12,12 @@ v-main(class="desktop:desktopwidth mobile:mobilewidth desktop:mx-auto" :class="s
 
 
   // Кнопки снизу
-  v-bottom-navigation.adaptive-navigation.testnav(v-if="store.User.id !== 0"  grow style='opacity: 0.9; padding-bottom: env(safe-area-inset-bottom)')
-    v-btn(value='home' @click="router.push({name: 'HomePage'})")
-      img.w-8.h-8(src="/img/menu-home.svg")
+  v-bottom-navigation(v-model="state.tab" grow)
+    v-btn(value='home' @click="router.push({name: 'Home'})")
+      v-icon mdi-home
     v-btn(value='settings' @click="router.push({name: 'MySettings'})")
-      img.w-8.h-8(src="/img/menu-settings.svg")
+      v-icon mdi-cog
+  router-view
 
 
 </template>
@@ -36,8 +37,8 @@ const store = storeFile(), router = useRouter(), route = useRoute();
 
 // Состояние компонента
 const state = reactive({
-  test: 5
-})
+  tab: 'home',
+});
 
 
 onMounted(() => {

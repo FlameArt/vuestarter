@@ -25,7 +25,7 @@ export default
          // Успешная оплата, ошибка оплаты
          {
             path: '/billing/invoice',
-            alias: ['/billing/invoice/', '/payment/success', '/payment/fail',],
+            alias: ['/payment/success', '/payment/fail'],
             name: 'BillingPaymentInvoiceNoID',
             component: () => import('@/pages/pays/Invoice.vue'),
          },

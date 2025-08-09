@@ -42,6 +42,16 @@ REST.unauthorized_callback = () => {
   return true;
 }
 
+    // Обработка режима обслуживания сервера (503 ошибка)
+    REST.maintenance_callback = (errorMessage?: string) => {
+      // Сохраняем сообщение об ошибке в localStorage для передачи на страницу
+      if (errorMessage) {
+        localStorage.setItem('maintenance_message', errorMessage);
+      }
+      // Перенаправляем на страницу обслуживания
+      navigate('/maintenance');
+    }
+
 // АВТОЛОГИН
 if (Auth.CheckAutologin()) throw "autologin";
 

@@ -116,7 +116,12 @@ const routes = [
 
   },
 
-
+  // Страница обслуживания (не вложена в Home)
+  {
+    path: '/maintenance',
+    name: 'Maintenance',
+    component: () => import('./pages/Maintenance.vue'),
+  },
 
 
   // Логин

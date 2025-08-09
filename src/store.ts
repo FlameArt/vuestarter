@@ -4,6 +4,7 @@ import Auth from './models/Auth'
 import { Capacitor } from '@capacitor/core'
 import Analytics from './models/base/Analytics'
 import Core from './models/Core';
+import Pays, { BalanceItem } from './models/Pays'
 
 export const storeFile = defineStore('store', {
   state: () => {
@@ -19,7 +20,7 @@ export const storeFile = defineStore('store', {
         country: '',
         avatar: '',
         balance: 0,
-        balance_all: {} as { [key: string]: string },
+        balance_all: {} as { [key: string]: BalanceItem },
         isLoaded: false
       },
 
@@ -69,6 +70,7 @@ export const storeFile = defineStore('store', {
   actions: {
     async update() {
       // Обновление состояния
+      Pays.updateBalances();
     }
   },
 })

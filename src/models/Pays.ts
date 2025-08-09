@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 export default class Pays {
 
-   public static async GoToPay(requestInfo: PayCreateOrderRequest, paysystemID = -1) {
+   public static async GoToPay(requestInfo: PayCreateOrderRequest, paysystemID = -1): Promise<number | void> {
 
       const request = {
          subscription: requestInfo.subscription,
@@ -32,6 +32,11 @@ export default class Pays {
       if (link.data.status !== 'success') {
          window.alert('Неизвестная ошибка: ' + link.data.message)
          return;
+      }
+
+      // Если запрошен режим "без ссылки", то просто возвращаем ID заказа
+      if (requestInfo.linkless) {
+         return link.data.orderID;
       }
 
       // Для тестовой системы ссылка будет локальной
@@ -117,6 +122,78 @@ export default class Pays {
 
    }
 
+   public static async createPayPalOrder(requestInfo: PayCreateOrderRequest): Promise<string | null> {
+      try {
+         // Делаем запрос на бэкенд для создания заказа в системе PayPal
+         const response: any = await REST.request(REST.SERVER + '/pay/create-paypal-order', requestInfo, 'POST');
+
+         if (response && response.ok && response.data && response.data.id) {
+            // Возвращаем ID заказа, полученный от PayPal
+            return response.data.id;
+         } else {
+            console.error("Не удалось создать заказ PayPal:", response);
+            // Используем alert, так как это принято в этом файле
+            window.alert('Ошибка при создании заказа PayPal: ' + (response?.message || 'Неизвестная ошибка'));
+            return null;
+         }
+      } catch (error) {
+         console.error("Исключение при создании заказа PayPal:", error);
+         window.alert('Произошла критическая ошибка при создании заказа PayPal.');
+         return null;
+      }
+   }
+
+   /**
+    * Обновить балансы пользователя и сохранить их в store
+    */
+   public static async updateBalances() {
+      try {
+         const response: any = await REST.request(REST.SERVER + '/auth/balances', {}, 'GET');
+
+         if (response && response.data && Array.isArray(response.data)) {
+            const store = storeFile();
+            const newBalancesFromAPI = response.data;
+            const existingBalances = store.User.balance_all;
+            const newKeys = new Set(newBalancesFromAPI.map((b: any) => b.name));
+
+            // Обновляем существующие или добавляем новые
+            for (const item of newBalancesFromAPI) {
+               if (existingBalances[item.name]) {
+                  // Обновляем существующий BalanceItem для сохранения реактивности
+                  existingBalances[item.name].balance_decimal = item.balance_decimal;
+                  existingBalances[item.name].value = item.value;
+               } else {
+                  // Добавляем новый BalanceItem
+                  existingBalances[item.name] = new BalanceItem(item.name, item.balance_decimal, item.value);
+               }
+            }
+
+            // Удаляем старые, которых больше нет
+            for (const key in existingBalances) {
+               if (!newKeys.has(key)) {
+                  delete existingBalances[key];
+               }
+            }
+         } else {
+            console.error("Не удалось обновить балансы или формат данных неверен:", response);
+         }
+      } catch (error) {
+         console.error("Исключение при обновлении балансов:", error);
+      }
+   }
+
+}
+
+export class BalanceItem {
+   name: string;
+   balance_decimal: string;
+   value: number;
+
+   constructor(name: string, balance_decimal: string, value: number) {
+      this.name = name;
+      this.balance_decimal = balance_decimal;
+      this.value = value;
+   }
 }
 
 interface PayLink {
@@ -150,6 +227,8 @@ interface PayCreateOrderRequest {
 
    successRedirectLink?: string,
    failRedirectLink?: string,
+
+   linkless?: boolean, // Если true, не открывать окно, а вернуть orderID
 
 }
 
