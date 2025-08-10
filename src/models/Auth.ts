@@ -276,7 +276,7 @@ export default class Auth {
       return;
     }
 
-    const result: any = await REST.request(REST.SERVER + "/auth/removeaccount", {}, 'POST', 'json', true, { verifyRemove: storeFile().User.id })
+    const result: any = await REST.request(REST.SERVER + "/auth/removeaccount", {}, 'POST', 'json', true, { verifyRemove: storeFile().User.id.toString() });
 
     if (result.data.result !== "success") {
       alert('Не удалось удалить аккаунт: ' + result?.data.errors?.join(". "))
