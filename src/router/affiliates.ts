@@ -4,7 +4,7 @@ export default
    {
       path: '/affiliate',
       name: 'AffiliateCore',
-      component: () => import('@/pages/affiliates/AffiliateCore.vue'),
+      component: () => import('@/pages/affiliates/AffiliatesCore.vue'),
       children: [
 
          // Dashboard + место для покупки
