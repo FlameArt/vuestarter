@@ -1,37 +1,48 @@
 <template>
-  <div class="fb w-full relative self-center align-middle h-full mr-3" style="z-index: 99999;">
-    <!-- <img class="cursor-pointer fill-black h-[25px] hover:opacity-50" src="/src/assets/logo.png" @click="router.push({name: 'Home'})"> -->
-    <div class="text-3xl grow cursor-pointer" @click="goHome">{{ settingsFile().appName }}</div>
-    <!-- <img class="cursor-pointer hover:opacity-70 fill-slate-400 w-8 h-8" @click="router.push({name:'MyMessages'})" :src="'/img/notification_'+props.file+'.svg'"> -->
 
-    <!-- Balances -->
+  <div class="fb w-full relative self-center align-middle h-full" style="z-index: 99999; height: 100%;">
+    <!-- Левая часть: мобильная иконка меню или кнопка развернуть -->
+    <div class="d-flex align-center">
+      <!-- Мобильная иконка меню -->
+      <v-app-bar-nav-icon v-if="state.isAuthNeeded() && state.isAuthorized() && $vuetify.display.smAndDown"
+        variant="text" @click.stop="emit('update:drawer', !props.drawer)"></v-app-bar-nav-icon>
+
+      <!-- Кнопка развернуть навигацию (только на десктопе когда свёрнуто) -->
+      <v-btn v-if="state.isAuthNeeded() && state.isAuthorized() && $vuetify.display.mdAndUp && !props.drawer" icon
+        size="small" variant="text" @click="emit('update:drawer', true)">
+        <!-- ИСПРАВЛЕНО: Убрано дублирование mdi: -->
+        <v-icon icon="mdi:account"></v-icon>
+      </v-btn>
+
+      <!-- Название приложения (скрыто на мобильных) -->
+      <div v-if="$vuetify.display.mdAndUp" class="text-lg font-weight-bold text-grey-darken-1 text-uppercase ml-3"
+        style="white-space: nowrap;">
+        {{ settingsFile().appName }}
+      </div>
+    </div>
+    <div class="fc">
+      <v-menu location="bottom">
+        <template v-slot:activator="{ props }">
+          <v-btn v-bind="props" variant="text">
+            <!-- ИСПРАВЛЕНО: Правильный формат иконки для Vuetify 3 -->
+            <v-icon :icon="mdiWeb" size="16"></v-icon>
+            <span class="ml-2 d-none d-sm-inline">{{ currentLanguageName }}</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="lang in state.availableLocales" :key="lang.code" @click="globalLocale = lang.code"
+            :active="globalLocale === lang.code">
+            <v-list-item-title>{{ lang.name }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
+
+    <!-- Balances - перемещены правее -->
     <div class="fc ml-5 items-center" v-if="balancesString">
       <span class="font-bold text-slate-600">🎫 {{ balancesString }}</span>
     </div>
-
-    <div class="fc">
-      <!-- <div class="text-slate-500">{{ t('Язык') }}</div> -->
-      <select class="ml-3" v-model='globalLocale'>
-        <option value='en'>English</option>
-        <option value='ru'>Русский</option>
-        <!-- 
-        <option value='fr'>Français</option>
-        <option value='pt'>Português</option>
-        <option value='it'>Italiano</option>
-        <option value='cn'>简体中文</option>
-        <option value='ko'>한국어</option>
-        <option value='ja'>日本語</option> 
-        -->
-      </select>
-    </div>
-    <div class="fc ml-5">
-      <UserCircleIcon class="mr-2 w-6 h-6 fill-slate-400 hover:opacity-60" />
-      <div class="text-slate-600" v-if="Auth.isAuthorized()">{{ store.User.name }}</div>
-      <div class="text-slate-600 cursor-pointer underline" v-else @click="router.push({ name: 'Auth' })">{{ t("Войти") }}
-      </div>
-    </div>
   </div>
-  <div class="mt-8"></div>
 </template>
 
 <script setup lang="ts">
@@ -41,6 +52,7 @@ import Auth from '@/models/Auth';
 // Иконки
 import { BellIcon, UserCircleIcon } from '@icons/24/solid'
 import { settingsFile } from '@/settings';
+import { mdiAccount, mdiWeb } from '@mdi/js'
 
 
 // Глобальное хранилище, роуты, локали
@@ -48,14 +60,26 @@ const store = storeFile(), router = useRouter(), route = useRoute(), { t, locale
 
 // Входящие данные компонента
 const props = defineProps<{
-  file?: string
+  file?: string,
+  drawer?: boolean
 }>()
-const emit = defineEmits(['test'])
+const emit = defineEmits(['test', 'update:drawer'])
 
 // Локальное состояние компонента
 const state = reactive({
-  data: {}
+  isAuthNeeded: () => store.User.isLoaded || !settingsFile().authRequired,
+  isAuthorized: () => settingsFile().authRequired && Auth.isAuthorized() || !settingsFile().authRequired,
+  availableLocales: [
+    { code: 'en', name: 'English' },
+    { code: 'ru', name: 'Русский' },
+    { code: 'ja', name: '日本語' },
+  ]
 })
+
+const currentLanguageName = computed(() => {
+  const current = state.availableLocales.find(l => l.code === globalLocale.value);
+  return current ? current.name : state.availableLocales[0].name;
+});
 
 const balancesString = computed(() => {
   if (store.User && Array.isArray(store.User.balance_all)) {
@@ -63,16 +87,11 @@ const balancesString = computed(() => {
       return '';
     }
     return store.User.balance_all
-      .filter(item => (item.value || 0) > 0)
       .map(item => `${item.name}: ${Math.round(item.value || 0)}`)
       .join(', ');
   }
   return '';
 });
-
-const goHome = () => {
-  router.push({ name: 'Projects', query: { redirect: 'no' } });
-}
 
 // Меняем локаль по селектору
 const globalLocale = computed({

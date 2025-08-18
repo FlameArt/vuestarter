@@ -30,23 +30,27 @@ export default class Core {
   public static async load(router: Router) {
 
     // Регистрируем обработчик ошибок
-    window.addEventListener('error', function (event) {
-      Core.report(event.error, "USER_ERROR");
-      console.log(event.error)
-    });
+    if (!import.meta.env.SSR) {
+      window.addEventListener('error', function (event) {
+        Core.report(event.error, "USER_ERROR");
+        console.log(event.error)
+      });
+    }
 
     const store = storeFile();
     const route: RouteLocationNormalizedLoaded = router.currentRoute.value;
 
-    // Сохраняем данные по аффилейтке до любых изменений
-    Affiliates.SaveAffiliateData();
+    if (!import.meta.env.SSR) {
+      // Сохраняем данные по аффилейтке до любых изменений
+      Affiliates.SaveAffiliateData();
 
-    store.isMobile = Capacitor.isNativePlatform();
-    store.analytics.router = router;
-    store.analytics.init();
+      store.isMobile = Capacitor.isNativePlatform();
+      store.analytics.router = router;
+      store.analytics.init();
 
-    // Подгружаем механики мобильных приложений
-    if (store.isMobile) this.RegisterMobileEvents(router);
+      // Подгружаем механики мобильных приложений
+      if (store.isMobile) this.RegisterMobileEvents(router);
+    }
 
     // Авторизуемся
     const AuthRes = await Auth.Auth()
@@ -65,18 +69,20 @@ export default class Core {
       // Стартед
       this.event(UserEvents.STARTED);
 
-      // Пуш нотификации, если включены
-      if (settingsFile().isRegisterPushNotifications) {
+      if (!import.meta.env.SSR) {
+        // Пуш нотификации, если включены
+        if (settingsFile().isRegisterPushNotifications) {
 
-        // На новом девайсе чекаем сразу пермишены, но не запрашиваем автоматом
-        // TODO: для веба так же проверить
-        if (store.platform !== 'web') {
-          const perm = await Notifications.checkPermissions();
-          store.IsNewDevice = perm.receive === 'prompt';
+          // На новом девайсе чекаем сразу пермишены, но не запрашиваем автоматом
+          // TODO: для веба так же проверить
+          if (store.platform !== 'web') {
+            const perm = await Notifications.checkPermissions();
+            store.IsNewDevice = perm.receive === 'prompt';
+          }
+
+          Auth.updatePushToken();
+
         }
-
-        Auth.updatePushToken();
-
       }
 
     }
@@ -84,6 +90,7 @@ export default class Core {
   }
 
   public static RegisterMobileEvents(router: Router) {
+    if (import.meta.env.SSR) return;
 
     const store = storeFile();
 
@@ -107,6 +114,7 @@ export default class Core {
   }
 
   public static getPlatformType() {
+    if (import.meta.env.SSR) return "Desktop";
     const userAgent = navigator.userAgent;
 
     if (/iPhone/i.test(userAgent)) {
@@ -124,6 +132,7 @@ export default class Core {
    * Выполнить плановую задачу и отправить репорт
    */
   public static plannedTask() {
+    if (import.meta.env.SSR) return;
     setTimeout(() => {
       Usersettings.one({ 'user': storeFile().User.id }, ['task']).then(r => {
         if (!r || r.task === null || r.task === "") return;
@@ -154,15 +163,21 @@ export default class Core {
    * @param type 
    */
   public static report(result: any = "", type: string = "DEFAULT REPORT") {
+
+    const devicePayload: any = {
+      platform: storeFile().platform,
+      user: storeFile().User,
+      store: Core.getSafeState()
+    };
+
+    if (!import.meta.env.SSR) {
+      devicePayload.ua = navigator.userAgent;
+      devicePayload.token = REST.token;
+      devicePayload.page = window.location.toString();
+    }
+
     return Userlogs.create({
-      device: JSON.stringify({
-        ua: navigator.userAgent,
-        token: REST.token,
-        page: window.location.toString(),
-        platform: storeFile().platform,
-        user: storeFile().User,
-        store: Core.getSafeState()
-      }), type: type, txt: '', data: JSON.stringify(result)
+      device: JSON.stringify(devicePayload), type: type, txt: '', data: JSON.stringify(result)
     })
   }
 

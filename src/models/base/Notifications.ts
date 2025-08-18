@@ -97,6 +97,9 @@ export default class Notifications {
   }
 
   public static async registerWeb() {
+    
+    if (import.meta.env.SSR) return false;
+
     const wp = Webpush;
 
     return wp.create({

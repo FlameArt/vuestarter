@@ -5,7 +5,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Chrome",
-      "url": "http://testrest",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceFolder}/src",
       "preLaunchTask": "start-dev-server",
       "postDebugTask": "stop-dev-server",

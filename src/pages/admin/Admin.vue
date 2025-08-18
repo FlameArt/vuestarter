@@ -1,7 +1,7 @@
 <template lang="pug">
 .admin-panel.flex-col.p-4.w-full
   .buttons.flex.space-x-4
-      .button.mb-3(@click="router.push({name: 'AdminUsers'})") Пользователи
+    .button.mb-3(@click="router.push({name: 'AdminUsers'})") Пользователи
     .button.mb-3(@click="router.push({name: 'AdminSubscriptions'})") Подписки
     .button.mb-3(@click="router.push({name: 'AdminUsersOrders'})") Заказы
     .button.mb-3(@click="router.push({name: 'AdminUserSubscriptions'})") Подписки пользователей

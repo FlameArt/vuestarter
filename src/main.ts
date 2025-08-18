@@ -5,9 +5,6 @@ import { createPinia } from 'pinia'
 import router from "./router";
 import { createI18n } from 'vue-i18n'
 
-import 'vue-universal-modal/dist/index.css'
-import VueUniversalModal from 'vue-universal-modal'
-
 import REST from 'flamerest';
 import Core from './models/Core';
 
@@ -27,7 +24,7 @@ const vuetify = createVuetify({
   blueprint: md3,
 })
 
-if (location.hostname === 'testrest') {
+if (location.hostname === 'testrest' || location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
   // ТУТ МОЖН УКАЗАТЬ ВНЕШНИЙ REST СЕРВ для мобильных аппов или др разрабов
   REST.SERVER = 'http://testrest';
 }
@@ -42,15 +39,15 @@ REST.unauthorized_callback = () => {
   return true;
 }
 
-    // Обработка режима обслуживания сервера (503 ошибка)
-    REST.maintenance_callback = (errorMessage?: string) => {
-      // Сохраняем сообщение об ошибке в localStorage для передачи на страницу
-      if (errorMessage) {
-        localStorage.setItem('maintenance_message', errorMessage);
-      }
-      // Перенаправляем на страницу обслуживания
-      router.push('/maintenance');
-    }
+// Обработка режима обслуживания сервера (503 ошибка)
+REST.maintenance_callback = (errorMessage?: string) => {
+  // Сохраняем сообщение об ошибке в localStorage для передачи на страницу
+  if (errorMessage) {
+    localStorage.setItem('maintenance_message', errorMessage);
+  }
+  // Перенаправляем на страницу обслуживания
+  router.push('/maintenance');
+}
 
 // АВТОЛОГИН
 if (Auth.CheckAutologin()) throw "autologin";
@@ -89,8 +86,7 @@ app
   .use(router)
   .use(vuetify)
   .use(i18nPlugin)
-  .use(vuetifyProTipTap)
-  .use(VueUniversalModal, { teleportTarget: '#my-modals', modalComponent: 'CustomModal' })
+  .use(vuetifyProTipTap);
 
 // отлавливаем все ошибки внутри компонентов
 app.config.errorHandler = function (err: any, vm: any, info: string) {

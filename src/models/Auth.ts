@@ -16,9 +16,11 @@ export default class Auth {
     const store = storeFile();
 
     // Прогружаем токен
-    const token = localStorage.getItem("jwttoken");
-    if (token !== null && token !== undefined)
-      REST.token = token;
+    if (!import.meta.env.SSR) {
+      const token = localStorage.getItem("jwttoken");
+      if (token !== null && token !== undefined)
+        REST.token = token;
+    }
 
     // пуш-токен при каждом входе добавляем новый
 
@@ -55,17 +57,21 @@ export default class Auth {
     }
 
     if (tUser === null) {
-      const thisLocation = location.protocol + "//" + location.host + "/signup";
-      if (settingsFile().authRequired)
-        if (location.pathname !== "/signup" && location.pathname !== "/in" && location.pathname !== "/welcome" && location.pathname !== "/privacy" && location.pathname !== "/privacy-web" && location.pathname !== "/terms" && location.pathname !== "/removeaccount" && location.pathname !== "/contacts")
-          document.location = thisLocation;
+      if (!import.meta.env.SSR) {
+        const thisLocation = location.protocol + "//" + location.host + "/signup";
+        if (settingsFile().authRequired)
+          if (location.pathname !== "/signup" && location.pathname !== "/in" && location.pathname !== "/welcome" && location.pathname !== "/privacy" && location.pathname !== "/privacy-web" && location.pathname !== "/terms" && location.pathname !== "/removeaccount" && location.pathname !== "/contacts")
+            document.location = thisLocation;
+      }
       // @ts-expect-error oks
       return;
     }
 
     // Недействительный токен
     if ((tUser as any).status === 401) {
-      localStorage.removeItem("jwttoken");
+      if (!import.meta.env.SSR) {
+        localStorage.removeItem("jwttoken");
+      }
       return {
         success: false
       };
@@ -147,7 +153,9 @@ export default class Auth {
     }
 
     store.User = Object.assign(store.User, tUser.User);
-    localStorage.setItem("jwttoken", tUser.token);
+    if (!import.meta.env.SSR) {
+      localStorage.setItem("jwttoken", tUser.token);
+    }
     REST.token = tUser.token;
 
     store.User.isLoaded = true;
@@ -214,15 +222,19 @@ export default class Auth {
   public static SaveToken(token: any) {
     if (typeof token === 'string') {
       REST.token = token;
-      localStorage.setItem("jwttoken", token);
+      if (!import.meta.env.SSR) {
+        localStorage.setItem("jwttoken", token);
+      }
     }
   }
 
 
   public static async Logout(router: any) {
-    const token = localStorage.getItem("jwttoken");
-    if (token !== null)
-      localStorage.removeItem("jwttoken");
+    if (!import.meta.env.SSR) {
+      const token = localStorage.getItem("jwttoken");
+      if (token !== null)
+        localStorage.removeItem("jwttoken");
+    }
     await REST.logout();
     const store = storeFile();
     store.User.id = 0;
@@ -232,18 +244,20 @@ export default class Auth {
 
 
 
-  public static async SignupSuccess() {
+  public static SignupSuccess() {
 
     const store = storeFile();
 
   }
 
   public static GOAutoLoginOnSite() {
+    if (import.meta.env.SSR) return;
     const link = REST.SERVER + '/al?a=' + REST.token;
     window.location.href = link;
   }
 
   public static CheckAutologin() {
+    if (import.meta.env.SSR) return false;
     const urlParams = new URLSearchParams(location.search);
     if (window.location.pathname === '/al' && urlParams.has("a")) {
       this.SaveToken(urlParams.get('a'));
@@ -271,6 +285,8 @@ export default class Auth {
    */
   public static async RemoveAccount(router: any) {
 
+    if (import.meta.env.SSR) return;
+
     if (prompt("Для удаления аккаунта напишите слово УДАЛИТЬ")?.trim() !== 'УДАЛИТЬ') {
       alert("Не написано \"удалить\", отмена")
       return;
@@ -291,6 +307,7 @@ export default class Auth {
   }
 
   public static async IsNewDevice() {
+    if (import.meta.env.SSR) return false;
     const result: any = await REST.request(REST.SERVER + "/auth/isnewdevice", { uuid: await Notifications.getDeviceUUID() }, 'POST', 'json', true)
     if (result.data.result === 'success') return result.newDevice as boolean;
     return false;
@@ -300,6 +317,7 @@ export default class Auth {
    * Обновить старый токен только если разрешение было дано
    */
   public static async updatePushToken() {
+    if (import.meta.env.SSR) return;
     if (storeFile().platform === 'web') return;
     const perm = await Notifications.checkPermissions();
     if (perm.receive === 'granted') {
@@ -312,6 +330,8 @@ export default class Auth {
    * @param router 
    */
   public static async RequestAndSavePushToken() {
+
+    if (import.meta.env.SSR) return;
 
     const isNewDevice = await this.IsNewDevice();
     //const perm = await Notifications.checkPermissions();
@@ -341,6 +361,7 @@ export default class Auth {
     const store = storeFile();
 
     // Тестим на телеграм, чтобы не загружать большую библиотеку всем
+    if (import.meta.env.SSR) return null;
     if (store.platform !== 'web') return null;
     if (!this.isWebView()) return null;
 
@@ -374,6 +395,7 @@ export default class Auth {
   }
 
   static isWebView() {
+    if (import.meta.env.SSR) return false;
     const ua = navigator.userAgent;
     // Веб тестируем на WebView, чтобы не грузить всем библиотеку
     const webviewRegExp = new RegExp('(' + [
@@ -392,6 +414,8 @@ export default class Auth {
   }
 
   static async Auth_telegram() {
+
+    if (import.meta.env.SSR) return null;
 
     const tg = (window as any).Telegram?.WebApp?.initDataUnsafe
     const tgUser = tg?.user
@@ -448,6 +472,7 @@ export default class Auth {
    */
   public static LinkTelegramAccountWithSite(chat_bot_name: string) {
     // Создаем ссылку
+    if (import.meta.env.SSR) return;
     const link = document.createElement('a');
     link.href = `https://t.me/${chat_bot_name}?start=` + storeFile().User.user_hash;
     link.target = '_blank'; // Открыть в новой вкладке

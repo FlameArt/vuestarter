@@ -1,8 +1,7 @@
-<template lang="pug">
-.flex.justify-center.h-screen.items-center.flex-col
-  .px-8.py-6.mt-4.text-left.bg-white.shadow-lg(class="desktop:w-feed-lg")
-    | Welcome!
-
+<template>
+  <div class="relative">
+    <router-view />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -10,6 +9,8 @@ import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@v
 
 // Иконки
 import { } from '@icons/24/solid'
+import { settingsFile } from '@/settings';
+import Auth from '@/models/Auth';
 
 // Глобальное хранилище и роуты
 const store = storeFile(), app = appStore(), router = useRouter(), route = useRoute();
@@ -22,7 +23,8 @@ const emit = defineEmits(['test'])
 
 // Локальное состояние компонента
 const state = reactive({
-  data: {}
+  isAuthNeeded: () => store.User.isLoaded || !settingsFile().authRequired,
+  isAuthorized: () => settingsFile().authRequired && Auth.isAuthorized() || !settingsFile().authRequired,
 })
 
 </script>

@@ -6,6 +6,9 @@ import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
+  optimizeDeps: {
+    include: ['vuetify'],
+  },
   plugins: [
     vue(), VueI18nPlugin({ /* options */ }),
   ],
@@ -17,7 +20,7 @@ export default defineConfig({
     }
   },
   "server": {
-    "port": 3000,
+    "port": 3111,
     "allowedHosts": true,
   },
   "preview": {
