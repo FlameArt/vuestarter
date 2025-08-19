@@ -18,7 +18,7 @@ import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import t
 
 // Иконки
 import { } from '@icons/24/solid'
-import Usersettings from '../../models/Usersettings';
+import Usersettings from '../../models/UserSettings';
 import User from '../../models/User';
 import Auth from '@/models/Auth';
 import Header from './Header.vue';

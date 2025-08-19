@@ -1,5 +1,5 @@
 import { storeFile } from "@/store";
-import Userorders from "@models/Userorders";
+import Userorders from "@models/UserOrders";
 import REST, { Rows } from "flamerest";
 import { useRoute, useRouter } from 'vue-router';
 

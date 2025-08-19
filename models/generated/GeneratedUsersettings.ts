@@ -1,15 +1,17 @@
 import REST, { Rows, Row, SavedObject } from 'flamerest';
 import RESTTable from './RESTTable';
 import { ref, watch } from 'vue';
+import { plainToInstance } from 'class-transformer';
+import { IsString  } from 'class-validator';
 
 
-import Usersettings from '@models/Usersettings';
+import UserSettings from '@models/UserSettings';
 
 
 import User from '@models/User';
 
 
-class user_settingsFieldsDefault {
+class UserSettingsFieldsDefault {
     public user: string  | User = "";
     public lang: string  = "";
     public country: string  = "";
@@ -20,12 +22,17 @@ class user_settingsFieldsDefault {
 }
 
 
-export default class GeneratedUsersettings extends RESTTable {
+export default class GeneratedUserSettings extends RESTTable {
 
     /**
      * Название таблицы
      */
     public static tableName: string = "user_settings";
+
+    /**
+     * Название контроллера
+     */
+    public static controllerName: string = "user-settings";
 
     /**
      * Ключевые поля
@@ -47,7 +54,7 @@ export default class GeneratedUsersettings extends RESTTable {
     /**
      * Набор всех полей для быстрого встраивания в функции получения
      */
-    public static Fields = (assign: object = {}) => Object.assign(new user_settingsFieldsDefault, assign);
+    public static Fields = (assign: object = {}) => Object.assign(new UserSettingsFieldsDefault, assign);
 
 
     /**
@@ -56,17 +63,22 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string  } | number | string, fields: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Usersettings | null> {
-        return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+    static async one(IDOrWhere: { user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string  } | number | string, fields: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<UserSettings | null> {
+        const result = await REST.one<UserSettings>(this.controllerName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+        return result === null ? null : plainToInstance(UserSettings, result);
     }
 
     /**
-     * Параметры
+     * Загрузить список строк
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"user"|"-user"|"lang"|"-lang"|"country"|"-country"|"email_notifications"|"-email_notifications"|"email_notifications_unsubscribetoken"|"-email_notifications_unsubscribetoken"|"cookies_accepted"|"-cookies_accepted"|"task"|"-task">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Usersettings>> {
-        return REST.all<Usersettings>(this.tableName, params);
+    static async all(params?: { where?: object, fields?: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"user"|"-user"|"lang"|"-lang"|"country"|"-country"|"email_notifications"|"-email_notifications"|"email_notifications_unsubscribetoken"|"-email_notifications_unsubscribetoken"|"cookies_accepted"|"-cookies_accepted"|"task"|"-task">, page?: number, perPage?: number, tree?: number }): Promise<Rows<UserSettings>> {
+        const result = await REST.all<UserSettings>(this.controllerName, params);
+        if (result.data)
+            for (let i = 0; i < result.data.length; i++)
+                result.data[i] = plainToInstance(UserSettings, result.data[i]);
+        return result;
     }
 
     /**
@@ -84,8 +96,8 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать объект через инициализатор
      * @returns
      */
-    public async create(): Promise<SavedObject<Usersettings>> {
-        const result = await REST.create<Usersettings>(Usersettings.tableName, this, null, null, null);
+    public async create(): Promise<SavedObject<UserSettings>> {
+        const result = await REST.create<UserSettings>(GeneratedUserSettings.controllerName, this, null, null, null);
         if(result.data !== undefined)
             REST.fillObject(this, result.data)
         return result;
@@ -95,10 +107,10 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersettings>> {
-        const result = await REST.create<Usersettings>(Usersettings.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async create(params: {user?: number  | User, lang?: string , country?: string , email_notifications?: number , email_notifications_unsubscribetoken?: string , cookies_accepted?: number , task?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserSettings>> {
+        const result = await REST.create<UserSettings>(GeneratedUserSettings.controllerName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
-            result.data = REST.fillObject(new Usersettings(), result.data);
+            result.data = REST.fillObject(new UserSettings(), result.data);
         return result;
     }
 
@@ -106,8 +118,8 @@ export default class GeneratedUsersettings extends RESTTable {
      * Изменить значения из текущей модели
      * @param params
      */
-    public async edit(): Promise<SavedObject<Usersettings>> {
-        const resp = await REST.edit<Usersettings>(Usersettings.tableName, (this as any)[Usersettings.primaryKeys[0]], this, null, null, null);
+    public async edit(): Promise<SavedObject<UserSettings>> {
+        const resp = await REST.edit<UserSettings>(GeneratedUserSettings.controllerName, (this as any)[GeneratedUserSettings.primaryKeys[0]], this, null, null, null);
         Object.assign(this, resp.data);
         return resp;
     }
@@ -116,16 +128,16 @@ export default class GeneratedUsersettings extends RESTTable {
      * Изменить значения через прямой вызов функции
      * @param params
      */
-    public static async edit(ID: number | string, values: {user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, cookies_accepted?: number, task?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersettings>> {
-        return REST.edit<Usersettings>(Usersettings.tableName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async edit(ID: number | string, values: {user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, cookies_accepted?: number, task?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserSettings>> {
+        return REST.edit<UserSettings>(GeneratedUserSettings.controllerName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
     }
 
 
     /**
      * Создать или обновить значения
      */
-    public save(): Promise<SavedObject<Usersettings>> {
-        if (GeneratedUsersettings.primaryKeys.length !== GeneratedUsersettings.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
+    public save(): Promise<SavedObject<UserSettings>> {
+        if (GeneratedUserSettings.primaryKeys.length !== GeneratedUserSettings.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
             return this.create();
         else
             return this.edit();
@@ -135,11 +147,11 @@ export default class GeneratedUsersettings extends RESTTable {
      * Создать или обновить значения через прямой вызов функции
      * @param params
      */
-    public static save(obj: GeneratedUsersettings|null = null, values: { user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, cookies_accepted?: number, task?: string }): Promise<SavedObject<Usersettings>> {
-        if (obj === null || GeneratedUsersettings.primaryKeys.length !== GeneratedUsersettings.primaryKeys.filter(r => (obj as any)[r] !== null).length)
+    public static save(obj: GeneratedUserSettings|null = null, values: { user?: number, lang?: string, country?: string, email_notifications?: number, email_notifications_unsubscribetoken?: string, cookies_accepted?: number, task?: string }): Promise<SavedObject<UserSettings>> {
+        if (obj === null || GeneratedUserSettings.primaryKeys.length !== GeneratedUserSettings.primaryKeys.filter(r => (obj as any)[r] !== null).length)
             return this.create(values);
         else
-            return GeneratedUsersettings.edit((obj as any)[GeneratedUsersettings.primaryKeys[0]], values);
+            return GeneratedUserSettings.edit((obj as any)[GeneratedUserSettings.primaryKeys[0]], values);
     }
 
 
@@ -150,7 +162,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param byFields
      */
     public static async delete(id: number | string | null, byFields?: object): Promise<boolean|Array<any>> {
-        return REST.remove(Usersettings.tableName, id ?? 0, byFields);
+        return REST.remove(GeneratedUserSettings.controllerName, id ?? 0, byFields);
     }
 
     /**
@@ -160,7 +172,7 @@ export default class GeneratedUsersettings extends RESTTable {
      * @param byFields
      */
     public async delete(): Promise<boolean|Array<any>> {
-        return REST.remove(Usersettings.tableName, (this as any)[Usersettings.primaryKeys[0]]);
+        return REST.remove(GeneratedUserSettings.controllerName, (this as any)[GeneratedUserSettings.primaryKeys[0]]);
     }
 
     /**

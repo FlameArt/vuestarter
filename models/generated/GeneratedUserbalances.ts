@@ -1,15 +1,17 @@
 import REST, { Rows, Row, SavedObject } from 'flamerest';
 import RESTTable from './RESTTable';
 import { ref, watch } from 'vue';
+import { plainToInstance } from 'class-transformer';
+import { IsString  } from 'class-validator';
 
 
-import Userbalances from '@models/Userbalances';
+import UserBalances from '@models/UserBalances';
 
 
 import User from '@models/User';
 
 
-class user_balancesFieldsDefault {
+class UserBalancesFieldsDefault {
     public id: string  = "";
     public user: string  | User = "";
     public type: string  = "";
@@ -17,12 +19,17 @@ class user_balancesFieldsDefault {
 }
 
 
-export default class GeneratedUserbalances extends RESTTable {
+export default class GeneratedUserBalances extends RESTTable {
 
     /**
      * Название таблицы
      */
     public static tableName: string = "user_balances";
+
+    /**
+     * Название контроллера
+     */
+    public static controllerName: string = "user-balances";
 
     /**
      * Ключевые поля
@@ -41,7 +48,7 @@ export default class GeneratedUserbalances extends RESTTable {
     /**
      * Набор всех полей для быстрого встраивания в функции получения
      */
-    public static Fields = (assign: object = {}) => Object.assign(new user_balancesFieldsDefault, assign);
+    public static Fields = (assign: object = {}) => Object.assign(new UserBalancesFieldsDefault, assign);
 
 
     /**
@@ -50,17 +57,22 @@ export default class GeneratedUserbalances extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , balance?: number  } | number | string, fields: {id?: number , user?: number  | User, type?: string , balance?: number } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Userbalances | null> {
-        return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+    static async one(IDOrWhere: { id?: number , user?: number  | User, type?: string , balance?: number  } | number | string, fields: {id?: number , user?: number  | User, type?: string , balance?: number } | Array<string> | null = null, extfields?: object | Array<string>): Promise<UserBalances | null> {
+        const result = await REST.one<UserBalances>(this.controllerName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+        return result === null ? null : plainToInstance(UserBalances, result);
     }
 
     /**
-     * Параметры
+     * Загрузить список строк
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, type?: string , balance?: number } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"type"|"-type"|"balance"|"-balance">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Userbalances>> {
-        return REST.all<Userbalances>(this.tableName, params);
+    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, type?: string , balance?: number } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"type"|"-type"|"balance"|"-balance">, page?: number, perPage?: number, tree?: number }): Promise<Rows<UserBalances>> {
+        const result = await REST.all<UserBalances>(this.controllerName, params);
+        if (result.data)
+            for (let i = 0; i < result.data.length; i++)
+                result.data[i] = plainToInstance(UserBalances, result.data[i]);
+        return result;
     }
 
     /**
@@ -78,8 +90,8 @@ export default class GeneratedUserbalances extends RESTTable {
      * Создать объект через инициализатор
      * @returns
      */
-    public async create(): Promise<SavedObject<Userbalances>> {
-        const result = await REST.create<Userbalances>(Userbalances.tableName, this, null, null, null);
+    public async create(): Promise<SavedObject<UserBalances>> {
+        const result = await REST.create<UserBalances>(GeneratedUserBalances.controllerName, this, null, null, null);
         if(result.data !== undefined)
             REST.fillObject(this, result.data)
         return result;
@@ -89,10 +101,10 @@ export default class GeneratedUserbalances extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {id?: number , user?: number  | User, type?: string , balance?: number }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Userbalances>> {
-        const result = await REST.create<Userbalances>(Userbalances.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async create(params: {id?: number , user?: number  | User, type?: string , balance?: number }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserBalances>> {
+        const result = await REST.create<UserBalances>(GeneratedUserBalances.controllerName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
-            result.data = REST.fillObject(new Userbalances(), result.data);
+            result.data = REST.fillObject(new UserBalances(), result.data);
         return result;
     }
 
@@ -100,8 +112,8 @@ export default class GeneratedUserbalances extends RESTTable {
      * Изменить значения из текущей модели
      * @param params
      */
-    public async edit(): Promise<SavedObject<Userbalances>> {
-        const resp = await REST.edit<Userbalances>(Userbalances.tableName, (this as any)[Userbalances.primaryKeys[0]], this, null, null, null);
+    public async edit(): Promise<SavedObject<UserBalances>> {
+        const resp = await REST.edit<UserBalances>(GeneratedUserBalances.controllerName, (this as any)[GeneratedUserBalances.primaryKeys[0]], this, null, null, null);
         Object.assign(this, resp.data);
         return resp;
     }
@@ -110,16 +122,16 @@ export default class GeneratedUserbalances extends RESTTable {
      * Изменить значения через прямой вызов функции
      * @param params
      */
-    public static async edit(ID: number | string, values: {id?: number, user?: number, type?: string, balance?: number}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Userbalances>> {
-        return REST.edit<Userbalances>(Userbalances.tableName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async edit(ID: number | string, values: {id?: number, user?: number, type?: string, balance?: number}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserBalances>> {
+        return REST.edit<UserBalances>(GeneratedUserBalances.controllerName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
     }
 
 
     /**
      * Создать или обновить значения
      */
-    public save(): Promise<SavedObject<Userbalances>> {
-        if (GeneratedUserbalances.primaryKeys.length !== GeneratedUserbalances.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
+    public save(): Promise<SavedObject<UserBalances>> {
+        if (GeneratedUserBalances.primaryKeys.length !== GeneratedUserBalances.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
             return this.create();
         else
             return this.edit();
@@ -129,11 +141,11 @@ export default class GeneratedUserbalances extends RESTTable {
      * Создать или обновить значения через прямой вызов функции
      * @param params
      */
-    public static save(obj: GeneratedUserbalances|null = null, values: { id?: number, user: number, type?: string, balance?: number }): Promise<SavedObject<Userbalances>> {
-        if (obj === null || GeneratedUserbalances.primaryKeys.length !== GeneratedUserbalances.primaryKeys.filter(r => (obj as any)[r] !== null).length)
+    public static save(obj: GeneratedUserBalances|null = null, values: { id?: number, user: number, type?: string, balance?: number }): Promise<SavedObject<UserBalances>> {
+        if (obj === null || GeneratedUserBalances.primaryKeys.length !== GeneratedUserBalances.primaryKeys.filter(r => (obj as any)[r] !== null).length)
             return this.create(values);
         else
-            return GeneratedUserbalances.edit((obj as any)[GeneratedUserbalances.primaryKeys[0]], values);
+            return GeneratedUserBalances.edit((obj as any)[GeneratedUserBalances.primaryKeys[0]], values);
     }
 
 
@@ -144,7 +156,7 @@ export default class GeneratedUserbalances extends RESTTable {
      * @param byFields
      */
     public static async delete(id: number | string | null, byFields?: object): Promise<boolean|Array<any>> {
-        return REST.remove(Userbalances.tableName, id ?? 0, byFields);
+        return REST.remove(GeneratedUserBalances.controllerName, id ?? 0, byFields);
     }
 
     /**
@@ -154,7 +166,7 @@ export default class GeneratedUserbalances extends RESTTable {
      * @param byFields
      */
     public async delete(): Promise<boolean|Array<any>> {
-        return REST.remove(Userbalances.tableName, (this as any)[Userbalances.primaryKeys[0]]);
+        return REST.remove(GeneratedUserBalances.controllerName, (this as any)[GeneratedUserBalances.primaryKeys[0]]);
     }
 
     /**

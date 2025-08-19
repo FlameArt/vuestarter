@@ -1,9 +1,8 @@
-
-import GeneratedUserlogs from "./generated/GeneratedUserlogs";
+import GeneratedUserLogs from "./generated/GeneratedUserLogs";
 
 
 /* Расширенный класс модели Userlogs */
-export default class Userlogs extends GeneratedUserlogs {
+export default class UserLogs extends GeneratedUserLogs {
 
 
 

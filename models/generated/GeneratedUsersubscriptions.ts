@@ -1,16 +1,18 @@
 import REST, { Rows, Row, SavedObject } from 'flamerest';
 import RESTTable from './RESTTable';
 import { ref, watch } from 'vue';
+import { plainToInstance } from 'class-transformer';
+import { IsString  } from 'class-validator';
 
 
-import Usersubscriptions from '@models/Usersubscriptions';
+import UserSubscriptions from '@models/UserSubscriptions';
 
 
 import User from '@models/User';
 import Subscriptions from '@models/Subscriptions';
 
 
-class user_subscriptionsFieldsDefault {
+class UserSubscriptionsFieldsDefault {
     public id: string  = "";
     public user: string  | User = "";
     public subscription: string  | Subscriptions = "";
@@ -20,12 +22,17 @@ class user_subscriptionsFieldsDefault {
 }
 
 
-export default class GeneratedUsersubscriptions extends RESTTable {
+export default class GeneratedUserSubscriptions extends RESTTable {
 
     /**
      * Название таблицы
      */
     public static tableName: string = "user_subscriptions";
+
+    /**
+     * Название контроллера
+     */
+    public static controllerName: string = "user-subscriptions";
 
     /**
      * Ключевые поля
@@ -46,7 +53,7 @@ export default class GeneratedUsersubscriptions extends RESTTable {
     /**
      * Набор всех полей для быстрого встраивания в функции получения
      */
-    public static Fields = (assign: object = {}) => Object.assign(new user_subscriptionsFieldsDefault, assign);
+    public static Fields = (assign: object = {}) => Object.assign(new UserSubscriptionsFieldsDefault, assign);
 
 
     /**
@@ -55,17 +62,22 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string  } | number | string, fields: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Usersubscriptions | null> {
-        return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+    static async one(IDOrWhere: { id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string  } | number | string, fields: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<UserSubscriptions | null> {
+        const result = await REST.one<UserSubscriptions>(this.controllerName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+        return result === null ? null : plainToInstance(UserSubscriptions, result);
     }
 
     /**
-     * Параметры
+     * Загрузить список строк
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"subscription"|"-subscription"|"started_dt"|"-started_dt"|"payedto_dt"|"-payedto_dt"|"status"|"-status">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Usersubscriptions>> {
-        return REST.all<Usersubscriptions>(this.tableName, params);
+    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"subscription"|"-subscription"|"started_dt"|"-started_dt"|"payedto_dt"|"-payedto_dt"|"status"|"-status">, page?: number, perPage?: number, tree?: number }): Promise<Rows<UserSubscriptions>> {
+        const result = await REST.all<UserSubscriptions>(this.controllerName, params);
+        if (result.data)
+            for (let i = 0; i < result.data.length; i++)
+                result.data[i] = plainToInstance(UserSubscriptions, result.data[i]);
+        return result;
     }
 
     /**
@@ -83,8 +95,8 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * Создать объект через инициализатор
      * @returns
      */
-    public async create(): Promise<SavedObject<Usersubscriptions>> {
-        const result = await REST.create<Usersubscriptions>(Usersubscriptions.tableName, this, null, null, null);
+    public async create(): Promise<SavedObject<UserSubscriptions>> {
+        const result = await REST.create<UserSubscriptions>(GeneratedUserSubscriptions.controllerName, this, null, null, null);
         if(result.data !== undefined)
             REST.fillObject(this, result.data)
         return result;
@@ -94,10 +106,10 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersubscriptions>> {
-        const result = await REST.create<Usersubscriptions>(Usersubscriptions.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async create(params: {id?: number , user?: number  | User, subscription?: number  | Subscriptions, started_dt?: string , payedto_dt?: string , status?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserSubscriptions>> {
+        const result = await REST.create<UserSubscriptions>(GeneratedUserSubscriptions.controllerName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
-            result.data = REST.fillObject(new Usersubscriptions(), result.data);
+            result.data = REST.fillObject(new UserSubscriptions(), result.data);
         return result;
     }
 
@@ -105,8 +117,8 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * Изменить значения из текущей модели
      * @param params
      */
-    public async edit(): Promise<SavedObject<Usersubscriptions>> {
-        const resp = await REST.edit<Usersubscriptions>(Usersubscriptions.tableName, (this as any)[Usersubscriptions.primaryKeys[0]], this, null, null, null);
+    public async edit(): Promise<SavedObject<UserSubscriptions>> {
+        const resp = await REST.edit<UserSubscriptions>(GeneratedUserSubscriptions.controllerName, (this as any)[GeneratedUserSubscriptions.primaryKeys[0]], this, null, null, null);
         Object.assign(this, resp.data);
         return resp;
     }
@@ -115,16 +127,16 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * Изменить значения через прямой вызов функции
      * @param params
      */
-    public static async edit(ID: number | string, values: {id?: number, user?: number, subscription?: number, started_dt?: string, payedto_dt?: string, status?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Usersubscriptions>> {
-        return REST.edit<Usersubscriptions>(Usersubscriptions.tableName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async edit(ID: number | string, values: {id?: number, user?: number, subscription?: number, started_dt?: string, payedto_dt?: string, status?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserSubscriptions>> {
+        return REST.edit<UserSubscriptions>(GeneratedUserSubscriptions.controllerName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
     }
 
 
     /**
      * Создать или обновить значения
      */
-    public save(): Promise<SavedObject<Usersubscriptions>> {
-        if (GeneratedUsersubscriptions.primaryKeys.length !== GeneratedUsersubscriptions.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
+    public save(): Promise<SavedObject<UserSubscriptions>> {
+        if (GeneratedUserSubscriptions.primaryKeys.length !== GeneratedUserSubscriptions.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
             return this.create();
         else
             return this.edit();
@@ -134,11 +146,11 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * Создать или обновить значения через прямой вызов функции
      * @param params
      */
-    public static save(obj: GeneratedUsersubscriptions|null = null, values: { id?: number, user?: number, subscription?: number, started_dt?: string, payedto_dt?: string, status?: string }): Promise<SavedObject<Usersubscriptions>> {
-        if (obj === null || GeneratedUsersubscriptions.primaryKeys.length !== GeneratedUsersubscriptions.primaryKeys.filter(r => (obj as any)[r] !== null).length)
+    public static save(obj: GeneratedUserSubscriptions|null = null, values: { id?: number, user?: number, subscription?: number, started_dt?: string, payedto_dt?: string, status?: string }): Promise<SavedObject<UserSubscriptions>> {
+        if (obj === null || GeneratedUserSubscriptions.primaryKeys.length !== GeneratedUserSubscriptions.primaryKeys.filter(r => (obj as any)[r] !== null).length)
             return this.create(values);
         else
-            return GeneratedUsersubscriptions.edit((obj as any)[GeneratedUsersubscriptions.primaryKeys[0]], values);
+            return GeneratedUserSubscriptions.edit((obj as any)[GeneratedUserSubscriptions.primaryKeys[0]], values);
     }
 
 
@@ -149,7 +161,7 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * @param byFields
      */
     public static async delete(id: number | string | null, byFields?: object): Promise<boolean|Array<any>> {
-        return REST.remove(Usersubscriptions.tableName, id ?? 0, byFields);
+        return REST.remove(GeneratedUserSubscriptions.controllerName, id ?? 0, byFields);
     }
 
     /**
@@ -159,7 +171,7 @@ export default class GeneratedUsersubscriptions extends RESTTable {
      * @param byFields
      */
     public async delete(): Promise<boolean|Array<any>> {
-        return REST.remove(Usersubscriptions.tableName, (this as any)[Usersubscriptions.primaryKeys[0]]);
+        return REST.remove(GeneratedUserSubscriptions.controllerName, (this as any)[GeneratedUserSubscriptions.primaryKeys[0]]);
     }
 
     /**

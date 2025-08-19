@@ -15,7 +15,7 @@ import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@v
 // Иконки
 import { } from '@icons/24/solid'
 import Auth from '@/models/Auth';
-import Userorders from '@models/Userorders';
+import Userorders from '@models/UserOrders';
 
 // Глобальное хранилище, роуты, локали
 const store = storeFile(), router = useRouter(), route = useRoute(), { t, locale } = useI18n({ inheritLocale: true, useScope: 'local' });

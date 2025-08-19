@@ -1,10 +1,9 @@
-
-import GeneratedUserbalances from "./generated/GeneratedUserbalances";
+import GeneratedUserBalances from "./generated/GeneratedUserBalances";
 
 import User from './User';
 
 /* Расширенный класс модели Userbalances */
-export default class Userbalances extends GeneratedUserbalances {
+export default class UserBalances extends GeneratedUserBalances {
 
 
 

@@ -1,6 +1,8 @@
 import REST, { Rows, Row, SavedObject } from 'flamerest';
 import RESTTable from './RESTTable';
 import { ref, watch } from 'vue';
+import { plainToInstance } from 'class-transformer';
+import { IsString  } from 'class-validator';
 
 
 import User from '@models/User';
@@ -8,7 +10,7 @@ import User from '@models/User';
 
 
 
-class userFieldsDefault {
+class UserFieldsDefault {
     public id: string  = "";
     public uuid: string  = "";
     public username: string  = "";
@@ -28,10 +30,6 @@ class userFieldsDefault {
     public created_at: string  = "";
     public updated_at: string  = "";
     public verification_token: string  = "";
-    public affilate_id: string  = "";
-    public affilate_link: string  = "";
-    public affilate_user: string  = "";
-    public registration_data: string  = "";
 }
 
 
@@ -41,6 +39,11 @@ export default class GeneratedUser extends RESTTable {
      * Название таблицы
      */
     public static tableName: string = "user";
+
+    /**
+     * Название контроллера
+     */
+    public static controllerName: string = "user";
 
     /**
      * Ключевые поля
@@ -70,15 +73,11 @@ export default class GeneratedUser extends RESTTable {
     public created_at!: number
     public updated_at!: number
     public verification_token!: string | null 
-    public affilate_id!: number | null 
-    public affilate_link!: number | null 
-    public affilate_user!: number | null 
-    public registration_data!: any | null 
 
     /**
      * Набор всех полей для быстрого встраивания в функции получения
      */
-    public static Fields = (assign: object = {}) => Object.assign(new userFieldsDefault, assign);
+    public static Fields = (assign: object = {}) => Object.assign(new UserFieldsDefault, assign);
 
 
     /**
@@ -87,24 +86,29 @@ export default class GeneratedUser extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string , affilate_id?: number , affilate_link?: number , affilate_user?: number , registration_data?: any  } | number | string, fields: {id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string , affilate_id?: number , affilate_link?: number , affilate_user?: number , registration_data?: any } | Array<string> | null = null, extfields?: object | Array<string>): Promise<User | null> {
-        return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+    static async one(IDOrWhere: { id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string  } | number | string, fields: {id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<User | null> {
+        const result = await REST.one<User>(this.controllerName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+        return result === null ? null : plainToInstance(User, result);
     }
 
     /**
-     * Параметры
+     * Загрузить список строк
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string , affilate_id?: number , affilate_link?: number , affilate_user?: number , registration_data?: any } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"uuid"|"-uuid"|"username"|"-username"|"name"|"-name"|"desc"|"-desc"|"auth_key"|"-auth_key"|"password_hash"|"-password_hash"|"password_reset_token"|"-password_reset_token"|"user_hash"|"-user_hash"|"email"|"-email"|"phone"|"-phone"|"install_uuid"|"-install_uuid"|"license_key"|"-license_key"|"telegram_id"|"-telegram_id"|"avatar"|"-avatar"|"status"|"-status"|"created_at"|"-created_at"|"updated_at"|"-updated_at"|"verification_token"|"-verification_token"|"affilate_id"|"-affilate_id"|"affilate_link"|"-affilate_link"|"affilate_user"|"-affilate_user"|"registration_data"|"-registration_data">, page?: number, perPage?: number, tree?: number }): Promise<Rows<User>> {
-        return REST.all<User>(this.tableName, params);
+    static async all(params?: { where?: object, fields?: {id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"uuid"|"-uuid"|"username"|"-username"|"name"|"-name"|"desc"|"-desc"|"auth_key"|"-auth_key"|"password_hash"|"-password_hash"|"password_reset_token"|"-password_reset_token"|"user_hash"|"-user_hash"|"email"|"-email"|"phone"|"-phone"|"install_uuid"|"-install_uuid"|"license_key"|"-license_key"|"telegram_id"|"-telegram_id"|"avatar"|"-avatar"|"status"|"-status"|"created_at"|"-created_at"|"updated_at"|"-updated_at"|"verification_token"|"-verification_token">, page?: number, perPage?: number, tree?: number }): Promise<Rows<User>> {
+        const result = await REST.all<User>(this.controllerName, params);
+        if (result.data)
+            for (let i = 0; i < result.data.length; i++)
+                result.data[i] = plainToInstance(User, result.data[i]);
+        return result;
     }
 
     /**
      * Создать этот объект, инициализировав переменные
      * @param params
      */
-    constructor(params?: {id?: number, uuid?: string, username?: string, name?: string, desc?: string, auth_key: string, password_hash: string, password_reset_token?: string, user_hash?: string, email?: string, phone?: string, install_uuid?: string, license_key?: string, telegram_id?: string, avatar?: any, status?: number, created_at: number, updated_at: number, verification_token?: string, affilate_id?: number, affilate_link?: number, affilate_user?: number, registration_data?: any}) {
+    constructor(params?: {id?: number, uuid?: string, username?: string, name?: string, desc?: string, auth_key: string, password_hash: string, password_reset_token?: string, user_hash?: string, email?: string, phone?: string, install_uuid?: string, license_key?: string, telegram_id?: string, avatar?: any, status?: number, created_at: number, updated_at: number, verification_token?: string}) {
 
         super();
         if(params) Object.assign(this, params);
@@ -117,7 +121,7 @@ export default class GeneratedUser extends RESTTable {
      * @returns
      */
     public async create(): Promise<SavedObject<User>> {
-        const result = await REST.create<User>(User.tableName, this, null, null, null);
+        const result = await REST.create<User>(GeneratedUser.controllerName, this, null, null, null);
         if(result.data !== undefined)
             REST.fillObject(this, result.data)
         return result;
@@ -127,8 +131,8 @@ export default class GeneratedUser extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string , affilate_id?: number , affilate_link?: number , affilate_user?: number , registration_data?: any }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<User>> {
-        const result = await REST.create<User>(User.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async create(params: {id?: number , uuid?: string , username?: string , name?: string , desc?: string , auth_key?: string , password_hash?: string , password_reset_token?: string , user_hash?: string , email?: string , phone?: string , install_uuid?: string , license_key?: string , telegram_id?: string , avatar?: any , status?: number , created_at?: number , updated_at?: number , verification_token?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<User>> {
+        const result = await REST.create<User>(GeneratedUser.controllerName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
             result.data = REST.fillObject(new User(), result.data);
         return result;
@@ -139,7 +143,7 @@ export default class GeneratedUser extends RESTTable {
      * @param params
      */
     public async edit(): Promise<SavedObject<User>> {
-        const resp = await REST.edit<User>(User.tableName, (this as any)[User.primaryKeys[0]], this, null, null, null);
+        const resp = await REST.edit<User>(GeneratedUser.controllerName, (this as any)[GeneratedUser.primaryKeys[0]], this, null, null, null);
         Object.assign(this, resp.data);
         return resp;
     }
@@ -148,8 +152,8 @@ export default class GeneratedUser extends RESTTable {
      * Изменить значения через прямой вызов функции
      * @param params
      */
-    public static async edit(ID: number | string, values: {id?: number, uuid?: string, username?: string, name?: string, desc?: string, auth_key?: string, password_hash?: string, password_reset_token?: string, user_hash?: string, email?: string, phone?: string, install_uuid?: string, license_key?: string, telegram_id?: string, avatar?: any, status?: number, created_at?: number, updated_at?: number, verification_token?: string, affilate_id?: number, affilate_link?: number, affilate_user?: number, registration_data?: any}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<User>> {
-        return REST.edit<User>(User.tableName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async edit(ID: number | string, values: {id?: number, uuid?: string, username?: string, name?: string, desc?: string, auth_key?: string, password_hash?: string, password_reset_token?: string, user_hash?: string, email?: string, phone?: string, install_uuid?: string, license_key?: string, telegram_id?: string, avatar?: any, status?: number, created_at?: number, updated_at?: number, verification_token?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<User>> {
+        return REST.edit<User>(GeneratedUser.controllerName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
     }
 
 
@@ -167,7 +171,7 @@ export default class GeneratedUser extends RESTTable {
      * Создать или обновить значения через прямой вызов функции
      * @param params
      */
-    public static save(obj: GeneratedUser|null = null, values: { id?: number, uuid?: string, username?: string, name?: string, desc?: string, auth_key: string, password_hash: string, password_reset_token?: string, user_hash?: string, email?: string, phone?: string, install_uuid?: string, license_key?: string, telegram_id?: string, avatar?: any, status?: number, created_at: number, updated_at: number, verification_token?: string, affilate_id?: number, affilate_link?: number, affilate_user?: number, registration_data?: any }): Promise<SavedObject<User>> {
+    public static save(obj: GeneratedUser|null = null, values: { id?: number, uuid?: string, username?: string, name?: string, desc?: string, auth_key: string, password_hash: string, password_reset_token?: string, user_hash?: string, email?: string, phone?: string, install_uuid?: string, license_key?: string, telegram_id?: string, avatar?: any, status?: number, created_at: number, updated_at: number, verification_token?: string }): Promise<SavedObject<User>> {
         if (obj === null || GeneratedUser.primaryKeys.length !== GeneratedUser.primaryKeys.filter(r => (obj as any)[r] !== null).length)
             return this.create(values);
         else
@@ -182,7 +186,7 @@ export default class GeneratedUser extends RESTTable {
      * @param byFields
      */
     public static async delete(id: number | string | null, byFields?: object): Promise<boolean|Array<any>> {
-        return REST.remove(User.tableName, id ?? 0, byFields);
+        return REST.remove(GeneratedUser.controllerName, id ?? 0, byFields);
     }
 
     /**
@@ -192,7 +196,7 @@ export default class GeneratedUser extends RESTTable {
      * @param byFields
      */
     public async delete(): Promise<boolean|Array<any>> {
-        return REST.remove(User.tableName, (this as any)[User.primaryKeys[0]]);
+        return REST.remove(GeneratedUser.controllerName, (this as any)[GeneratedUser.primaryKeys[0]]);
     }
 
     /**

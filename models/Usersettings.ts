@@ -1,10 +1,9 @@
-
-import GeneratedUsersettings from "./generated/GeneratedUsersettings";
+import GeneratedUserSettings from "./generated/GeneratedUserSettings";
 
 import User from './User';
 
 /* Расширенный класс модели Usersettings */
-export default class Usersettings extends GeneratedUsersettings {
+export default class UserSettings extends GeneratedUserSettings {
 
 
 

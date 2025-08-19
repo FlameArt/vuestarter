@@ -1,16 +1,18 @@
 import REST, { Rows, Row, SavedObject } from 'flamerest';
 import RESTTable from './RESTTable';
 import { ref, watch } from 'vue';
+import { plainToInstance } from 'class-transformer';
+import { IsString  } from 'class-validator';
 
 
-import Userorders from '@models/Userorders';
+import UserOrders from '@models/UserOrders';
 
 
 import User from '@models/User';
 import Subscriptions from '@models/Subscriptions';
 
 
-class user_ordersFieldsDefault {
+class UserOrdersFieldsDefault {
     public id: string  = "";
     public user: string  | User = "";
     public affiliate: string  = "";
@@ -38,12 +40,17 @@ class user_ordersFieldsDefault {
 }
 
 
-export default class GeneratedUserorders extends RESTTable {
+export default class GeneratedUserOrders extends RESTTable {
 
     /**
      * Название таблицы
      */
     public static tableName: string = "user_orders";
+
+    /**
+     * Название контроллера
+     */
+    public static controllerName: string = "user-orders";
 
     /**
      * Ключевые поля
@@ -82,7 +89,7 @@ export default class GeneratedUserorders extends RESTTable {
     /**
      * Набор всех полей для быстрого встраивания в функции получения
      */
-    public static Fields = (assign: object = {}) => Object.assign(new user_ordersFieldsDefault, assign);
+    public static Fields = (assign: object = {}) => Object.assign(new UserOrdersFieldsDefault, assign);
 
 
     /**
@@ -91,17 +98,22 @@ export default class GeneratedUserorders extends RESTTable {
      * @param fields поля, которые надо вернуть [если не указаны, вернёт все доступные]
      * @returns
      */
-    static async one(IDOrWhere: { id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string  } | number | string, fields: {id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<Userorders | null> {
-        return REST.one(this.tableName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+    static async one(IDOrWhere: { id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string  } | number | string, fields: {id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string } | Array<string> | null = null, extfields?: object | Array<string>): Promise<UserOrders | null> {
+        const result = await REST.one<UserOrders>(this.controllerName, IDOrWhere, extfields, fields, this.primaryKeys[0]);
+        return result === null ? null : plainToInstance(UserOrders, result);
     }
 
     /**
-     * Параметры
+     * Загрузить список строк
      * @param params
      * @returns
      */
-    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"affiliate"|"-affiliate"|"name"|"-name"|"desc"|"-desc"|"subscription"|"-subscription"|"total"|"-total"|"currency"|"-currency"|"total_base"|"-total_base"|"currency_base"|"-currency_base"|"data"|"-data"|"paymethod"|"-paymethod"|"paysystem"|"-paysystem"|"paystatus"|"-paystatus"|"paytype"|"-paytype"|"transaction_id"|"-transaction_id"|"transaction_data"|"-transaction_data"|"transaction_dt"|"-transaction_dt"|"status"|"-status"|"is_refund"|"-is_refund"|"comment_user"|"-comment_user"|"comment_manager"|"-comment_manager"|"created_dt"|"-created_dt"|"updated_dt"|"-updated_dt">, page?: number, perPage?: number, tree?: number }): Promise<Rows<Userorders>> {
-        return REST.all<Userorders>(this.tableName, params);
+    static async all(params?: { where?: object, fields?: {id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string } | Array<string>, extfields?: object | Array<string>, sort?: Array<"id"|"-id"|"user"|"-user"|"affiliate"|"-affiliate"|"name"|"-name"|"desc"|"-desc"|"subscription"|"-subscription"|"total"|"-total"|"currency"|"-currency"|"total_base"|"-total_base"|"currency_base"|"-currency_base"|"data"|"-data"|"paymethod"|"-paymethod"|"paysystem"|"-paysystem"|"paystatus"|"-paystatus"|"paytype"|"-paytype"|"transaction_id"|"-transaction_id"|"transaction_data"|"-transaction_data"|"transaction_dt"|"-transaction_dt"|"status"|"-status"|"is_refund"|"-is_refund"|"comment_user"|"-comment_user"|"comment_manager"|"-comment_manager"|"created_dt"|"-created_dt"|"updated_dt"|"-updated_dt">, page?: number, perPage?: number, tree?: number }): Promise<Rows<UserOrders>> {
+        const result = await REST.all<UserOrders>(this.controllerName, params);
+        if (result.data)
+            for (let i = 0; i < result.data.length; i++)
+                result.data[i] = plainToInstance(UserOrders, result.data[i]);
+        return result;
     }
 
     /**
@@ -119,8 +131,8 @@ export default class GeneratedUserorders extends RESTTable {
      * Создать объект через инициализатор
      * @returns
      */
-    public async create(): Promise<SavedObject<Userorders>> {
-        const result = await REST.create<Userorders>(Userorders.tableName, this, null, null, null);
+    public async create(): Promise<SavedObject<UserOrders>> {
+        const result = await REST.create<UserOrders>(GeneratedUserOrders.controllerName, this, null, null, null);
         if(result.data !== undefined)
             REST.fillObject(this, result.data)
         return result;
@@ -130,10 +142,10 @@ export default class GeneratedUserorders extends RESTTable {
      * Создать объект через прямой вызов функции
      * @param params
      */
-    public static async create(params: {id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Userorders>> {
-        const result = await REST.create<Userorders>(Userorders.tableName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async create(params: {id?: number , user?: number  | User, affiliate?: number , name?: string , desc?: string , subscription?: number  | Subscriptions, total?: number , currency?: string , total_base?: number , currency_base?: string , data?: any , paymethod?: string , paysystem?: string , paystatus?: string , paytype?: string , transaction_id?: string , transaction_data?: any , transaction_dt?: string , status?: string , is_refund?: number , comment_user?: string , comment_manager?: string , created_dt?: string , updated_dt?: string }, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserOrders>> {
+        const result = await REST.create<UserOrders>(GeneratedUserOrders.controllerName, params, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
         if (result.data !== undefined)
-            result.data = REST.fillObject(new Userorders(), result.data);
+            result.data = REST.fillObject(new UserOrders(), result.data);
         return result;
     }
 
@@ -141,8 +153,8 @@ export default class GeneratedUserorders extends RESTTable {
      * Изменить значения из текущей модели
      * @param params
      */
-    public async edit(): Promise<SavedObject<Userorders>> {
-        const resp = await REST.edit<Userorders>(Userorders.tableName, (this as any)[Userorders.primaryKeys[0]], this, null, null, null);
+    public async edit(): Promise<SavedObject<UserOrders>> {
+        const resp = await REST.edit<UserOrders>(GeneratedUserOrders.controllerName, (this as any)[GeneratedUserOrders.primaryKeys[0]], this, null, null, null);
         Object.assign(this, resp.data);
         return resp;
     }
@@ -151,16 +163,16 @@ export default class GeneratedUserorders extends RESTTable {
      * Изменить значения через прямой вызов функции
      * @param params
      */
-    public static async edit(ID: number | string, values: {id?: number, user?: number, affiliate?: number, name?: string, desc?: string, subscription?: number, total?: number, currency?: string, total_base?: number, currency_base?: string, data?: any, paymethod?: string, paysystem?: string, paystatus?: string, paytype?: string, transaction_id?: string, transaction_data?: any, transaction_dt?: string, status?: string, is_refund?: number, comment_user?: string, comment_manager?: string, created_dt?: string, updated_dt?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<Userorders>> {
-        return REST.edit<Userorders>(Userorders.tableName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
+    public static async edit(ID: number | string, values: {id?: number, user?: number, affiliate?: number, name?: string, desc?: string, subscription?: number, total?: number, currency?: string, total_base?: number, currency_base?: string, data?: any, paymethod?: string, paysystem?: string, paystatus?: string, paytype?: string, transaction_id?: string, transaction_data?: any, transaction_dt?: string, status?: string, is_refund?: number, comment_user?: string, comment_manager?: string, created_dt?: string, updated_dt?: string}, tree?: { appendTo?: number | string | null, insertAfter?: number | string | null, insertFirst?: number | string | null }): Promise<SavedObject<UserOrders>> {
+        return REST.edit<UserOrders>(GeneratedUserOrders.controllerName, ID, values, tree?.appendTo ?? null, tree?.insertAfter ?? null, tree?.insertFirst ?? null);
     }
 
 
     /**
      * Создать или обновить значения
      */
-    public save(): Promise<SavedObject<Userorders>> {
-        if (GeneratedUserorders.primaryKeys.length !== GeneratedUserorders.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
+    public save(): Promise<SavedObject<UserOrders>> {
+        if (GeneratedUserOrders.primaryKeys.length !== GeneratedUserOrders.primaryKeys.filter(r => (this as any)[r] !== null  && (this as any)[r] !== undefined).length)
             return this.create();
         else
             return this.edit();
@@ -170,11 +182,11 @@ export default class GeneratedUserorders extends RESTTable {
      * Создать или обновить значения через прямой вызов функции
      * @param params
      */
-    public static save(obj: GeneratedUserorders|null = null, values: { id?: number, user?: number, affiliate?: number, name?: string, desc?: string, subscription?: number, total?: number, currency?: string, total_base?: number, currency_base?: string, data?: any, paymethod?: string, paysystem?: string, paystatus?: string, paytype?: string, transaction_id?: string, transaction_data?: any, transaction_dt?: string, status?: string, is_refund?: number, comment_user?: string, comment_manager?: string, created_dt?: string, updated_dt?: string }): Promise<SavedObject<Userorders>> {
-        if (obj === null || GeneratedUserorders.primaryKeys.length !== GeneratedUserorders.primaryKeys.filter(r => (obj as any)[r] !== null).length)
+    public static save(obj: GeneratedUserOrders|null = null, values: { id?: number, user?: number, affiliate?: number, name?: string, desc?: string, subscription?: number, total?: number, currency?: string, total_base?: number, currency_base?: string, data?: any, paymethod?: string, paysystem?: string, paystatus?: string, paytype?: string, transaction_id?: string, transaction_data?: any, transaction_dt?: string, status?: string, is_refund?: number, comment_user?: string, comment_manager?: string, created_dt?: string, updated_dt?: string }): Promise<SavedObject<UserOrders>> {
+        if (obj === null || GeneratedUserOrders.primaryKeys.length !== GeneratedUserOrders.primaryKeys.filter(r => (obj as any)[r] !== null).length)
             return this.create(values);
         else
-            return GeneratedUserorders.edit((obj as any)[GeneratedUserorders.primaryKeys[0]], values);
+            return GeneratedUserOrders.edit((obj as any)[GeneratedUserOrders.primaryKeys[0]], values);
     }
 
 
@@ -185,7 +197,7 @@ export default class GeneratedUserorders extends RESTTable {
      * @param byFields
      */
     public static async delete(id: number | string | null, byFields?: object): Promise<boolean|Array<any>> {
-        return REST.remove(Userorders.tableName, id ?? 0, byFields);
+        return REST.remove(GeneratedUserOrders.controllerName, id ?? 0, byFields);
     }
 
     /**
@@ -195,7 +207,7 @@ export default class GeneratedUserorders extends RESTTable {
      * @param byFields
      */
     public async delete(): Promise<boolean|Array<any>> {
-        return REST.remove(Userorders.tableName, (this as any)[Userorders.primaryKeys[0]]);
+        return REST.remove(GeneratedUserOrders.controllerName, (this as any)[GeneratedUserOrders.primaryKeys[0]]);
     }
 
     /**

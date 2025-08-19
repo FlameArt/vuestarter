@@ -13,7 +13,7 @@ import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import t
 
 // Иконки
 import { } from '@icons/24/solid'
-import Model from '@models/Userorders';
+import Model from '@models/UserOrders';
 import TableOpts from 'flameresttable/src/Table/TableOpts'
 import Table from 'flameresttable/src/Table/Table.vue'
 import { Column } from 'flameresttable/src/Table/Columns';

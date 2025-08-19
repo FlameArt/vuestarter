@@ -6,9 +6,9 @@ import Notifications from "./base/Notifications";
 import { Capacitor } from "@capacitor/core";
 import { App } from '@capacitor/app';
 import { settingsFile } from '../settings';
-import Userlogs from "@models/Userlogs";
-import Usersettings from "@models/Usersettings";
-import Userevents from "@models/Userevents";
+import Userlogs from "@models/UserLogs";
+import Usersettings from "@models/UserSettings";
+import Userevents from "@models/UserEvents";
 import { UserEvents } from "./enums/UserEvents";
 import Affiliates from "./base/Affiliates";
 

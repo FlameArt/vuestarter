@@ -46,7 +46,7 @@ import { onMounted, onUnmounted, reactive, ref, defineProps, defineEmits, nextTi
 
 // Иконки
 import { CheckIcon } from '@icons/24/solid'
-import Userorders from '@models/Userorders';
+import Userorders from '@models/UserOrders';
 import { settingsFile } from '@/settings';
 
 // Глобальное хранилище, роуты, локали

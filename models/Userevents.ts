@@ -1,9 +1,8 @@
-
-import GeneratedUserevents from "./generated/GeneratedUserevents";
+import GeneratedUserEvents from "./generated/GeneratedUserEvents";
 
 
 /* Расширенный класс модели Userevents */
-export default class Userevents extends GeneratedUserevents {
+export default class UserEvents extends GeneratedUserEvents {
 
 
 
