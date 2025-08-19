@@ -4,7 +4,8 @@
   "scripts": {
     "update": "npm update --save",
     "updateFull": "npx npm-check-updates -u && npm update --save",
-    "dev": "vite optimize --force && vite",
+    "dev": "vite",
+    "optimizedeps": "vite optimize --force",
     "build": "vue-tsc --noEmit && vite optimize --force && vite build",
     "preview": "npm run build && vite preview",
     "push and publish": "git push && npm --no-git-tag-version version patch && npm publish",

@@ -24,12 +24,10 @@ const vuetify = createVuetify({
   blueprint: md3,
 })
 
-if (location.hostname === 'testrest' || location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-  // ТУТ МОЖН УКАЗАТЬ ВНЕШНИЙ REST СЕРВ для мобильных аппов или др разрабов
-  REST.SERVER = 'http://testrest';
-}
-else {
-  REST.SERVER = 'https://YOURDOMAIN.com/'
+if (import.meta.env.DEV) {
+  REST.SERVER = import.meta.env.VITE_REST_SERVER_URL_DEV;
+} else {
+  REST.SERVER = import.meta.env.VITE_REST_SERVER_URL_PROD;
 }
 
 // Любой неавторизованный запрос перенаправляет на логин
