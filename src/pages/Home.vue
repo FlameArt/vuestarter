@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <!-- Левый блок навигации с пользователем -->
-    <v-navigation-drawer v-if="Auth.isAuthorized()" v-model="state.drawer" expand-on-hover
+    <v-navigation-drawer v-if="store.isAuthorized" v-model="state.drawer" expand-on-hover
       :permanent="store.platformType === 'Desktop'">
 
       <!-- Иконка пользователя сверху -->
@@ -58,7 +58,7 @@
     </v-navigation-drawer>
 
     <v-main v-if="state.isAuthNeeded()" :class="store.platform === 'ios' ? ' mt-[20px] ' : ''">
-      <div v-if="state.isAuthorized()" class="desktop:desktopwidth mobile:mobilewidth desktop:mx-auto">
+              <div v-if="store.isAuthorized" class="desktop:desktopwidth mobile:mobilewidth desktop:mx-auto">
         <!-- Хедер в main -->
         <div class="d-flex justify-space-between align-center py-3 px-4 bg-white mb-4 main-header">
           <Header :drawer="state.drawer" @update:drawer="newValue => state.drawer = newValue"></Header>
@@ -97,8 +97,6 @@ const state = reactive({
   ],
 
   isAuthNeeded: () => store.User.isLoaded || !settingsFile().authRequired,
-  isAuthorized: () => settingsFile().authRequired && Auth.isAuthorized() || !settingsFile().authRequired,
-
 })
 
 // Вычисляемое свойство для отображения имени пользователя или email
@@ -129,19 +127,11 @@ onMounted(() => {
   }
 });
 
-useHead({
-  title: 'Hello World',
-  titleTemplate: '%s %separator My App',
-})
 
 
 
 
 
-
-function useHead(arg0: { title: string; titleTemplate: string; }) {
-  throw new Error('Function not implemented.');
-}
 </script>
 
 <style scoped lang="scss">

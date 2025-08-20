@@ -55,7 +55,7 @@ export default class Core {
     // Авторизуемся
     const AuthRes = await Auth.Auth()
 
-    if (!Auth.isAuthorized()) {
+    if (!store.isAuthorized) {
 
       // Юзер неавторизован
       if (settingsFile().authRequired && !this.notRedirectOnAuthList.includes(router?.currentRoute?.value?.name?.toString() ?? ''))

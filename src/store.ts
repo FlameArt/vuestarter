@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import REST, { Authorized } from 'flamerest'
-import Auth from './models/Auth'
+
 import { Capacitor } from '@capacitor/core'
 import Analytics from './models/base/Analytics'
 import Core from './models/Core';
@@ -64,6 +64,11 @@ export const storeFile = defineStore('store', {
 
     }
 
+  },
+
+  // Геттеры для вычисляемых значений
+  getters: {
+    isAuthorized: (state) => state.User.id !== 0,
   },
 
   // Общие экшены

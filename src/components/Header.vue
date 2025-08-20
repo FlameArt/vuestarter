@@ -4,11 +4,11 @@
     <!-- Левая часть: мобильная иконка меню или кнопка развернуть -->
     <div class="d-flex align-center">
       <!-- Мобильная иконка меню -->
-      <v-app-bar-nav-icon v-if="state.isAuthNeeded() && state.isAuthorized() && $vuetify.display.smAndDown"
+      <v-app-bar-nav-icon v-if="state.isAuthNeeded() && store.isAuthorized && $vuetify.display.smAndDown"
         variant="text" @click.stop="emit('update:drawer', !props.drawer)"></v-app-bar-nav-icon>
 
       <!-- Кнопка развернуть навигацию (только на десктопе когда свёрнуто) -->
-      <v-btn v-if="state.isAuthNeeded() && state.isAuthorized() && $vuetify.display.mdAndUp && !props.drawer" icon
+      <v-btn v-if="state.isAuthNeeded() && store.isAuthorized && $vuetify.display.mdAndUp && !props.drawer" icon
         size="small" variant="text" @click="emit('update:drawer', true)">
         <!-- ИСПРАВЛЕНО: Убрано дублирование mdi: -->
         <v-icon icon="mdi:account"></v-icon>
@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref, nextTick, watch } from '@vue/runtime-core'; import { computed, type Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
-import Auth from '@/models/Auth';
+
 
 // Иконки
 import { BellIcon, UserCircleIcon } from '@icons/24/solid'
@@ -68,7 +68,7 @@ const emit = defineEmits(['test', 'update:drawer'])
 // Локальное состояние компонента
 const state = reactive({
   isAuthNeeded: () => store.User.isLoaded || !settingsFile().authRequired,
-  isAuthorized: () => settingsFile().authRequired && Auth.isAuthorized() || !settingsFile().authRequired,
+  isAuthorized: () => settingsFile().authRequired && store.isAuthorized || !settingsFile().authRequired,
   availableLocales: [
     { code: 'en', name: 'English' },
     { code: 'ru', name: 'Русский' },

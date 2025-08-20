@@ -9,7 +9,7 @@
       "webRoot": "${workspaceFolder}/src",
       "preLaunchTask": "start-dev-server",
       "postDebugTask": "stop-dev-server",
-      "userDataDir": "${userHome}/ChromeDebugTemp/"
+      "userDataDir": "D:/HomeServer/ChromeDev"
     },
     {
       "type": "msedge",

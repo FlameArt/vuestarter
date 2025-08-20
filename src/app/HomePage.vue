@@ -10,7 +10,7 @@ import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@v
 // Иконки
 import { } from '@icons/24/solid'
 import { settingsFile } from '@/settings';
-import Auth from '@/models/Auth';
+
 
 // Глобальное хранилище и роуты
 const store = storeFile(), app = appStore(), router = useRouter(), route = useRoute();
@@ -24,7 +24,7 @@ const emit = defineEmits(['test'])
 // Локальное состояние компонента
 const state = reactive({
   isAuthNeeded: () => store.User.isLoaded || !settingsFile().authRequired,
-  isAuthorized: () => settingsFile().authRequired && Auth.isAuthorized() || !settingsFile().authRequired,
+  isAuthorized: () => settingsFile().authRequired && store.isAuthorized || !settingsFile().authRequired,
 })
 
 </script>
