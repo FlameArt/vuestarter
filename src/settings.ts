@@ -78,6 +78,25 @@ export const settingsFile = defineStore('settings', {
          authRequired: false,
 
          /**
+          * Покупки и товары
+          */
+         Pays: {
+            
+            isInAppPurchases: false,
+            
+            /**
+             * Провайдеры
+             */
+            Providers: [],
+
+            /**
+             * Продукты
+             */
+            Products: [],
+
+         },
+
+         /**
           * Нужны ли пуш нотификации
           */
          isRegisterPushNotifications: false,

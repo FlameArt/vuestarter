@@ -5,6 +5,7 @@ import { settingsFile } from './settings';
 const store = storeFile(), router = useRouter(), route = useRoute();
 
 onMounted(() => {
+  // onMounted hook is now empty after moving initialization logic
 });
 
 </script>

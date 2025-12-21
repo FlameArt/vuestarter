@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@mdi/js": "^7.4.47",
+    "cordova-plugin-purchase": "^13.12.1",
     "flamerest": "^1.0.126",
     "flameresttable": "^1.0.119",
     "pinia": "^2.3.1",

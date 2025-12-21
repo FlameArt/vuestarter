@@ -2,8 +2,43 @@ import { storeFile } from "@/store";
 import Userorders from "@models/UserOrders";
 import REST, { Rows } from "flamerest";
 import { useRoute, useRouter } from 'vue-router';
+import { inAppPurchaseService } from '@/models/base/InAppPurchase';
+import { Capacitor } from '@capacitor/core';
+import 'cordova-plugin-purchase/www/store.d';
 
 export default class Pays {
+
+   public static initializeInAppPurchases() {
+      if (!Capacitor.isNativePlatform()) {
+         return;
+      }
+      
+      // Инициализируем сервис встроенных покупок при запуске приложения
+      // Это нужно сделать один раз, чтобы плагин знал, какие товары существуют
+      inAppPurchaseService.ready().then(() => {
+        
+        // Включаем подробное логирование для удобства отладки
+        inAppPurchaseService.enableDebugLogging();
+    
+        // Список всех продуктов, которые есть в приложении
+        // ID должны в точности совпадать с теми, что созданы в App Store Connect и Google Play Console
+        // TODO: загружать продукты из бекенда
+        const productsToRegister = [
+          {
+            id: 'premium_monthly_subscription',
+            type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
+            platform: CdvPurchase.Platform.GOOGLE_PLAY,
+          } as CdvPurchase.Product,
+          {
+            id: 'premium_monthly_subscription', // У Apple и Google могут быть одинаковые ID
+            type: CdvPurchase.ProductType.PAID_SUBSCRIPTION,
+            platform: CdvPurchase.Platform.APPLE_APPSTORE,
+          } as CdvPurchase.Product
+        ];
+    
+        inAppPurchaseService.initializeAndRegisterProducts(productsToRegister);
+      });
+   }
 
    public static async GoToPay(requestInfo: PayCreateOrderRequest, paysystemID = -1): Promise<number | void> {
 
@@ -63,6 +98,65 @@ export default class Pays {
          }
       })
 
+   }
+
+   /**
+    * Инициирует процесс мобильной In-App покупки и ожидает его завершения.
+    * Эта функция определяет платформу (iOS/Android), вызывает логику покупки
+    * и возвращает Promise, который разрешается при успешной верификации
+    * или отклоняется при ошибке или отмене.
+    * @param productId Идентификатор продукта в App Store Connect / Google Play Console.
+    * @returns Promise<any> Разрешается с результатом верификации от бэкенда.
+    */
+   public static PayMobile(productId: string): Promise<any> {
+      return new Promise(async (resolve, reject) => {
+         if (!Capacitor.isNativePlatform()) {
+            const message = "Встроенные покупки доступны только в мобильном приложении.";
+            console.warn(message);
+            window.alert(message);
+            return reject(new Error(message));
+         }
+
+         try {
+            await inAppPurchaseService.ready();
+
+            if (!inAppPurchaseService.store) {
+               return reject(new Error("Платежный сервис недоступен. Пожалуйста, попробуйте позже."));
+            }
+
+            // Определяем платформу и устанавливаем правильный URL для валидации
+            const platform = Capacitor.getPlatform();
+            let validatorUrl = '';
+            if (platform === 'ios') {
+               validatorUrl = REST.SERVER + '/pay/ordercallback?paymethod=appleappstore';
+            } else if (platform === 'android') {
+               validatorUrl = REST.SERVER + '/pay/ordercallback?paymethod=googleplay';
+            } else {
+               return reject(new Error(`Неподдерживаемая платформа: ${platform}`));
+            }
+
+            inAppPurchaseService.store.validator = validatorUrl;
+            console.log(`Запуск покупки для продукта ${productId} с валидатором ${inAppPurchaseService.store.validator}`);
+
+            // Регистрируем Promise для этой конкретной покупки
+            inAppPurchaseService.addPurchasePromise(productId, resolve, reject);
+
+            // Запускаем процесс покупки
+            await inAppPurchaseService.purchase(productId);
+
+         } catch (error: any) {
+            console.error("Ошибка при инициализации покупки:", error);
+            // Если ошибка произошла до этапа нативных платежей (например, товар не найден),
+            // нужно отклонить и наш Promise.
+            if (error && error.code === CdvPurchase.ErrorCode.PAYMENT_CANCELLED) {
+               reject('cancelled');
+            } else {
+               reject(error);
+            }
+            // Убедимся, что Promise удален, если он был добавлен
+            inAppPurchaseService.removePurchasePromise(productId);
+         }
+      });
    }
 
    public static WaitPayResult(openedWindow: Window, orderID: number, successRedirect: string | null, errorRedirect: string | null) {
@@ -181,6 +275,8 @@ export default class Pays {
          console.error("Исключение при обновлении балансов:", error);
       }
    }
+
+   
 
 }
 

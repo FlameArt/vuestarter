@@ -11,6 +11,7 @@ import Usersettings from "@models/UserSettings";
 import Userevents from "@models/UserEvents";
 import { UserEvents } from "./enums/UserEvents";
 import Affiliates from "./base/Affiliates";
+import Pays from "./Pays";
 
 export default class Core {
 
@@ -49,7 +50,12 @@ export default class Core {
       store.analytics.init();
 
       // Подгружаем механики мобильных приложений
-      if (store.isMobile) this.RegisterMobileEvents(router);
+      if (store.isMobile) {
+        this.RegisterMobileEvents(router);
+        if (settingsFile().Pays.isInAppPurchases) {
+          Pays.initializeInAppPurchases();
+        }
+      }
     }
 
     // Авторизуемся

@@ -1,11 +1,11 @@
 <template>
-  <div class="relative">
+  <div class="relative px-4 ml-3 bg-white mb-4">
     <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { appStore } from "@/app/app"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { appStore } from "@/app/app"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 
 // Иконки
 import { } from '@icons/24/solid'
