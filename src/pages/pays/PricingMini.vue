@@ -1,35 +1,50 @@
-<template lang="pug">
+<template>
+  <div class="mobile:px-5">
+    <!-- Миникнопки -->
+    <div class="font-light my-6">{{ t('Выберите тариф') }}</div>
+    <div class="mobile:fb">
+      <div
+        class="minibutton desktop:ml-5"
+        v-for="sub in state.subscriptions"
+        :key="sub.id"
+        :class="state.selectedSubcription === sub.id ? 'bg-slate-200' : ''"
+        @click="state.selectedSubcription = sub.id"
+      >
+        <span>{{ sub.price }}$ / {{ sub.countItems }} {{ t('credits') }}</span>
+      </div>
+    </div>
 
-div(class="mobile:px-5")
-
-  // Миникнопки
-  .font-light.my-6 {{ t('Выберите тариф') }}
-  div(class="mobile:fb")
-
-    .minibutton(v-for = "sub in state.subscriptions" class="desktop:ml-5" :class="state.selectedSubcription === sub.id ? 'bg-slate-200' : ''" @click="state.selectedSubcription = sub.id")
-      span {{sub.price}}$ / {{sub.countItems}} {{ t('credits') }}
-
-
-  // Методы оплат
-  .mt-5
-  .font-light.my-6 {{ t('Способ оплаты') }}
-  div.cursor-pointer.py-5.border-b-2.border-b-slate-200(class="desktop:px-5 mobile:px-2" :class="(indx === 0 ? ' border-t-2 border-t-slate-200 ' : '') + (state.selectedPayMethod === indx ? ' bg-slate-200 ' : '') + ' hover:bg-slate-100 '" v-for="(method, indx) in state.payMethods" @click="state.selectedPayMethod = indx; gopay()" )
-    span.mr-6(:class="store.pays.WaitLink !== -1 ? 'text-slate-300' : ''") {{ t(method.name) }}
-    span.mr-8(v-if="store.pays.WaitLink === indx")
-      .lds-ring
-        div
-        div
-        div
-        div
-    img.inline-block.mr-5.max-h-5.max-w-8.opacity-25(v-for="img in method.img" :src="'/img/paymethods/' + img + '.svg'")
-
-
-
-
+    <!-- Методы оплат -->
+    <div class="mt-5"></div>
+    <div class="font-light my-6">{{ t('Способ оплаты') }}</div>
+    <div
+      class="cursor-pointer py-5 border-b-2 border-b-slate-200 desktop:px-5 mobile:px-2 hover:bg-slate-100"
+      :class="(indx === 0 ? ' border-t-2 border-t-slate-200 ' : '') + (state.selectedPayMethod === indx ? ' bg-slate-200 ' : '')"
+      v-for="(method, indx) in state.payMethods"
+      :key="indx"
+      @click="state.selectedPayMethod = indx; gopay()"
+    >
+      <span class="mr-6" :class="store.pays.WaitLink !== -1 ? 'text-slate-300' : ''">{{ t(method.name) }}</span>
+      <span class="mr-8" v-if="store.pays.WaitLink === indx">
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </span>
+      <img
+        class="inline-block mr-5 max-h-5 max-w-8 opacity-25"
+        v-for="img in method.img"
+        :key="img"
+        :src="'/img/paymethods/' + img + '.svg'"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { } from '@icons/24/solid'
@@ -97,11 +112,11 @@ const gopay = () => {
 
 <style scoped lang="scss">
 .minibutton {
-  @apply inline-block cursor-pointer rounded-2xl border-slate-200 border-2 px-4 py-2
+  @apply inline-block cursor-pointer rounded-2xl border-slate-200 border-2 px-4 py-2;
 }
 
 .minibutton:hover {
-  @apply bg-slate-200
+  @apply bg-slate-200;
 }
 
 // Спиннер ожидания оплаты
@@ -174,7 +189,7 @@ const gopay = () => {
   },
   "ja": {
     "language": "言語",
-    "hello": "こんにちは、世界！"
+    "hello": "こんにちは, 世界！"
   }
 }
 </i18n>

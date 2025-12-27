@@ -1,11 +1,7 @@
-<template lang="pug">
-
-
-
-</template>
+<template></template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { } from '@icons/24/solid'
@@ -29,11 +25,11 @@ const state = reactive({
 
 <style scoped lang="scss">
 .minibutton {
-  @apply cursor-pointer rounded-2xl border-slate-200 border-2 px-4 py-2
+  @apply cursor-pointer rounded-2xl border-slate-200 border-2 px-4 py-2;
 }
 
 .minibutton:hover {
-  @apply bg-slate-200
+  @apply bg-slate-200;
 }
 </style>
 
@@ -50,7 +46,7 @@ const state = reactive({
   },
   "ja": {
     "language": "言語",
-    "hello": "こんにちは、世界！"
+    "hello": "こんにちは, 世界！"
   }
 }
 </i18n>

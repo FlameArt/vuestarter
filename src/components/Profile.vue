@@ -1,16 +1,17 @@
-<template lang="pug">
-.bg-container.px-3
-.px-3.pt-5.w-full.z-50
+<template>
+  <div class="bg-container px-3"></div>
+  <div class="px-3 pt-5 w-full z-50">
+    <!-- Заголовок -->
+    <Header />
 
-  // Заголовок
-  Header
-
-  div.w-full.px-3.my-5.text-center.pb-5
-    .text-2xl.mt-5.relative.text-white.mb-5 Мой профиль
-    v-text-field(label='Имя' bg-color="white" v-model="state.name")
-    .mt-1.relative.text-white.mb-5 Можете указать информацию о себе, если хотите (необязательно)
-    //v-textarea(label='Биография' bg-color="white"  v-model="state.Settings.profile_bio" rows="3")
-    v-btn.ml-auto.mt-5.text-center(@click='save()') Сохранить
+    <div class="w-full px-3 my-5 text-center pb-5">
+      <div class="text-2xl mt-5 relative text-white mb-5">Мой профиль</div>
+      <v-text-field label="Имя" bg-color="white" v-model="state.name"></v-text-field>
+      <div class="mt-1 relative text-white mb-5">Можете указать информацию о себе, если хотите (необязательно)</div>
+      <!-- v-textarea(label='Биография' bg-color="white"  v-model="state.Settings.profile_bio" rows="3") -->
+      <v-btn class="ml-auto mt-5 text-center" @click="save()">Сохранить</v-btn>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

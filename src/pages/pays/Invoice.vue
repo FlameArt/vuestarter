@@ -1,48 +1,56 @@
-<template lang="pug">
-div(v-if="state.invoice !== null")
-  .text-3xl.my-6 Fiscal Invoice &#35;{{ settingsFile().appName }}-{{ state.invoice.id }}
-  .fb
-    // Слева на кого выписан инвойс
-    div.self-start(class="max-w-[300px]")
-      .my-1 Proforma Invoice №{{ state.invoice.id }}
-      .my-1 Invoice Date: {{ state.invoice.created_dt }}
+<template>
+  <div v-if="state.invoice !== null">
+    <div class="text-3xl my-6">Fiscal Invoice &#35;{{ settingsFile().appName }}-{{ state.invoice.id }}</div>
+    <div class="fb">
+      <!-- Слева на кого выписан инвойс -->
+      <div class="self-start max-w-[300px]">
+        <div class="my-1">Proforma Invoice №{{ state.invoice.id }}</div>
+        <div class="my-1">Invoice Date: {{ state.invoice.created_dt }}</div>
+      </div>
 
-    // Справа кто предоставляет услугу
-    div.self-start(class="max-w-[300px]")
-      .my-1.text-xl {{ settingsFile().legal.OrganizationName.en }}
-      .my-1.text VAT ID: {{ settingsFile().legal.OrganizationRegistrationID }}
-      .my-1.text {{ settingsFile().legal.OrganizationMailAdress }}
+      <!-- Справа кто предоставляет услугу -->
+      <div class="self-start max-w-[300px]">
+        <div class="my-1 text-xl">{{ settingsFile().legal.OrganizationName.en }}</div>
+        <div class="my-1 text">VAT ID: {{ settingsFile().legal.OrganizationRegistrationID }}</div>
+        <div class="my-1 text">{{ settingsFile().legal.OrganizationMailAdress }}</div>
+      </div>
+    </div>
 
-  div(v-if="state.invoice.status === 'COMPLETED'")
-    span.text-xl.text-green-600() {{ t('Статус') }}: {{ t('ОПЛАЧЕН') }} {{ state.invoice.updated_dt }}
-  div(v-else)
-    span.text-xl.text-slate-300  {{ t('Статус') }}: {{ t('ОЖИДАНИЕ ОПЛАТЫ') }}
+    <div v-if="state.invoice.status === 'COMPLETED'">
+      <span class="text-xl text-green-600">{{ t('Статус') }}: {{ t('ОПЛАЧЕН') }} {{ state.invoice.updated_dt }}</span>
+    </div>
+    <div v-else>
+      <span class="text-xl text-slate-300">{{ t('Статус') }}: {{ t('ОЖИДАНИЕ ОПЛАТЫ') }}</span>
+    </div>
 
-  table.w-full.border-collapse
-    // Header Row
-    thead
-      tr
-        th.border-b-2.border-slate-300.text-left.py-2(class='w-3/4') Description
-        th.border-b-2.border-slate-300.text-left.py-2(class='w-1/4') Price
-    // Product Rows
-    tbody
+    <table class="w-full border-collapse">
+      <!-- Header Row -->
+      <thead>
+        <tr>
+          <th class="border-b-2 border-slate-300 text-left py-2 w-3/4">Description</th>
+          <th class="border-b-2 border-slate-300 text-left py-2 w-1/4">Price</th>
+        </tr>
+      </thead>
+      <!-- Product Rows -->
+      <tbody>
+        <!-- Продукт -->
+        <tr>
+          <td class="border-b border-slate-200 py-2">{{ (state.invoice.name ?? "") + " " + (state.invoice.desc ?? "") }}</td>
+          <td class="border-b border-slate-200 py-2">{{ parseFloat(state.invoice.total + "").toFixed(2) }} {{ state.invoice.currency }}</td>
+        </tr>
 
-      // Продукт
-      tr
-        td.border-b.border-slate-200.py-2 {{ (state.invoice.name ?? "") + " " + (state.invoice.desc ?? "") }} 
-        td.border-b.border-slate-200.py-2 {{ parseFloat(state.invoice.total + "").toFixed(2) }} {{ state.invoice.currency }}
-
-      // Total Row
-      tr.bg-slate-200
-        td.font-bold.text-right.py-2.px-8 Total
-        td.font-bold.py-2 {{ parseFloat(state.invoice.total + "").toFixed(2) }} {{ state.invoice.currency }}
-
-
-
+        <!-- Total Row -->
+        <tr class="bg-slate-200">
+          <td class="font-bold text-right py-2 px-8">Total</td>
+          <td class="font-bold py-2">{{ parseFloat(state.invoice.total + "").toFixed(2) }} {{ state.invoice.currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, onUnmounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { CheckIcon } from '@icons/24/solid'

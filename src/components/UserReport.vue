@@ -1,16 +1,16 @@
-<template lang="pug">
-.bg-container.px-3
-.px-3.pt-5.w-full.z-50
+<template>
+  <div class="bg-container px-3"></div>
+  <div class="px-3 pt-5 w-full z-50">
+    <!-- ОТЗЫВ -->
+    <Header file="new" />
 
-  // ОТЗЫВ
-  Header(file="new")
-
-  div.w-full.px-3.my-5.text-center.pb-5
-    .text-2xl.mt-5.relative.text-white.mb-5 СООБЩИТЬ ОБ ОШИБКЕ
-    v-textarea(label='ОПИШИТЕ ПРОБЛЕМУ КАК МОЖНО ПОДРОБНЕЕ' bg-color="white"  v-model="state.txt" rows="8")
-    v-btn.ml-auto.mt-5.text-center(@click='save()') ОТПРАВИТЬ
-    .relative.mt-5.text-center.text-green(v-show="state.saved") Ваш отчёт успешно отправлен. Спасибо за замечания!
-
+    <div class="w-full px-3 my-5 text-center pb-5">
+      <div class="text-2xl mt-5 relative text-white mb-5">СООБЩИТЬ ОБ ОШИБКЕ</div>
+      <v-textarea label="ОПИШИТЕ ПРОБЛЕМУ КАК МОЖНО ПОДРОБНЕЕ" bg-color="white" v-model="state.txt" rows="8"></v-textarea>
+      <v-btn class="ml-auto mt-5 text-center" @click="save()">ОТПРАВИТЬ</v-btn>
+      <div class="relative mt-5 text-center text-green" v-show="state.saved">Ваш отчёт успешно отправлен. Спасибо за замечания!</div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

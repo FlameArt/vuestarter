@@ -1,9 +1,9 @@
-<template lang="pug">
-PricingMini
+<template>
+  <PricingMini />
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { RouterView, useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { RouterView, useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { } from '@icons/24/solid'

@@ -1,38 +1,43 @@
-<template lang="pug">
+<template>
+  <!-- <ArrowLeftCircleIcon.float-right.w-8.h-8.fill-slate-400(@click="router.push({name: 'MySettings'})" style="z-index: 9999;position: absolute;" v-show="route.name !== 'MySettings'") -->
 
-//ArrowLeftCircleIcon.float-right.w-8.h-8.fill-slate-400(@click="router.push({name: 'MySettings'})" style="z-index: 9999;position: absolute;" v-show="route.name !== 'MySettings'")
+  <div class="bg-container"></div>
+  <!-- Каталог медитаций -->
+  <div class="px-3 pt-5">
+    <Header file="white" v-if="route.name === 'MySettings'" />
+  </div>
 
-.bg-container
-// Каталог медитаций
-div.px-3.pt-5
-  Header(file="white" v-if="route.name === 'MySettings'")
+  <RouterView class="px-3" />
+  <div class="px-3 pt-5 w-full z-50"></div>
 
-RouterView.px-3
-.px-3.pt-5.w-full.z-50
+  <div class="absolute inset-0 fc flex-col flex-start px-3" v-show="route.name === 'MySettings'">
+    <v-avatar class="mb-2 mt-12" color="gray" size="100">
+      <v-icon icon="mdi-account-circle" size="100"></v-icon>
+    </v-avatar>
+    <div class="text-3xl mb-8">{{ store.User.name }}</div>
+    <v-btn class="mb-4" prepend-icon="mdi-human-handsup" @click="router.push({ name: 'Profile' })">Изменить мой профиль</v-btn>
+    <v-btn class="mb-4" prepend-icon="mdi-human-handsup" @click="router.push({ name: 'UserReport' })">Отправить отчёт об ошибке</v-btn>
 
+    <div class="mt-8">
+      <div style="list-style: circle;">
+        <div style="margin-left: 30px; padding-left:10px;">
+          <RouterLink class="cursor-pointer linkDocs" v-if="store.isMobile" to="/privacy">Политика конфиденциальности</RouterLink>
+          <RouterLink class="cursor-pointer linkDocs" v-if="!store.isMobile" to="/privacy-web">Политика конфиденциальности</RouterLink>
+        </div>
+        <div style="margin-left: 30px; padding-left:10px; margin-top: 10px; text-decoration: dashed;">
+          <RouterLink class="cursor-pointer linkDocs" to="/terms">Пользовательское соглашение и Политика обработки персональных данных</RouterLink>
+        </div>
+      </div>
+    </div>
 
-div.absolute.inset-0.fc.flex-col.flex-start.px-3(v-show="route.name === 'MySettings'")
-  v-avatar.mb-2.mt-12(color="gray"  size="100")
-    v-icon(icon="mdi-account-circle" size="100" )
-  div.text-3xl.mb-8 {{ store.User.name }}
-  v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'Profile'})") Изменить мой профиль
-  v-btn.mb-4(prepend-icon="mdi-human-handsup"  @click="router.push({name: 'UserReport'})") Отправить отчёт об ошибке
-
-  div.mt-8
-    div(style="list-style: circle;")
-      div(style="margin-left: 30px; padding-left:10px; ")
-        RouterLink.cursor-pointer.linkDocs(v-if="store.isMobile" to="/privacy") Политика конфиденциальности
-        RouterLink.cursor-pointer.linkDocs(v-if="!store.isMobile" to="/privacy-web") Политика конфиденциальности
-      div(style="margin-left: 30px; padding-left:10px; margin-top: 10px; text-decoration: dashed;")
-        RouterLink.cursor-pointer.linkDocs(to="/terms") Пользовательское соглашение и Политика обработки персональных данных
-
-
-  //div.mt-20
-    a.text-lg.underline(target="_blank" href="https://play.google.com/store/apps/details?id=") Оценить приложение
-  div.mt-5
-    div.cursor-pointer.text-center.text-lg.underline(@click="logout()" href="#") Выйти из приложения
-    div.cursor-pointer.text-center.mt-3.text-lg.underline(@click="RemoveAccount()" href="#") Удалить аккаунт
-
+    <!-- <div class="mt-20">
+      <a class="text-lg underline" target="_blank" href="https://play.google.com/store/apps/details?id=">Оценить приложение</a>
+    </div> -->
+    <div class="mt-5">
+      <div class="cursor-pointer text-center text-lg underline" @click="logout()" href="#">Выйти из приложения</div>
+      <div class="cursor-pointer text-center mt-3 text-lg underline" @click="RemoveAccount()" href="#">Удалить аккаунт</div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

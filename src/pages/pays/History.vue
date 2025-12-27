@@ -1,16 +1,20 @@
-<template lang="pug">
-div(class="px-5")
-  .text-2xl.font-light {{ t('История платежей') }}
-  .my-2.py-5.border-b-2.border-b-slate-200(v-for="order in state.orders")
-    div.cursor-pointer.font-normal.text-xl(@click="router.push({ name: 'BillingPaymentInvoice', params: { 'invoiceid': order.id } })" class="hover:bg-slate-100")
-      span {{ t('Счёт') }} №&nbsp;{{ order.id }}
-      span.text-slate-400 &nbsp;{{ t('от') }} {{ order.created_dt?.split(" ")[0] }}
-    div
-      span.text-green-600(v-if="order.status === 'COMPLETED'") {{ t('ОПЛАЧЕН') }} {{ order.updated_dt }}
+<template>
+  <div class="px-5">
+    <div class="text-2xl font-light">{{ t('История платежей') }}</div>
+    <div class="my-2 py-5 border-b-2 border-b-slate-200" v-for="order in state.orders" :key="order.id">
+      <div class="cursor-pointer font-normal text-xl hover:bg-slate-100" @click="router.push({ name: 'BillingPaymentInvoice', params: { 'invoiceid': order.id } })">
+        <span>{{ t('Счёт') }} №&nbsp;{{ order.id }}</span>
+        <span class="text-slate-400">&nbsp;{{ t('от') }} {{ order.created_dt?.split(" ")[0] }}</span>
+      </div>
+      <div>
+        <span class="text-green-600" v-if="order.status === 'COMPLETED'">{{ t('ОПЛАЧЕН') }} {{ order.updated_dt }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { } from '@icons/24/solid'

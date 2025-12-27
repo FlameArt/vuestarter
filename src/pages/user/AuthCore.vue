@@ -1,19 +1,18 @@
-<template lang="pug">
-.container_bg.overflow-x-auto(:class="state.isDocs() ? '' : 'fc'")
+<template>
+  <div class="container_bg overflow-x-auto" :class="state.isDocs() ? '' : 'fc'">
+    <div class="align-middle px-8 py-6 mt-4 text-left desktop:w-feed mobile:w-full">
+      <div class="font-bold cursor-pointer" v-if="state.isDocs()" @click="router.back()">⬅ ВЕРНУТЬСЯ НАЗАД</div>
 
+      <div class="mt-3">
+        <img class="w-12 h-12" src="/public/img/logo.svg" />
+      </div>
 
-  .align-middle.px-8.py-6.mt-4.text-left(class="desktop:w-feed mobile:w-full")
-
-    .font-bold.cursor-pointer(v-if="state.isDocs()" @click="router.back()") ⬅ ВЕРНУТЬСЯ НАЗАД
-
-
-    .mt-3
-      img.w-12.h-12(src="/public/img/logo.svg")
-
-    // Регистрация через логин и пароль
-    .mt-4
-      RouterView
-
+      <!-- Регистрация через логин и пароль -->
+      <div class="mt-4">
+        <router-view />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

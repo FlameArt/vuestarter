@@ -1,13 +1,14 @@
-<template lang="pug">
-.admin-panel.flex-col.p-4.w-full
-  .buttons.flex.space-x-4
-    .button.mb-3(@click="router.push({name: 'AdminUsers'})") Пользователи
-    .button.mb-3(@click="router.push({name: 'AdminSubscriptions'})") Подписки
-    .button.mb-3(@click="router.push({name: 'AdminUsersOrders'})") Заказы
-    .button.mb-3(@click="router.push({name: 'AdminUserSubscriptions'})") Подписки пользователей
-    .mt-3
-    router-view
-    
+<template>
+  <div class="admin-panel flex-col p-4 w-full">
+    <div class="buttons flex space-x-4">
+      <div class="button mb-3" @click="router.push({ name: 'AdminUsers' })">Пользователи</div>
+      <div class="button mb-3" @click="router.push({ name: 'AdminSubscriptions' })">Подписки</div>
+      <div class="button mb-3" @click="router.push({ name: 'AdminUsersOrders' })">Заказы</div>
+      <div class="button mb-3" @click="router.push({ name: 'AdminUserSubscriptions' })">Подписки пользователей</div>
+    </div>
+    <div class="mt-3"></div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script setup lang="ts">

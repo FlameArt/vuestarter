@@ -1,13 +1,16 @@
-<template lang="pug">
-.fc.text-left
-  div(v-if="store.locale.locale === 'ru'")
-    TermsRU
-  div(v-else)
-    TermsEN
+<template>
+  <div class="fc text-left">
+    <div v-if="store.locale.locale === 'ru'">
+      <TermsRU />
+    </div>
+    <div v-else>
+      <TermsEN />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { } from '@icons/24/solid'

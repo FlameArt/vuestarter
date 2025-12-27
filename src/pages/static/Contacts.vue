@@ -1,13 +1,16 @@
-<template lang="pug">
-div
-  h1.text-2xl Контакты
-  .my-5 Если у вас возникли вопросы, или предложения
-  div.font-bold.mt-5 Вы можете связаться с нами по почте &nbsp;
-    a.text-blue-600(:href="'mailto:'+settingsFile().legal.ContactEmail ") {{ settingsFile().legal.ContactEmail  }}
+<template>
+  <div>
+    <h1 class="text-2xl">Контакты</h1>
+    <div class="my-5">Если у вас возникли вопросы, или предложения</div>
+    <div class="font-bold mt-5">
+      Вы можете связаться с нами по почте &nbsp;
+      <a class="text-blue-600" :href="'mailto:' + settingsFile().legal.ContactEmail">{{ settingsFile().legal.ContactEmail }}</a>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 
 // Иконки
 import { } from '@icons/24/solid'

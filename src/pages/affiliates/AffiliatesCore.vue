@@ -1,24 +1,25 @@
-<template lang="pug">
-// Табы
-v-tabs.bg-slate-50.text-slate-600(
-  v-model='activeTab'       
-  align-tabs="center"
-  color="indigo-lighten-2"
-  :fixed-tabs="true"
-  class="custom-tabs"
-)
-  v-tab(:to="{ name: 'AffiliateDashboard' }" ) {{ t('Платежи') }}
-  v-tab(:to="{ name: 'BillingHistory' }") {{ t('История оплат') }}
-v-tabs-items(v-model='activeTab')
-  v-tab-item
-    .my-6
-    router-view
-
-
+<template>
+  <!-- Табы -->
+  <v-tabs
+    class="custom-tabs bg-slate-50 text-slate-600"
+    v-model="activeTab"
+    align-tabs="center"
+    color="indigo-lighten-2"
+    :fixed-tabs="true"
+  >
+    <v-tab :to="{ name: 'AffiliateDashboard' }">{{ t('Платежи') }}</v-tab>
+    <v-tab :to="{ name: 'BillingHistory' }">{{ t('История оплат') }}</v-tab>
+  </v-tabs>
+  <v-tabs-items v-model="activeTab">
+    <v-tab-item>
+      <div class="my-6"></div>
+      <router-view />
+    </v-tab-item>
+  </v-tabs-items>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { appStore } from "@/app/app"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { appStore } from "@/app/app"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 // Иконки
 import { } from '@icons/24/solid'
@@ -39,9 +40,7 @@ const state = reactive({
 
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
 
 
 <i18n>
@@ -56,7 +55,7 @@ const state = reactive({
   },
   "ja": {
     "language": "言語",
-    "hello": "こんにちは、世界！"
+    "hello": "こんにちは, 世界！"
   }
 }
 </i18n>

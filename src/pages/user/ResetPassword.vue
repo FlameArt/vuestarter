@@ -1,41 +1,40 @@
-<template lang="pug">
-div
+<template>
+  <div>
+    <!-- Почта -->
+    <label class="block mt-2">
+      <input
+        class="font-semibold text-lg w-full outline-none px-4 py-2 mt-0 rounded-md border-b border-b-black placeholder:text-gray-500"
+        v-model="state.newPassword"
+        name="newPassword"
+        type="password"
+        placeholder="Новый пароль"
+      />
+      <span class="text-xs tracking-wide text-red-600">{{ state.errors['email']?.join(". ") }}</span>
+    </label>
 
-  // Почта
-  label.block.mt-2
-    input.font-semibold.text-lg.w-full.outline-none.px-4.py-2.mt-0.rounded-md.border-b.border-b-black(
-      v-model="state.newPassword",
-      name="newPassword",
-      type="password",
-      placeholder="Новый пароль",
-      class="placeholder:text-gray-500"
-    )
-    span.text-xs.tracking-wide.text-red-600 {{ state.errors['email']?.join(". ") }}
+    <!-- Кнопка восстановить пароль -->
+    <div class="flex mt-5 items-center justify-between flex-col">
+      <button
+        class="px-6 py-2 mt-4 text-xl text-white bg-black rounded-lg w-full hover:bg-blue-900"
+        @click="ResetPassword()"
+      >
+        Сохранить новый пароль
+      </button>
+    </div>
 
-  // Кнопка восстановить пароль
-  .flex.mt-5.items-center.justify-between.flex-col
-    button.px-6.py-2.mt-4.text-xl.text-white.bg-black.text-white.rounded-lg(
-      @click="ResetPassword()",
-      class="w-full hover:bg-blue-900"
-    ) Сохранить новый пароль
+    <div class="flex bg-green-300 mt-5 px-5 py-1" v-if="state.isGoodResult">
+      <div>ПАРОЛЬ УСПЕШНО УСТАНОВЛЕН!</div>
+      <div>Теперь вы можете войти с новым паролем</div>
+      <div class="cursor-pointer text-center text-md tracking-wide underline font-bold" @click="router.push('/in')">ВОЙТИ</div>
+    </div>
 
+    <div class="flex bg-red-300 mt-5 px-5 py-1" v-if="state.errors.length > 0">{{ state.errors.join(". ") }}</div>
 
-  .flex.bg-green-300.mt-5.px-5.py-1(v-if="state.isGoodResult") 
-    div ПАРОЛЬ УСПЕШНО УСТАНОВЛЕН!
-    div Теперь вы можете войти с новым паролем
-    div.cursor-pointer.text-center.text-md.tracking-wide.underline.font-bold(@click="router.push('/in')") ВОЙТИ
-
-
-  .flex.bg-red-300.mt-5.px-5.py-1(v-if="state.errors.length > 0") {{ state.errors.join(". ") }}
-
-
-  // Ссылка на Войти
-  .mt-6
-  div.text-md.text-center ВЕРНУТЬСЯ К ФОРМЕ ВХОДА
-  div.cursor-pointer.text-center.text-md.tracking-wide.underline.font-bold(@click="router.push('/in')") ВОЙТИ
-
-
-
+    <!-- Ссылка на Войти -->
+    <div class="mt-6"></div>
+    <div class="text-md text-center">ВЕРНУТЬСЯ К ФОРМЕ ВХОДА</div>
+    <div class="cursor-pointer text-center text-md tracking-wide underline font-bold" @click="router.push('/in')">ВОЙТИ</div>
+  </div>
 </template>
 
 <script setup lang="ts">

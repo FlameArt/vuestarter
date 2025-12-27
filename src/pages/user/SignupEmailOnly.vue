@@ -1,50 +1,51 @@
-<template lang="pug">
+<template>
+  <div>
+    <!-- Почта -->
+    <label class="block mt-2">
+      <input
+        class="font-semibold text-lg w-full outline-none px-4 py-2 mt-0 rounded-md border-b border-b-black placeholder:text-gray-500"
+        v-model="state.email"
+        name="email"
+        type="email"
+        :placeholder="t('E-mail')"
+      />
+      <span class="text-xs tracking-wide text-red-600">{{ state.errors['email']?.join(". ") }}</span>
+    </label>
 
+    <!-- Соглашение -->
+    <div class="mt-6"></div>
+    <div class="text-md text-left" style="font-size: 15px;">
+      <div class="text-gray-800 font-bold">{{ t('Нажимая Регистрация, я соглашаюсь с') }}</div>
+      <ol style="list-style: circle;">
+        <li style="margin-left: 30px; padding-left:10px;">
+          <RouterLink class="linkDocs" v-if="store.isMobile" to="/privacy">{{ t('Политикой конфиденциальности и обработки персональных данных') }}</RouterLink>
+          <RouterLink class="linkDocs" v-if="!store.isMobile" to="/privacy-web">{{ t('Политикой конфиденциальности и обработки персональных данных') }}</RouterLink>
+        </li>
+        <li style="margin-left: 30px; padding-left:10px;">
+          <RouterLink class="linkDocs" to="/terms">{{ t('Публичной офертой') }}</RouterLink>
+        </li>
+      </ol>
+    </div>
 
-div
+    <!-- Кнопка реги -->
+    <div class="flex mt-5 items-center justify-between flex-col">
+      <button
+        class="px-6 py-2 mt-4 text-xl text-white bg-black rounded-lg w-full hover:bg-blue-900"
+        @click="Signup()"
+      >
+        {{ t('Регистрация') }}
+      </button>
+    </div>
 
-  // Почта
-  label.block.mt-2
-    input.font-semibold.text-lg.w-full.outline-none.px-4.py-2.mt-0.rounded-md.border-b.border-b-black(
-      v-model="state.email",
-      name="email",
-      type="email",
-      :placeholder="t('E-mail')",
-      class="placeholder:text-gray-500"
-    )
-    span.text-xs.tracking-wide.text-red-600 {{ state.errors['email']?.join(". ") }}
-
-
-  // Соглашение
-  .mt-6
-  div.text-md.text-left(style="font-size: 15px;")
-    div.text-gray-800.font-bold {{ t('Нажимая Регистрация, я соглашаюсь с')}}
-    ol(style="list-style: circle;")
-      li(style="margin-left: 30px; padding-left:10px;")
-        RouterLink.linkDocs(v-if="store.isMobile" to="/privacy") {{t('Политикой конфиденциальности и обработки персональных данных')}}
-        RouterLink.linkDocs(v-if="!store.isMobile" to="/privacy-web") {{t('Политикой конфиденциальности и обработки персональных данных')}}
-      li(style="margin-left: 30px; padding-left:10px;")
-        RouterLink.linkDocs(to="/terms") {{t('Публичной офертой')}}
-
-
-  // Кнопка реги
-  .flex.mt-5.items-center.justify-between.flex-col
-    button.px-6.py-2.mt-4.text-xl.text-white.bg-black.text-white.rounded-lg(
-      @click="Signup()",
-      class="w-full hover:bg-blue-900"
-    ) {{t('Регистрация')}}
-
-
-  // Ссылка на Войти
-  .mt-6
-  div.text-md.text-center {{ t('УЖЕ ЕСТЬ АККАУНТ?') }}
-  div.cursor-pointer.text-center.text-xl.tracking-wide.underline.font-bold(@click="router.push('/in')") {{ t('ВОЙТИ')}}
-
-
+    <!-- Ссылка на Войти -->
+    <div class="mt-6"></div>
+    <div class="text-md text-center">{{ t('УЖЕ ЕСТЬ АККАУНТ?') }}</div>
+    <div class="cursor-pointer text-center text-xl tracking-wide underline font-bold" @click="router.push('/in')">{{ t('ВОЙТИ') }}</div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, defineProps, defineEmits, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick } from '@vue/runtime-core'; import type { Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 import Auth from '@/models/Auth';
 import Analytics from '@/models/base/Analytics';
 import Core from '@/models/Core';

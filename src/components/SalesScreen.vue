@@ -1,23 +1,28 @@
-<template lang="pug">
-.sales-screen-container
-  .content
-    //- Сюда можно добавить изображение продукта
-    //- img.product-image(:src="product.imageUrl")
+<template>
+  <div class="sales-screen-container">
+    <div class="content">
+      <!-- Сюда можно добавить изображение продукта -->
+      <!-- img.product-image(:src="product.imageUrl") -->
 
-    h1.title {{ product.title }}
-    p.description {{ product.description }}
-    
-    .price {{ product.price }}
+      <h1 class="title">{{ product.title }}</h1>
+      <p class="description">{{ product.description }}</p>
 
-  .purchase-footer
-    v-btn.purchase-button(
-      :loading="state.isLoading"
-      :disabled="state.isLoading"
-      @click="purchase"
-      color="primary"
-      size="large"
-    ) {{ t('Купить') }}
+      <div class="price">{{ product.price }}</div>
+    </div>
 
+    <div class="purchase-footer">
+      <v-btn
+        class="purchase-button"
+        :loading="state.isLoading"
+        :disabled="state.isLoading"
+        @click="purchase"
+        color="primary"
+        size="large"
+      >
+        {{ t('Купить') }}
+      </v-btn>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

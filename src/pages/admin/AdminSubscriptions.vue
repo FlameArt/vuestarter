@@ -1,11 +1,11 @@
-<template lang="pug">
+<template>
+  <div class="desktop:p-3 desktop:w-full">
+    <h1 class="text-xl font-bold text-gray-500 text-center">ПОДПИСКИ</h1>
 
-div(class=" desktop:p-3 desktop:w-full ")
-  h1.text-xl.font-bold.text-gray-500.text-center ПОДПИСКИ
-
-  .rounded-xl.bg-white.p-6.mt-2(class="desktop:w-full")
-    Table(ref="TableComponent" :opts = "opts" :model="Model")
-
+    <div class="rounded-xl bg-white p-6 mt-2 desktop:w-full">
+      <Table ref="TableComponent" :opts="opts" :model="Model" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
