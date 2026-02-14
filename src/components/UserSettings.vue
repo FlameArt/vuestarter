@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import { ArrowLeftCircleIcon, XCircleIcon } from '@icons/24/solid'
 import Profile from '@/components/Profile.vue';
 import Header from '@/components/Header.vue';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, reactive } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import Auth from './models/Auth';
 import { settingsFile } from './settings';
 const store = storeFile(), router = useRouter(), route = useRoute();

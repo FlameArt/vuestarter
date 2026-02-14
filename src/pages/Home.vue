@@ -79,7 +79,7 @@
 <script setup lang="ts">
 
 // Основные импорты
-import { onMounted, reactive, computed } from '@vue/runtime-core'; import { storeFile } from "@/store"; import { settingsFile } from '@/settings'; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
+import { onMounted, reactive, computed } from 'vue'; import { storeFile } from "@/store"; import { settingsFile } from '@/settings'; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"
 import Signup from './user/Signup.vue';
 import Header from '@/components/Header.vue';
 import Auth from '@/models/Auth';

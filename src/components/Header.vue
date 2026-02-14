@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, nextTick, watch } from '@vue/runtime-core'; import { computed, type Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
+import { onMounted, reactive, ref, nextTick, watch } from 'vue'; import { computed, type Ref } from 'vue'; import { storeFile } from "@/store"; import { useRoute, useRouter } from 'vue-router'; import REST from "flamerest"; import { useI18n } from 'vue-i18n';
 
 
 // Иконки
