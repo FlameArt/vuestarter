@@ -12,9 +12,8 @@ That starter for rapid prototyping a services. Start with
 * Vue 3 [via composition api]
 * Typescript
 * Pinia as state manager
-* Vue Router 4
+* Vue Router
 * Tailwind as css framework
-* Pug as html framework
 * ESLint
 * Capacitor as converter to Android and iOS apps
 * VSCode ready with Volar
@@ -48,20 +47,6 @@ Enable capabilities in Apple Connect for app and in XCode:
 1. Install Android Studio
 2. Install node
 
-
-# VSCode improvements
-
-Pug-lexer in Volar doesn`t support all tailwind functions currently. So you need to apply fix https://github.com/pugjs/pug/pull/3373
-
-OR just fix the `Volar` extension directly in `%USERNAME%/.vscode/extensions/vue.volar-VERSION/dist/node/server.js` that
-
-    (/^\.([_a-z0-9\-]*[_a-z][_a-z0-9\-]*)/i, 'class');
-
-to that
-
-    (/^\.([_a-z0-9\-]*[_a-z]([_a-z0-9\-\[\]]|:(?! ))*)/i, 'class');
-
-Compilation works fine without any fixes
 
 # Licenses
 MIT
